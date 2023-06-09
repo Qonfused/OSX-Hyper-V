@@ -305,6 +305,7 @@
 </table>
 
 ## ✨ Getting Started
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Qonfused/OSX-Hyper-V)
 
 ### 1. Clone this repository using Git
 
