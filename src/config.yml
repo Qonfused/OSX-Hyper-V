@@ -83,7 +83,7 @@ Booter:
     ProvideCustomSlide:     Boolean | true
     # Required for macOS 10.7 and older
     AllowRelocationBlock:   Boolean | true
-    RorceExitBootServices:  Boolean | true
+    ForceExitBootServices:  Boolean | true
     # Required for macOS 10.6 and older
     RebuildAppleMemoryMap:  Boolean | true
 
