@@ -1,0 +1,113 @@
+name: OCE Build
+on:
+  # Skips build process for changes to only **docs** or **.github** directories.
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '!.github/**'
+      - '!docs/**'
+      - '!.gitmodules'
+      - '!.gitattributes'
+      - '!.gitignore'
+      - 'src/**'
+  # Enables trigger for pull requests when making changes to **src** directory.
+  pull_request:
+    branches:
+      - 'main'
+      - 'development'
+    paths:
+      - 'src/**'
+  workflow_dispatch:
+# Cancel concurrent builds within the same PR.
+#
+# Push events made within the execution window of a prior commit's build will be
+# interpreted as hot-patches, and will cancel the previous build. This will
+# update the pull request's status check for this workflow to instead pull from
+# the new commit's changes instead.
+#
+# Refer to the GitHub docs page for more information on this topic:
+# * https://docs.github.com/en/actions/using-jobs/using-concurrency
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    name: Run OCE-Build
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    outputs:
+      LOCKFILE_HASH: ${{ steps.prepare-efi.outputs.LOCKFILE_HASH }}
+    steps:
+      # Installs dependencies needed for running OCE-Build.
+      #
+      # This includes the following required commands:
+      # - libarchive-tools:
+      #   - **BSDTAR**: Used for unarchiving .zip files.
+      # - acpica-tools:
+      #   - **iasl**: Required for compiling .dsl files.
+      - name: Install OCE-Build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install -qq -o=Dpkg::Use-Pty=0 \
+            libarchive-tools \
+            acpica-tools
+      # Fetches remote repository without --progress option.
+      #
+      # The default behavior of @actions/checkout outputs many noisy lines of
+      # status output in the workflow log, which is problematic for log size.
+      #
+      # Refer to the below PR for updates on this issue:
+      # - https://github.com/actions/checkout/pull/1067
+      - name: Checkout latest repository commit
+        # uses: actions/checkout@v3
+        uses: simonbaird/checkout@no-progress-option
+        with:
+          show-progress: false
+          submodules: recursive
+      # Runs EFI build pipeline using OCE-Build.
+      #
+      # Build **dist** directory containing **dist/EFI** and **dist/scripts**
+      # folders needed for downstream build tasks.
+      - id: oce-build
+        name: Run OCE-Build
+        shell: sh
+        run: |
+          bash scripts/build.sh --skip-serial
+          bash scripts/lib/vmtools.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Runs quick validation of config.plist and EFI structure.
+      #
+      # This runs a quick comparison between the build.yml, config.plist, and
+      # EFI folder for any missing or malformed entries. This does not resolve
+      # any machine testable issues.
+      - id: validate-efi
+        name: Validate OCE-Build output
+        shell: sh
+        run: bash scripts/lib/oce-build/scripts/validate-efi.sh -c src/config.yml
+      # Handles compression and lock-hash generation for upload task.
+      #
+      # This stores a hash of the output build's lockfile to associate with the
+      # output EFI directory. This is useful when running concurrent builds with
+      # this workflow in a matrix for testing prior or future OpenCore versions.
+      - id: prepare-efi
+        name: Prepares EFI directory for upload
+        shell: sh
+        run: |
+          # Generate lockfile hash
+          echo "LOCKFILE_HASH=${{ hashFiles('src/build.lock') }}" \
+            | grep -Eo ".*=[a-zA-z0-9]{0,8}" >> "$GITHUB_OUTPUT"
+          # Copy lockfile to EFI directory
+          cp src/build.lock dist/EFI/build.lock
+          # Compress EFI directory
+          zip -r -X EFI.zip dist/EFI
+      # Upload built EFI as artifact
+      #
+      # Uploads EFI with a short-sha slug. The uploaded EFI will be available
+      # for download after the current job run as finished.
+      - name: Upload built EFI
+        uses: actions/upload-artifact@v3
+        with:
+          name: EFI-${{ steps.prepare-efi.outputs.LOCKFILE_HASH }}
+          path: EFI.zip

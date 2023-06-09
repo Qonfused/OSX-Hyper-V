@@ -1,0 +1,72 @@
+name: Generate Release
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Installs dependencies needed for running OCE-Build.
+      #
+      # This includes the following required commands:
+      # - libarchive-tools:
+      #   - **BSDTAR**: Used for unarchiving .zip files.
+      # - acpica-tools:
+      #   - **iasl**: Required for compiling .dsl files.
+      - name: Install OCE-Build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install -qq -o=Dpkg::Use-Pty=0 \
+            libarchive-tools \
+            acpica-tools
+      # Fetches remote repository without --progress option.
+      #
+      # The default behavior of @actions/checkout outputs many noisy lines of
+      # status output in the workflow log, which is problematic for log size.
+      #
+      # Refer to the below PR for updates on this issue:
+      # - https://github.com/actions/checkout/pull/1067
+      - name: Checkout latest repository commit
+        # uses: actions/checkout@v3
+        uses: simonbaird/checkout@no-progress-option
+        with:
+          show-progress: false
+          submodules: recursive
+      # Generate Changelog notes and release info
+      - id: get-tag
+        name: Fetches latest release tag
+        shell: sh
+        run: |
+          LATEST_TAG="$(grep -m 1 -o '## \[.*\]' docs/CHANGELOG.md | awk -F'[][]' '{print $2}')"
+          echo "TAG=$LATEST_TAG" >> "$GITHUB_ENV"
+      # Runs EFI build pipeline using OCE-Build.
+      #
+      # Build **dist** directory containing **dist/EFI** and **dist/scripts**
+      # folders needed for downstream build tasks.
+      - id: oce-build
+        name: Run OCE-Build for all build targets
+        shell: sh
+        run: bash .github/scripts/run-builds.sh
+        env:
+          TAG: ${{ env.TAG }}
+      # Generate Changelog notes and release info
+      - id: generate-notes
+        name: Generate Release Notes
+        shell: sh
+        run: |
+          BODY="$(sed -n "/## \[$TAG\]/,/## \[/p" docs/CHANGELOG.md | sed -e '1,2d;$d')"
+          echo "$BODY" > ${{ github.workspace }}-RELEASE_NOTES.txt
+        env:
+          TAG: ${{ env.TAG }}
+      # Publish release
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ env.TAG }}
+          tag_name: ${{ env.TAG }}
+          body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
+          files: |
+            EFI-${{ env.TAG }}-RELEASE.zip
+            EFI-${{ env.TAG }}-DEBUG.zip
+            EFI-${{ env.TAG }}-legacy-RELEASE.zip
+            EFI-${{ env.TAG }}-legacy-DEBUG.zip
