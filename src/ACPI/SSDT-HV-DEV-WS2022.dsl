@@ -1,3 +1,8 @@
+/** @file
+ * Copyright (c) 2021, Goldfish64. All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+**/
+
 /*
  * Hyper-V device SSDT to disable unsupported devices under macOS when running under Windows Server 2022 / Windows 11, or newer.
  *
@@ -20,7 +25,6 @@
  *     Replace:         XSTA
  *     TableSignature:  44534454 (DSDT)
  */
-
 DefinitionBlock ("", "SSDT", 2, "ACDT", "HVDEVW22", 0x00000000)
 {
     //

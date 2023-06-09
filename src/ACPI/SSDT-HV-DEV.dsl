@@ -1,3 +1,8 @@
+/** @file
+ * Copyright (c) 2021, Goldfish64. All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+**/
+
 /*
  * Hyper-V device SSDT to disable unsupported devices under macOS on Windows Server 2019 / Windows 10 and newer.
  *

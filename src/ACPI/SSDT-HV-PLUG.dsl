@@ -1,8 +1,13 @@
+/** @file
+ * Copyright (c) 2021, Goldfish64. All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+**/
+
 /*
-* Hyper-V CPU plugin-type SSDT to enable VMPlatformPlugin on Big Sur and newer.
-*
-* This SSDT must be loaded after SSDT-HV-DEV.dsl
-*/
+ * Hyper-V CPU plugin-type SSDT to enable VMPlatformPlugin on Big Sur and newer.
+ *
+ * This SSDT must be loaded after SSDT-HV-DEV.dsl
+ */
 DefinitionBlock ("", "SSDT", 2, "ACDT", "HVPLUG", 0x00000000)
 {
   External (\_SB.P001, ProcessorObj)

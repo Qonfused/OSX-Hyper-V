@@ -1,3 +1,8 @@
+/** @file
+ * Copyright (c) 2021, Goldfish64. All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+**/
+
 /*
  * Hyper-V VMBUS SSDT to enable ACPI node identification.
  *
