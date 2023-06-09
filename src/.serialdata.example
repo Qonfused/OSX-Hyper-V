@@ -1,0 +1,5 @@
+MLB:                String | "M0000000000000001"
+ROM:                Data   | <112233445566>
+SystemProductName:  String | "iMac19,1"
+SystemSerialNumber: String | "W00000000001"
+SystemUUID:         String | "00000000-0000-0000-0000-000000000000"

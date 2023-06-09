@@ -1,0 +1,101 @@
+## @file
+# config.plist configuration file patches for legacy macOS versions.
+#
+# Copyright (c) 2021, Goldfish64. All rights reserved.
+# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+##
+
+# This file extends the base `config.yml` patches for all macOS versions.
+# @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.yml
+
+
+################################################################################
+#                           BIOS/firmware related fixes                        #
+################################################################################
+
+Booter:
+  Quirks:
+    # Required for macOS 10.7 and older
+    AllowRelocationBlock:   Boolean | true
+    RorceExitBootServices:  Boolean | true
+    # Required for macOS 10.6 and older
+    RebuildAppleMemoryMap:  Boolean | true
+
+################################################################################
+#                                  Kernel fixes                                #
+################################################################################
+
+Kernel:
+  Block:
+    # Required for 32-bit versions of macOS (10.4 and 10.5, and 10.6 in 32-bit mode).
+    - Arch:                 String  | "i386"
+      Comment:              String  | "Disables EFI runtime services and NVRAM due to Hyper-V UEFI incompatibilities"
+      Identifier:           String  | "com.apple.driver.AppleEFIRuntime"
+      MaxKernel:            String  | "10.0.0"
+      MinKernel:            String  | "8.0.0"
+      Strategy:             String  | "Disable"
+  Force:
+    # On older versions of macOS, the following kernel extensions may need to be Force injected.
+    # Refer to the OpenCore Configuration manual for details.
+    - Arch:                 String  | "i386"
+      BundlePath:           String  | "System/Library/Extensions/IONetworkingFamily.kext"
+      ExecutablePath:       String  | "Contents/MacOS/IONetworkingFamily"
+      Identifier:           String  | "com.apple.iokit.IONetworkingFamily"
+      MaxKernel:            String  | "13.99.99"
+      PlistPath:            String  | "Contents/Info.plist"
+    - Arch:                 String  | "i386"
+      BundlePath:           String  | "System/Library/Extensions/IOSCSIParallelFamily.kext"
+      ExecutablePath:       String  | "Contents/MacOS/IOSCSIParallelFamily"
+      Identifier:           String  | "com.apple.iokit.IOSCSIParallelFamily"
+      MaxKernel:            String  | "9.0.0"
+      PlistPath:            String  | "Contents/Info.plist"
+  Patch:
+    # Disable `_hpet_init`
+    - Arch:                 String  | "i386"
+      Base:                 String  | "_hpet_init"
+      Comment:              String  | "Disables _hpet_init due to no HPET hardware present"
+      Count:                Number  | 1
+      Identifier:           String  | "kernel"
+      MaxKernel:            String  | "9.5.99"
+      Replace:              Data    | <C3>
+    # Disable `IOHIDDeviceShim::newTransportString()`
+    - Arch:                 String  | "i386"
+      Base:                 String  | "__ZNK15IOHIDDeviceShim18newTransportStringEv"
+      Comment:              String  | "Fix crash in IOHIDDeviceShim::newTransportString() caused by NULL _deviceType"
+      Count:                Number  | 1
+      Identifier:           String  | "com.apple.iokit.IOHIDFamily"
+      MaxKernel:            String  | "9.6.99"
+      MinKernel:            String  | "9.5.0"
+      Replace:              Data    | <31C0C3>
+    # Disable scaling factor for X/Y mouse movement`
+    - Arch:                 String  | "i386"
+      Base:                 String  | "__ZN16IOHIDEventDriver21handleInterruptReportE12UnsignedWideP18IOMemoryDescriptor15IOHIDReportTypem"
+      Comment:              String  | "Workaround for absence of AbsoluteAxisBoundsRemovalPercentage in 10.4"
+      Identifier:           String  | "com.apple.iokit.IOHIDFamily"
+      Find:                 Data    | <BA1F85EB51>
+      MaxKernel:            String  | "8.11.99"
+      MinKernel:            String  | "8.0.0"
+      Replace:              Data    | <BA00000000>
+
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Required for running 32-bit versions of macOS (10.4 - 10.5, 10.6 if running in 32-bit mode).
+      # 64-bit applications and NVRAM support are unavailable in those versions.
+      boot-args: "-legacy"
+
+################################################################################
+
+'@ifdef': DEBUG
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Breakdown of used boot args:
+      # `-v`              (verbose mode)
+      # `debug=0x100`     (debug mask; disables watchdog to avoid panic reboot)
+      # `keepsyms=1`      (show panic log debug symbols)
+      # `msgbuf=1048576`  (Resizes kernel msg buffer to 1 MB; avoids truncation)
+      # `-legacy`         (Force legacy 32-bit mode)
+      boot-args:              String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576 -legacy"
+'@endif':

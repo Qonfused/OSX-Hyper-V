@@ -1,0 +1,33 @@
+---
+oc-version: latest
+oc-build: DEBUG
+---
+include:
+  "*":
+  - ".contentVisibility"
+  acpi:
+    SSDT-ALSD: "ACPI/SSDT-ALSD.dsl"
+    SSDT-HV-DEV-WS2022: "ACPI/SSDT-HV-DEV-WS2022.dsl"
+    # This SSDT must be loaded after SSDT-HV-DEV
+    SSDT-HV-PLUG: "ACPI/SSDT-HV-PLUG.dsl"
+  drivers:
+  - HfsPlus
+  - OpenCanopy
+  - OpenRuntime
+  - ResetNvramEntry
+  kexts:
+    Lilu: latest
+    VirtualSMC: latest
+    # Core Hyper-V support kext for macOS 12.0 and newer.
+    MacHyperVSupportMonterey:
+      specifier: "*"
+      MinKernel: "21.0.0"
+    # Core Hyper-V support kext for macOS 10.4 to 11.0.
+    MacHyperVSupport:
+      specifier: "latest"
+      MaxKernel: "20.9.9"
+  tools:
+  - OpenShell
+exclude:
+  "*":
+  - ".contentFlavour"

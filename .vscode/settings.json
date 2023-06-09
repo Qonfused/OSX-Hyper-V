@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.lock": "yaml",
+    ".serialdata*": "yaml"
+  },
+  "[dsl]": {
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
+  }
+}

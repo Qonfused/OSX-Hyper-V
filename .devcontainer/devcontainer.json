@@ -1,0 +1,25 @@
+{
+  "name": "main-devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "curl,libarchive-tools,acpica-tools"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Markdown extensions
+        "bierner.github-markdown-preview",
+        "bierner.markdown-preview-github-styles",
+        "bierner.markdown-checkbox",
+        "bierner.markdown-footnotes",
+        // PDF preview extension
+        "tomoki1207.pdf",
+        // AML and DSL syntax highlighting
+        "Thog.vscode-asl"
+      ]
+    }
+  },
+  "postCreateCommand": "bash scripts/build.sh"
+}

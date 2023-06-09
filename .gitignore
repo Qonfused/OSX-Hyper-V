@@ -1,0 +1,27 @@
+.*
+!/.devcontainer/
+!/.github/
+!/.vscode/
+!/.gitattributes
+!/.gitignore
+!/.gitmodules
+
+# Build config files
+!.serialdata.example
+
+# Build artifacts
+/dist
+
+# macOS Boot Image
+/com.apple.recovery.boot
+
+# OpenCore specific caches
+opencore-*[0-9].txt
+
+# macOS specific caches
+/.fseventsd
+/.Spotlight-V100
+/.Trashes
+
+# Windows specific caches
+/$RECYCLE.BIN

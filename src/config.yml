@@ -1,0 +1,96 @@
+## @file
+# config.plist configuration file for running macOS on Hyper-V
+#
+# Copyright (c) 2021, Goldfish64. All rights reserved.
+# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+##
+
+# This file builds on the existing defaults from OCE-Build and MacHyperVSupport.
+# @see https://github.com/Qonfused/OCE-Build/blob/main/base-config.yml
+# @see https://github.com/acidanthera/MacHyperVSupport/blob/master/README.md
+
+# Refer to the below resources for more information on sensible defaults:
+# - https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Configuration.pdf
+#   (or https://dortania.github.io/docs/latest/Configuration.html)
+
+
+################################################################################
+#                               ACPI related fixes                             #
+################################################################################
+
+ACPI:
+  Patch:
+    # Companion to SSDT-HV-DEV-WS2022
+    - Base:                 String  | "\\\\P241"
+      Comment:              String  | "_STA to XSTA rename (additional Hyper-V processors)"
+      Count:                Number  | 1808
+      Find:                 Data    | <5F535441>
+      Replace:              Data    | <58535441>
+      TableSignature:       Data    | <44534454>
+    # Companion to SSDT-HV-VMBUS
+    - Base:                 String  | "_SB.VMOD"
+      Comment:              String  | "_HID to XHID rename (Hyper-V VMOD)"
+      Count:                Number  | 1
+      Find:                 Data    | <5F484944>
+      Replace:              Data    | <58484944>
+      TableSignature:       Data    | <44534454>
+    - Base:                 String  | "_SB.VMOD.VMBS"
+      Comment:              String  | "_HID to XHID rename (Hyper-V VMBus)"
+      Count:                Number  | 1
+      Find:                 Data    | <5F484944>
+      Replace:              Data    | <58484944>
+      TableSignature:       Data    | <44534454>
+    # Companion to SSDT-HV-DEV
+    - Base:                 String  | "_SB.VMOD.TPM2"
+      Comment:              String  | "_STA to XSTA rename (Hyper-V TPM)"
+      Count:                Number  | 1
+      Find:                 Data    | <5F535441>
+      Replace:              Data    | <58535441>
+      TableSignature:       Data    | <44534454>
+    - Base:                 String  | "_SB.NVDR"
+      Comment:              String  | "_STA to XSTA rename (Hyper-V NVDIMM)"
+      Count:                Number  | 1
+      Find:                 Data    | <5F535441>
+      Replace:              Data    | <58535441>
+      TableSignature:       Data    | <44534454>
+    - Base:                 String  | "_SB.EPC"
+      Comment:              String  | "_STA to XSTA rename (Hyper-V EPC)"
+      Count:                Number  | 1
+      Find:                 Data    | <5F535441>
+      Replace:              Data    | <58535441>
+      TableSignature:       Data    | <44534454>
+    - Base:                 String  | "_SB.VMOD.BAT1"
+      Comment:              String  | "_STA to XSTA rename (Hyper-V battery)"
+      Count:                Number  | 1
+      Find:                 Data    | <5F535441>
+      Replace:              Data    | <58535441>
+      TableSignature:       Data    | <44534454>
+    - Base:                 String  | "\\\\P001"
+      Comment:              String  | "_STA to XSTA rename (Hyper-V processors)"
+      Count:                Number  | 240
+      Find:                 Data    | <5F535441>
+      Replace:              Data    | <58535441>
+      TableSignature:       Data    | <44534454>
+
+################################################################################
+#                           BIOS/firmware related fixes                        #
+################################################################################
+
+Booter:
+  Quirks:
+    AvoidRuntimeDefrag:     Boolean | true
+    ProvideCustomSlide:     Boolean | true
+
+################################################################################
+#                                  Boot fixes                                  #
+################################################################################
+
+Kernel:
+  Quirks:
+    ProvideCurrentCpuInfo:  Boolean | true
+
+UEFI:
+  Quirks:
+    # Required on Windows Server 2019 / Windows 10 and newer
+    DisableSecurityPolicy:  Boolean | true
