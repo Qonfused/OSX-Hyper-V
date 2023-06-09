@@ -1,0 +1,32 @@
+## @file
+# config.plist configuration file patch to enable legacy 32-bit mode
+#
+# Copyright (c) 2021, Goldfish64. All rights reserved.
+# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+##
+
+# This file extends the base `config.yml` patches for all macOS versions.
+# @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.yml
+
+
+'@ifdef': RELEASE
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Required for running 32-bit versions of macOS (10.4 - 10.5, 10.6 in 32-bit mode).
+      boot-args: "-legacy"
+'@endif':
+
+'@ifdef': DEBUG
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Breakdown of used boot args:
+      # `-v`              (verbose mode)
+      # `debug=0x100`     (debug mask; disables watchdog to avoid panic reboot)
+      # `keepsyms=1`      (show panic log debug symbols)
+      # `msgbuf=1048576`  (Resizes kernel msg buffer to 1 MB; avoids truncation)
+      # `-legacy`         (Force legacy 32-bit mode)
+      boot-args:              String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576 -legacy"
+'@endif':

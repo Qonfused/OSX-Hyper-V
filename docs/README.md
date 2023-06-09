@@ -346,11 +346,11 @@ git submodule update
 
 To build this project's EFI, run the below command at the root of the project:
 ```sh
-# Build for macOS 10.8 and newer
+# Build for macOS 10.7 and newer
 bash scripts/build.sh
 
-# Build for macOS 10.4 to 10.7
-bash scripts/build.sh --legacy
+# Build for macOS 10.4 - 10.5, 10.6 if running in 32-bit mode
+bash scripts/build.sh --32-bit
 ```
 
 ### 3. Using this EFI with macOS
