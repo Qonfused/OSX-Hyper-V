@@ -454,22 +454,19 @@ Once created, right click on your new virtual-machine (under the 'Virtual Machin
 
 ### 4. Using this EFI with macOS
 
-> **WIP**
+Installation of macOS should fall in line with the [Installation Process][Dortania-Guide/Installation-Process] section of the Dortania Guide. Some additional post-install sections are provided to facilitate with Hyper-V (or project) specifics.
 
-> **Note** To enable **iServices** functionality, please refer to the notice in
-> the build-generated **.serialdata** file under the **src/** directory for instructions on validating your
-> serial number.
-> 
-> This is automatically generated each time you run a new build using the build script as long as no existing **.serialdata** file exists. Remember that you can re-generate this data by running `bash scripts/lib/oce-build/scripts/patch-serial.sh -c src/config.yml` or by removing **.serialdata** and re-running the build script.
->
-> You can optionally instead download [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) follow the [iServices guide](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html#using-gensmbios) to generate new SMBIOS data for your machine to be applied before running the build script. You'll then need to store your SMBIOS data in a new **.serialdata** file:
-> ```yaml
-> MLB:                String | "M0000000000000001"
-> ROM:                Data   | <112233445566>
-> SystemProductName:  String | "iMac19,1"
-> SystemSerialNumber: String | "W00000000001"
-> SystemUUID:         String | "00000000-0000-0000-0000-000000000000"
-> ```
+[Dortania-Guide/Installation-Process]: https://dortania.github.io/OpenCore-Install-Guide/installation/installation-process.html
+
+#### iServices
+
+To enable **iServices** functionality, you can either:
+- (A) Generate SMBIOS data with [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
+  - Follow the Dortania [iServices guide](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html#using-gensmbios) to generate new SMBIOS data for your machine.
+- (B) For local builds of this EFI, generate and patch SMBIOS data automatically.
+  - This is automatically generated each time you run a build as long as no existing **.serialdata** file exists.
+  - You can re-generate this data by removing **.serialdata** and re-running the build script (or running `bash scripts/lib/oce-build/scripts/patch-serial.sh -c src/config.yml`).
+  - Please refer to the notice in the build-generated **.serialdata** file under the **src/** directory for instructions on validating your serial number.
 
 ## 🔥 Contributing
 Contributions of any size to this project are always welcome!
