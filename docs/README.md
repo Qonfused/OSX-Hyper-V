@@ -22,7 +22,6 @@
 ## ⚡Quick Links
 
 - [Current Progress](#%EF%B8%8F-current-progress)
-  - [Limitations](#limitations)
   - [macOS Version Support](#macos-version-support)
 - [Getting Started](#-getting-started)
   - [1. Clone this repository using git](#1-clone-this-repository-using-git)
@@ -35,28 +34,10 @@
 
 ## ⚙️ Current Progress
 
-> **Note** This repository is still a work in progress.
->
-> Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes implemented per release version.
-
-### Limitations
-
-There are some known limitations with the base configuration for Hyper-V:
-
-- Display Resolution
-  - The default virtual display resolution is set to a 1024x768 resolution and is not resizable.
-- Graphics Acceleration
-  - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
-  - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] with a supported GPU.
-    > **Note** DDA is only available for Windows Server and Microsoft Hyper-V Server versions 2016 and newer. Windows Pro and Windows Enterprise users have no support for DDA with Hyper-V.
-- Audio Support
-  - By default, Hyper-V does not expose an audio device to macOS.
-
-[aka.ms/dda]: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/deploy/deploying-graphics-devices-using-dda
-
-Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
+Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes implemented per release version.
 
 ### macOS Version Support:
+
 Supported versions below include macOS versions **10.4** to **14.0**.
 
 <table>
@@ -328,6 +309,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
   </tbody>
 </table>
 
+Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
+
 ## ✨ Getting Started
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Qonfused/OSX-Hyper-V)
 
@@ -465,6 +448,21 @@ Once created, right click on your new virtual-machine (under the 'Virtual Machin
 Installation of macOS should fall in line with the [Installation Process][Dortania-Guide/Installation-Process] section of the Dortania Guide. Some additional post-install sections are provided to facilitate with Hyper-V (or project) specifics.
 
 [Dortania-Guide/Installation-Process]: https://dortania.github.io/OpenCore-Install-Guide/installation/installation-process.html
+
+#### Limitations
+
+There are some known limitations with the base configuration for Hyper-V:
+
+- Display Resolution
+  - The default virtual display resolution is set to a 1024x768 resolution and is not resizable.
+- Graphics Acceleration
+  - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
+  - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] with a supported GPU.
+    > **Note** DDA is only available for Windows Server and Microsoft Hyper-V Server versions 2016 and newer. Windows Pro and Windows Enterprise users have no support for DDA with Hyper-V.
+- Audio Support
+  - By default, Hyper-V does not expose an audio device to macOS.
+
+[aka.ms/dda]: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/deploy/deploying-graphics-devices-using-dda
 
 #### iServices
 
