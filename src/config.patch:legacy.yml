@@ -1,0 +1,71 @@
+## @file
+# config.plist configuration file patches for legacy macOS versions.
+#
+# Copyright (c) 2021, Goldfish64. All rights reserved.
+# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+##
+
+# This file extends the base `config.yml` patches for all macOS versions.
+# @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.yml
+
+
+################################################################################
+#                           BIOS/firmware related fixes                        #
+################################################################################
+
+Booter:
+  Quirks:
+    # Required for macOS 10.7 and older
+    AllowRelocationBlock:   Boolean | true
+    RorceExitBootServices:  Boolean | true
+    # Required for macOS 10.6 and older
+    RebuildAppleMemoryMap:  Boolean | true
+
+################################################################################
+#                                  Kernel fixes                                #
+################################################################################
+
+Kernel:
+  Force:
+    # On older versions of macOS, the following kernel extensions may need to be Force injected.
+    # Refer to the OpenCore Configuration manual for details.
+    - Arch:                 String  | "i386"
+      BundlePath:           String  | "System/Library/Extensions/IONetworkingFamily.kext"
+      ExecutablePath:       String  | "Contents/MacOS/IONetworkingFamily"
+      Identifier:           String  | "com.apple.iokit.IONetworkingFamily"
+      MaxKernel:            String  | "13.99.99"
+      PlistPath:            String  | "Contents/Info.plist"
+    - Arch:                 String  | "i386"
+      BundlePath:           String  | "System/Library/Extensions/IOSCSIParallelFamily.kext"
+      ExecutablePath:       String  | "Contents/MacOS/IOSCSIParallelFamily"
+      Identifier:           String  | "com.apple.iokit.IOSCSIParallelFamily"
+      MaxKernel:            String  | "9.0.0"
+      PlistPath:            String  | "Contents/Info.plist"
+  Patch:
+    # Disable `_hpet_init`
+    - Arch:                 String  | "i386"
+      Base:                 String  | "_hpet_init"
+      Comment:              String  | "Disables _hpet_init due to no HPET hardware present"
+      Count:                Number  | 1
+      Identifier:           String  | "kernel"
+      MaxKernel:            String  | "9.5.99"
+      Replace:              Data    | <C3>
+    # Disable `IOHIDDeviceShim::newTransportString()`
+    - Arch:                 String  | "i386"
+      Base:                 String  | "__ZNK15IOHIDDeviceShim18newTransportStringEv"
+      Comment:              String  | "Fix crash in IOHIDDeviceShim::newTransportString() caused by NULL _deviceType"
+      Count:                Number  | 1
+      Identifier:           String  | "com.apple.iokit.IOHIDFamily"
+      MaxKernel:            String  | "9.6.99"
+      MinKernel:            String  | "9.5.0"
+      Replace:              Data    | <31C0C3>
+    # Disable scaling factor for X/Y mouse movement`
+    - Arch:                 String  | "i386"
+      Base:                 String  | "__ZN16IOHIDEventDriver21handleInterruptReportE12UnsignedWideP18IOMemoryDescriptor15IOHIDReportTypem"
+      Comment:              String  | "Workaround for absence of AbsoluteAxisBoundsRemovalPercentage in 10.4"
+      Identifier:           String  | "com.apple.iokit.IOHIDFamily"
+      Find:                 Data    | <BA1F85EB51>
+      MaxKernel:            String  | "8.11.99"
+      MinKernel:            String  | "8.0.0"
+      Replace:              Data    | <BA00000000>

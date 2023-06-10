@@ -342,11 +342,14 @@ For Linux users (or wsl), ensure you install the following packages:
 
 To build this project's EFI, run the below command at the root of the project:
 ```sh
-# Build for macOS 10.7 and newer
+# Build for macOS 10.8 and newer
 bash scripts/build.sh
 
+# Build for macOS 10.7 and older
+bash scripts/build.sh --legacy
+
 # Build for macOS 10.4 - 10.5, 10.6 if running in 32-bit mode
-bash scripts/build.sh --32-bit
+bash scripts/build.sh --legacy --32-bit
 ```
 
 ### 3. Setting up Hyper-V

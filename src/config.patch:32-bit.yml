@@ -1,21 +1,39 @@
 ## @file
-# config.plist configuration file patch to enable legacy 32-bit mode
+# config.plist configuration file patches for legacy 32-bit macOS versions.
 #
 # Copyright (c) 2021, Goldfish64. All rights reserved.
 # Copyright (c) 2023, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 ##
 
-# This file extends the base `config.yml` patches for all macOS versions.
+# This file extends the base `config.yml` patches for all macOS versions and the
+# `config.patch:legacy.yml` patches for legacy (10.7 and older) macOS versions.
 # @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.yml
+# @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.patch:legacy.yml
 
+
+################################################################################
+#                                  Kernel fixes                                #
+################################################################################
+
+Kernel:
+  Block:
+    - Arch:                 String  | "i386"
+      Comment:              String  | "Disables EFI runtime services and NVRAM due to Hyper-V UEFI incompatibilities"
+      Identifier:           String  | "com.apple.driver.AppleEFIRuntime"
+      MaxKernel:            String  | "10.0.0"
+      MinKernel:            String  | "8.0.0"
+      Strategy:             String  | "Disable"
+
+################################################################################
 
 '@ifdef': RELEASE
 NVRAM:
   Add:
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
-      # Required for running 32-bit versions of macOS (10.4 - 10.5, 10.6 in 32-bit mode).
-      boot-args: "-legacy"
+      # Breakdown of used boot args:
+      # `-legacy`         (Force legacy 32-bit mode)
+      boot-args:            String  | "-legacy"
 '@endif':
 
 '@ifdef': DEBUG
@@ -28,5 +46,5 @@ NVRAM:
       # `keepsyms=1`      (show panic log debug symbols)
       # `msgbuf=1048576`  (Resizes kernel msg buffer to 1 MB; avoids truncation)
       # `-legacy`         (Force legacy 32-bit mode)
-      boot-args:              String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576 -legacy"
+      boot-args:            String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576 -legacy"
 '@endif':
