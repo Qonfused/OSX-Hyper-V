@@ -66,7 +66,9 @@ jobs:
           tag_name: ${{ env.TAG }}
           body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
           files: |
-            EFI-${{ env.TAG }}-32-bit-DEBUG.zip
-            EFI-${{ env.TAG }}-32-bit-RELEASE.zip
-            EFI-${{ env.TAG }}-64-bit-DEBUG.zip
-            EFI-${{ env.TAG }}-64-bit-RELEASE.zip
+            EFI-${{ env.TAG }}-DEBUG.zip
+            EFI-${{ env.TAG }}-RELEASE.zip
+            EFI-${{ env.TAG }}-legacy-DEBUG.zip
+            EFI-${{ env.TAG }}-legacy-RELEASE.zip
+            EFI-${{ env.TAG }}-legacy-32-bit-DEBUG.zip
+            EFI-${{ env.TAG }}-legacy-32-bit-RELEASE.zip
