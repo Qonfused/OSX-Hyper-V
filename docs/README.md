@@ -1,5 +1,11 @@
 <h1 align="center">OSX-Hyper-V</h1>
 <p align="center">
+  <img
+    src="/docs/assets/graphic.png"
+    alt="Graphic of Hyper-V Window"
+    class="center"
+    width=500px
+  ><br>
   A <b>Hackintosh</b> project for implementing the <a href="https://github.com/acidanthera/MacHyperVSupport">MacHyperVSupport</a> package for <b>Windows Hyper-V</b> built on top of the <a href="https://github.com/acidanthera/OpenCorePkg">OpenCore</a> bootloader and <a href="https://github.com/Qonfused/OCE-Build">OCE-Build</a> build manager.
 </p>
 
