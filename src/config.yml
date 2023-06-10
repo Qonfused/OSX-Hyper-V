@@ -1,5 +1,5 @@
 ## @file
-# config.plist configuration file for running macOS on Hyper-V
+# config.plist configuration file patches for running macOS on Hyper-V
 #
 # Copyright (c) 2021, Goldfish64. All rights reserved.
 # Copyright (c) 2023, Cory Bennett. All rights reserved.
@@ -91,6 +91,39 @@ Kernel:
     ProvideCurrentCpuInfo:  Boolean | true
 
 UEFI:
+  APFS:
+    # Disables minimum APFS version for macOS Catalina and earlier boot entries.
+    MinDate:                          Number  | -1
+    MinVersion:                       Number  | -1
+  Output:
+    # Sets proper display scaling for boot picker + debug logging.
+    UIScale:                          Number  | -1
   Quirks:
     # Required on Windows Server 2019 / Windows 10 and newer
     DisableSecurityPolicy:  Boolean | true
+
+################################################################################
+#                             Security related fixes                           #
+################################################################################
+
+Misc:
+  Security:
+    # Apple Secure Boot hardware model and policy
+    # - Possible values include:
+    #   - Disabled: No model, Secure Boot will be disabled.
+    #   - Default: Currently set to x86legacy
+    # - @see https://dortania.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html#securebootmodel
+    SecureBootModel:        String  | "Disabled"
+    # OpenCore vaulting configuration (optional=no vault enforced, insecure)
+    # - @see https://dortania.github.io/OpenCore-Post-Install/universal/security/vault.html
+    Vault:                  String  | "Optional"
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Enables System Integrity Protection (SIP) setting in macOS.
+      # - Possible values include:
+      #   - 00000000: Default (enabled)
+      #   - 67000000: Disables all SIP protections
+      #   - 03000000: Disables Kext signing and filesystem restrictions.
+      # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
+      csr-active-config:    Data    | <00000000>
