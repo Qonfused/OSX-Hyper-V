@@ -5,10 +5,9 @@
 
 <div align="center">
 
-  <!--3rd item: <a href="">![Supported Versions](https://img.shields.io/badge/Supported%20Versions-{A}%20%7C%20{B}-important?labelColor=3f4551)</a> -->
-
   <a href="/LICENSE">![License](https://img.shields.io/badge/⚖_License-BSD_3_Clause-lightblue?labelColor=3f4551)</a>
   <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/badge/SemVer-v0.0.0-important?logo=SemVer&labelColor=3f4551)</a>
+  <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2014-important?labelColor=3f4551)</a>
   <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/dynamic/yaml?label=OpenCore&logo=Osano&logoColor=0298e1&labelColor=3f4451&prefix=v&query=OpenCorePkg.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FQonfused%2FOSX-Hyper-V%2Fmain%2Fsrc%2Fbuild.lock)</a>
   <a href="https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml">![OCE Build](https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml/badge.svg?branch=main)</a>
 
@@ -21,7 +20,8 @@
 - [Getting Started](#-getting-started)
   - [1. Clone this repository using git](#1-clone-this-repository-using-git)
   - [2. Build this repository using OCE-Build](#2-build-this-repository-using-oce-build)
-  - [3. Using this EFI with macOS](#3-using-this-efi-with-macos)
+  - [3. Setting up Hyper-V](#3-setting-up-hyper-v)
+  - [4. Using this EFI with macOS](#4-using-this-efi-with-macos)
 - [Contributing](#-contributing)
 - [License](#%EF%B8%8F-license)
 - [Credits](#-credits)
@@ -307,6 +307,8 @@
 ## ✨ Getting Started
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Qonfused/OSX-Hyper-V)
 
+If you opt to use one of the pre-build releases from this repository, you can skip to [3. Setting up Hyper-V](#3-setting-up-hyper-v).
+
 ### 1. Clone this repository using Git
 
 To clone this repository locally with submodules, run the below commands:
@@ -329,21 +331,14 @@ git submodule update
 
 ### 2. Build this repository using OCE-Build
 > **Note** **OCE-Build** must be run in a Linux or macOS environment.
-> 
-> For Windows users, refer to [aka.ms/wslinstall](aka.ms/wslinstall) and [aka.ms/wsl2](aka.ms/wsl2) for instructions on installing wsl and upgrading to the wsl2 kernel (recommended).
-> - You can install a Linux distribution directly from the Microsoft Store (e.g. [Ubuntu 20.04.5 LTS](https://apps.microsoft.com/store/detail/ubuntu-20045-lts/9MTTCL66CPXJ)).
-> - Alternatively, you can [setup devcontainers](https://code.visualstudio.com/docs/devcontainers/containers#_installation) with Docker and VSCode to run a containerized Linux environment on top of wsl. The [devcontainer](/.devcontainer/devcontainer.json) for this project will setup and build the project automatically upon container creation.
->
-> For Linux users (or wsl), ensure you have the following commands available:
-> - **cURL**
->   - Check with `curl --version`
->   - Install with `sudo apt install curl`
-> - **bsdtar**
->   - Check with `bsdtar --version`
->   - Install with `sudo apt install libarchive-tools`
-> - **iasl**
->   - Check with `iasl -v`
->   - Install with `sudo apt install acpica-tools`
+
+For Windows users, refer to [aka.ms/wslinstall](aka.ms/wslinstall) and [aka.ms/wsl2](aka.ms/wsl2) for instructions on installing wsl and upgrading to the wsl2 kernel (recommended).
+- You can install a Linux distribution directly from the Microsoft Store (e.g. [Ubuntu 20.04.5 LTS](https://apps.microsoft.com/store/detail/ubuntu-20045-lts/9MTTCL66CPXJ)).
+- Alternatively, you can [setup devcontainers](https://code.visualstudio.com/docs/devcontainers/containers#_installation) with Docker and VSCode to run a containerized Linux environment on top of wsl. The [devcontainer](/.devcontainer/devcontainer.json) for this project will setup and build the project automatically upon container creation.
+
+For Linux users (or wsl), ensure you install the following packages:
+- Install with `sudo apt install curl libarchive-tools acpica-tools`
+- Check with `curl --version`, `bsdtar --version`, or `iasl -v`
 
 To build this project's EFI, run the below command at the root of the project:
 ```sh
@@ -354,12 +349,80 @@ bash scripts/build.sh
 bash scripts/build.sh --32-bit
 ```
 
-### 3. Using this EFI with macOS
+### 3. Setting up Hyper-V
+
+[ps/New-VHD]: https://learn.microsoft.com/en-us/powershell/module/hyper-v/new-vhd
+
+#### i. Create a boot VHDX disk
+This will serve as the boot partition for your macOS virtual machine and contain the OpenCore EFI folder.
+
+- Format a small (1GB) FAT32 disk initialized with GPT (GUID partition table) and mount it.
+  - Choose one of three ways of creating VHD/VHDX disks:
+    - (A) Hyper-V Manager - Navigate to `Action > New > Hard Disk`.
+      - Hard disks are located under `C:\ProgramData\Microsoft\Windows\Virtual Hard Disks\`.
+      - You can mount a VHD/VHDX disk by right clicking on the file and selecting `Mount`.
+      - You can unmount by right-clicking on the mounted disk and selecting `Eject`.
+    - (B) Disk Management - Navigate to `Action > Create VHD`.
+      - You can mount a VHD/VHDX disk with `Action > Attach VHD`.
+      - You can unmount by right-clicking on the volume and selecting `Detach VHD`.
+    - (C) Powershell - Create a new VHD/VHDX disk with the [`New-VHD`][ps/New-VHD] command.
+      <details><summary>(Powershell command)</summary>
+
+      ```ps
+      $vhdpath = "$env:USERPROFILE\Desktop\EFI.vhdx"
+      $vhdsize = 1GB
+      $vhdpart = "GPT"
+      $vhdfs = "FAT32"
+
+      New-VHD -Path $vhdpath -Dynamic -SizeBytes $vhdsize |
+        Mount-VHD -Passthru |
+        Initialize-Disk -PartitionStyle $vhdpart -Confirm:$false -Passthru |
+        New-Partition -AssignDriveLetter -UseMaximumSize |
+        Format-Volume -FileSystem $vhdfs -Confirm:$false -Force
+      ```
+
+      </details>
+
+- Move the EFI folder (the whole folder) to the root of the VHDX disk.
+
+#### ii. Create a macOS installer/recovery VHDX disk
+- (A) Convert a DMG installer to a VHDX disk with [`qemu-img`][qemu-img/docs]:
+  - If you already have a DMG installer for macOS (e.g. on Sierra and older), you can convert the installer image to a VHDX disk directly by running:
+    ```sh
+    qemu-img convert -f raw -O vhdx InstallMacOSX.dmg InstallMacOSX.vhdx
+    ```
+- (B) Download a BaseSystem or RecoveryImage file directly from Apple using [macrecovery.py][OpenCorePkg]:
+  - Follow the [Dortania-Guide][Dortania-Guide/Installer#Windows] for steps on downloading macOS installer images.
+  - Move both `.chunklist` and `.dmg` files downloaded by macrecovery to your EFI VHDX disk under a new folder named `com.apple.recovery.boot`.
+  - You should be left with both an `EFI/` and `com.apple.recovery.boot/` folder at the root of your EFI VHDX disk.
+
+[qemu-img/docs]: https://qemu.readthedocs.io/en/latest/tools/qemu-img.html
+[OpenCorePkg]: https://github.com/acidanthera/OpenCorePkg/releases
+[Dortania-Guide/Installer#Windows]: https://dortania.github.io/OpenCore-Install-Guide/installer-guide/windows-install.html
+
+#### iii. Creating the macOS Virtual Machine
+
+In the Hyper-V Manager, navigate to `Action > New > Virtual Machine`.
+  - Configure the below options while going through the wizard:
+    - Specify Generation: Choose **Generation 2**
+    - Assign Memory: Allocate at least `8192 MB` (older OSX versions only need `4096 MB`)
+    - Connect Virtual Hard Disk: Name and select the size of the disk to install macOS on.
+
+Once created, right click on your new virtual-machine (under the 'Virtual Machines' section of the window), and select `Settings`.
+- Configure the below options under the Hardware section:
+  - Navigate to 'Security' and uncheck `Enable Secure Boot` (disable).
+  - Navigate to 'SCSI Controller' and add a new hard drive for your EFI VHDX (and installer VHDX if applicable).
+    - You'll need to attach your EFI VHDX with a location value of `0` and change the location value for your main virtual hard disk to a different value (e.g. `1` or `2`).
+
+### 4. Using this EFI with macOS
+
 > **WIP**
 
 > **Note** To enable **iServices** functionality, please refer to the notice in
 > the build-generated **.serialdata** file under the **src/** directory for instructions on validating your
-> serial number. This is automatically generated each time you run a new build using the build script as long as no existing **.serialdata** file exists. Remember that you can re-generate this data by running `bash scripts/lib/oce-build/scripts/patch-serial.sh -c src/config.yml` or by removing **.serialdata** and re-running the build script.
+> serial number.
+> 
+> This is automatically generated each time you run a new build using the build script as long as no existing **.serialdata** file exists. Remember that you can re-generate this data by running `bash scripts/lib/oce-build/scripts/patch-serial.sh -c src/config.yml` or by removing **.serialdata** and re-running the build script.
 >
 > You can optionally instead download [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS) follow the [iServices guide](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html#using-gensmbios) to generate new SMBIOS data for your machine to be applied before running the build script. You'll then need to store your SMBIOS data in a new **.serialdata** file:
 > ```yaml
@@ -379,4 +442,4 @@ Refer to [CONTRIBUTING.md](/docs/CONTRIBUTING.md) for instructions (and tips) on
 [BSD 3-Clause License](/LICENSE).
 
 ## 🌟 Credits
-- [@Goldfish64](https://github.com/Goldfish64) for creating and maintaining [MacHyperVSupport](https://github.com/acidanthera/MacHyperVSupport). This project is wholly based off their work.
+- [@Goldfish64](https://github.com/Goldfish64) for creating and maintaining [MacHyperVSupport](https://github.com/acidanthera/MacHyperVSupport) and it's supporting documentation.
