@@ -348,6 +348,10 @@ git submodule update
 > ```
 
 ### 2. Build this repository using OCE-Build
+
+This project uses the [OCE-Build](https://github.com/Qonfused/OCE-Build) to automatically version and build this repository's EFI. This is automatically included under the `scripts/lib/oce-build` folder.
+
+#### i. Setting up OCE-Build
 > **Note** **OCE-Build** must be run in a Linux or macOS environment.
 
 For Windows users, refer to [aka.ms/wslinstall](aka.ms/wslinstall) and [aka.ms/wsl2](aka.ms/wsl2) for instructions on installing wsl and upgrading to the wsl2 kernel (recommended).
@@ -359,7 +363,8 @@ For Linux users (or wsl), ensure you install the following packages:
 - Install with `sudo apt install curl libarchive-tools acpica-tools`
 - Check with `curl --version`, `bsdtar --version`, or `iasl -v`
 
-To build this project's EFI, run the below command at the root of the project:
+#### ii. Building an EFI target
+To build this project's EFI, run one of the below commands at the root of the project:
 ```sh
 # Build for macOS 10.8 and newer
 bash scripts/build.sh
@@ -373,41 +378,52 @@ bash scripts/build.sh --legacy --32-bit
 
 ### 3. Setting up Hyper-V
 
-[ps/New-VHD]: https://learn.microsoft.com/en-us/powershell/module/hyper-v/new-vhd
+First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) before proceeding.
+- You can run PowerShell as administrator and enable the Hyper-V role by running the below command:
+  ```ps
+  Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+  ```
+- After rebooting, you can check that you've successfully enabled Hyper-V by running:
+  ```ps
+  Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
+  ```
 
 #### i. Create a boot VHDX disk
-This will serve as the boot partition for your macOS virtual machine and contain the OpenCore EFI folder.
 
-- Format a small (1GB) FAT32 disk initialized with GPT (GUID partition table) and mount it.
-  - Choose one of three ways of creating VHD/VHDX disks:
-    - (A) Hyper-V Manager - Navigate to `Action > New > Hard Disk`.
-      - Hard disks are located under `C:\ProgramData\Microsoft\Windows\Virtual Hard Disks\`.
-      - You can mount a VHD/VHDX disk by right clicking on the file and selecting `Mount`.
-      - You can unmount by right-clicking on the mounted disk and selecting `Eject`.
-    - (B) Disk Management - Navigate to `Action > Create VHD`.
-      - You can mount a VHD/VHDX disk with `Action > Attach VHD`.
-      - You can unmount by right-clicking on the volume and selecting `Detach VHD`.
-    - (C) Powershell - Create a new VHD/VHDX disk with the [`New-VHD`][ps/New-VHD] command.
-      <details><summary>(Powershell command)</summary>
+Format a small (1GB) FAT32 disk initialized with GPT (GUID partition table) and mount it. This will serve as the boot partition for your macOS virtual machine and contain the OpenCore EFI folder.
+- Choose one of three ways of creating VHD/VHDX disks:
+  - (A) Hyper-V Manager - Navigate to `Action > New > Hard Disk`.
+    - Hard disks are located under `C:\ProgramData\Microsoft\Windows\Virtual Hard Disks\`.
+    - You can mount a VHD/VHDX disk by right clicking on the file and selecting `Mount`.
+    - You can unmount by right-clicking on the mounted disk and selecting `Eject`.
+  - (B) Disk Management - Navigate to `Action > Create VHD`.
+    - You can mount a VHD/VHDX disk with `Action > Attach VHD`.
+    - You can unmount by right-clicking on the volume and selecting `Detach VHD`.
+  - (C) Powershell - Create a new VHD/VHDX disk with the [`New-VHD`][ps/New-VHD] command.
+    <details><summary>(Powershell command)</summary>
 
-      ```ps
-      $vhdpath = "$env:USERPROFILE\Desktop\EFI.vhdx"
-      $vhdsize = 1GB
-      $vhdpart = "GPT"
-      $vhdfs = "FAT32"
+    ```ps
+    $vhdpath = "$env:USERPROFILE\Desktop\EFI.vhdx"
+    $vhdsize = 1GB
+    $vhdpart = "GPT"
+    $vhdfs = "FAT32"
+    # Run this command in PowerShell as Administrator
+    New-VHD -Path $vhdpath -Dynamic -SizeBytes $vhdsize |
+      Mount-VHD -Passthru |
+      Initialize-Disk -PartitionStyle $vhdpart -Confirm:$false -Passthru |
+      New-Partition -AssignDriveLetter -UseMaximumSize |
+      Format-Volume -FileSystem $vhdfs -Confirm:$false -Force
+    ```
 
-      New-VHD -Path $vhdpath -Dynamic -SizeBytes $vhdsize |
-        Mount-VHD -Passthru |
-        Initialize-Disk -PartitionStyle $vhdpart -Confirm:$false -Passthru |
-        New-Partition -AssignDriveLetter -UseMaximumSize |
-        Format-Volume -FileSystem $vhdfs -Confirm:$false -Force
-      ```
+    </details>
 
-      </details>
+Move the EFI folder (the whole folder) to the root of the VHDX disk.
+- You should be left with an `EFI/` folder at the root of your EFI VHDX disk.
 
-- Move the EFI folder (the whole folder) to the root of the VHDX disk.
+[ps/New-VHD]: https://learn.microsoft.com/en-us/powershell/module/hyper-v/new-vhd
 
 #### ii. Create a macOS installer/recovery VHDX disk
+Create or add an installer disk by either:
 - (A) Convert a DMG installer to a VHDX disk with [`qemu-img`][qemu-img/docs]:
   - If you already have a DMG installer for macOS (e.g. on Sierra and older), you can convert the installer image to a VHDX disk directly by running:
     ```sh
