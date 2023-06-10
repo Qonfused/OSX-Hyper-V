@@ -88,16 +88,18 @@ Booter:
 
 Kernel:
   Quirks:
+    # Provides the correct TSC and FSB values to the kernel, as well as disables
+    # CPU topology validation (10.8+)
     ProvideCurrentCpuInfo:  Boolean | true
 
 UEFI:
   APFS:
     # Disables minimum APFS version for macOS Catalina and earlier boot entries.
-    MinDate:                          Number  | -1
-    MinVersion:                       Number  | -1
+    MinDate:                Number  | -1
+    MinVersion:             Number  | -1
   Output:
     # Sets proper display scaling for boot picker + debug logging.
-    UIScale:                          Number  | -1
+    UIScale:                Number  | -1
   Quirks:
     # Required on Windows Server 2019 / Windows 10 and newer
     DisableSecurityPolicy:  Boolean | true
@@ -123,7 +125,10 @@ NVRAM:
       # Enables System Integrity Protection (SIP) setting in macOS.
       # - Possible values include:
       #   - 00000000: Default (enabled)
+      #   - 03000000: Disables Kext signing and filesystem restrictions
       #   - 67000000: Disables all SIP protections
-      #   - 03000000: Disables Kext signing and filesystem restrictions.
+      #   - FF030000: Disables all flags in macOS High Sierra
+      #   - FF070000: Disables all flags in macOS Mojave and macOS Catalina
+      #   - FF0F0000: Disables all flags in macOS Big Sur
       # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
       csr-active-config:    Data    | <00000000>
