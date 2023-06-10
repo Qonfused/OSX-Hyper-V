@@ -378,6 +378,8 @@ bash scripts/build.sh --legacy --32-bit
 
 ### 3. Setting up Hyper-V
 
+> **Note** **MacHyperVSupport** currently requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is unsupported.
+
 First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) before proceeding.
 - You can run PowerShell as administrator and enable the Hyper-V role by running the below command:
   ```ps
