@@ -16,6 +16,7 @@
 ## ⚡Quick Links
 
 - [Current Progress](#%EF%B8%8F-current-progress)
+  - [Limitations](#limitations)
   - [macOS Version Support](#macos-version-support)
 - [Getting Started](#-getting-started)
   - [1. Clone this repository using git](#1-clone-this-repository-using-git)
@@ -30,11 +31,28 @@
 
 > **Note** This repository is still a work in progress.
 >
-> See [MacHyperVSupport](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
->
 > Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes implemented per release version.
 
+### Limitations
+
+There are some known limitations with the base configuration for Hyper-V:
+
+- Display Resolution
+  - The default virtual display resolution is set to a 1024x768 resolution and is not resizable.
+- Graphics Acceleration
+  - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
+  - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] with a supported GPU.
+    > **Note** DDA is only available for Windows Server and Microsoft Hyper-V Server versions 2016 and newer. Windows Pro and Windows Enterprise users have no support for DDA with Hyper-V.
+- Audio Support
+  - By default, Hyper-V does not expose an audio device to macOS.
+
+[aka.ms/dda]: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/deploy/deploying-graphics-devices-using-dda
+
+Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
+
 ### macOS Version Support:
+Supported versions below include macOS versions **10.4** to **14.0**.
+
 <table>
   <thead>
     <tr>
@@ -307,7 +325,7 @@
 ## ✨ Getting Started
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Qonfused/OSX-Hyper-V)
 
-If you opt to use one of the pre-build releases from this repository, you can skip to [3. Setting up Hyper-V](#3-setting-up-hyper-v).
+If you opt to use one of the pre-built releases from this repository, you can skip to [3. Setting up Hyper-V](#3-setting-up-hyper-v).
 
 ### 1. Clone this repository using Git
 
@@ -334,7 +352,8 @@ git submodule update
 
 For Windows users, refer to [aka.ms/wslinstall](aka.ms/wslinstall) and [aka.ms/wsl2](aka.ms/wsl2) for instructions on installing wsl and upgrading to the wsl2 kernel (recommended).
 - You can install a Linux distribution directly from the Microsoft Store (e.g. [Ubuntu 20.04.5 LTS](https://apps.microsoft.com/store/detail/ubuntu-20045-lts/9MTTCL66CPXJ)).
-- Alternatively, you can [setup devcontainers](https://code.visualstudio.com/docs/devcontainers/containers#_installation) with Docker and VSCode to run a containerized Linux environment on top of wsl. The [devcontainer](/.devcontainer/devcontainer.json) for this project will setup and build the project automatically upon container creation.
+- Alternatively, you can [setup devcontainers](https://code.visualstudio.com/docs/devcontainers/containers#_installation) with Docker and VSCode to run a containerized Linux environment on top of the wsl backend.
+  - The [devcontainer](/.devcontainer/devcontainer.json) for this project will setup and build the project automatically upon container creation.
 
 For Linux users (or wsl), ensure you install the following packages:
 - Install with `sudo apt install curl libarchive-tools acpica-tools`
@@ -407,9 +426,9 @@ This will serve as the boot partition for your macOS virtual machine and contain
 
 In the Hyper-V Manager, navigate to `Action > New > Virtual Machine`.
   - Configure the below options while going through the wizard:
-    - Specify Generation: Choose **Generation 2**
-    - Assign Memory: Allocate at least `8192 MB` (older OSX versions only need `4096 MB`)
-    - Connect Virtual Hard Disk: Name and select the size of the disk to install macOS on.
+    - **Specify Generation**: Choose `Generation 2`
+    - **Assign Memory**: Allocate at least `4096 MB` (recommended is `8192 MB`)
+    - **Connect Virtual Hard Disk**: Name and select the size of the disk to install macOS on.
 
 Once created, right click on your new virtual-machine (under the 'Virtual Machines' section of the window), and select `Settings`.
 - Configure the below options under the Hardware section:
