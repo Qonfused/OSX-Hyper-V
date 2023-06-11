@@ -4,9 +4,9 @@
 
 OpenCorePkg:
   version: 0.9.3
-  url: https://github.com/dortania/build-repo/releases/download/OpenCorePkg-9bb2f1d/OpenCore-0.9.3-DEBUG.zip
-  resolution: '@acidanthera/OpenCorePkg@github:0.9.3#9bb2f1d'
-  checksum: 1f3757d3470457b8cc297d95f7940187c8d076ce20d9ffc1739d4b12b2825ad0
+  url: https://github.com/dortania/build-repo/releases/download/OpenCorePkg-408f000/OpenCore-0.9.3-DEBUG.zip
+  resolution: '@acidanthera/OpenCorePkg@github:0.9.3#408f000'
+  checksum: b1454aa13f0f11729ddd6ce731636913350263882612b8d7099343a5dfad5bd4
   extract: ./X64/EFI/.
   type: directory
   dependencies:
@@ -26,16 +26,16 @@ Lilu:
   type: kext
 VirtualSMC:
   version: 1.3.2
-  url: https://github.com/dortania/build-repo/releases/download/VirtualSMC-9b5d754/VirtualSMC-1.3.2-DEBUG.zip
-  resolution: '@acidanthera/VirtualSMC@github:1.3.2#9b5d754'
-  checksum: 9376f6f3a9601fc36ba197e997e86a9378ea0df07234ce6b49e4e42016af8e3e
+  url: https://github.com/dortania/build-repo/releases/download/VirtualSMC-d28ca55/VirtualSMC-1.3.2-DEBUG.zip
+  resolution: '@acidanthera/VirtualSMC@github:1.3.2#d28ca55'
+  checksum: 9803cb842243ca4ce03aba29ff1129574980eb4d121bff4d593c6875848a9025
   extract: ./Kexts/VirtualSMC.kext
   type: kext
 MacHyperVSupport:
   version: 0.9.4
-  url: https://github.com/dortania/build-repo/releases/download/MacHyperVSupport-540ff24/MacHyperVSupport-0.9.4-DEBUG.zip
-  resolution: '@acidanthera/MacHyperVSupport@github:0.9.4#540ff24'
-  checksum: 126161e7496db48e946196fdebf4499b494baeac322a93d894aa047c7deedfe2
+  url: https://github.com/dortania/build-repo/releases/download/MacHyperVSupport-c2d63b4/MacHyperVSupport-0.9.4-DEBUG.zip
+  resolution: '@acidanthera/MacHyperVSupport@github:0.9.4#c2d63b4'
+  checksum: 46f1f0fe47385d70ecf62da3a472348d2a0f1a8274822249a1d086d25d2263e3
   extract: ./Kexts/MacHyperVSupport.kext
   type: kext
   bundled:

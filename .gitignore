@@ -11,6 +11,8 @@
 
 # Build artifacts
 /dist
+EFI*-DEBUG.zip
+EFI*-RELEASE.zip
 
 # macOS Boot Image
 /com.apple.recovery.boot
