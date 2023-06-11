@@ -15,7 +15,7 @@ source ./scripts/lib/constants.sh
 
 
 # Run build script
-bash ./scripts/lib/oce-build/build.sh -c "$CONFIG"
+bash ./scripts/lib/oce-build/build.sh -c "$CONFIG" "$@"
 # Patch execution flow in OCE-Build for adding post-install tools
 bash ./scripts/lib/vmtools.sh
 

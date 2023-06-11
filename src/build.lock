@@ -4,14 +4,14 @@
 
 OpenCorePkg:
   version: 0.9.3
-  url: https://github.com/dortania/build-repo/releases/download/OpenCorePkg-408f000/OpenCore-0.9.3-DEBUG.zip
-  resolution: '@acidanthera/OpenCorePkg@github:0.9.3#408f000'
-  checksum: b1454aa13f0f11729ddd6ce731636913350263882612b8d7099343a5dfad5bd4
+  url: https://github.com/dortania/build-repo/releases/download/OpenCorePkg-0ad4a31/OpenCore-0.9.3-DEBUG.zip
+  resolution: '@acidanthera/OpenCorePkg@github:0.9.3#0ad4a31'
+  checksum: 18f2c72b8a1f699db11a2c0f2eaf7b2f1dd1b324cba92fba54a1e62bef1f8a2e
   extract: ./X64/EFI/.
   type: directory
   dependencies:
     OcBinaryData:
-      resolution: '@acidanthera/OcBinaryData@github:#c2a98980'
+      resolution: '@acidanthera/OcBinaryData@github:#4e7e1b74'
       url: https://github.com/acidanthera/OcBinaryData/
       extract:
         - ./Drivers/.
