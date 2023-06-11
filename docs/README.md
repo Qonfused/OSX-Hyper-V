@@ -1,7 +1,7 @@
 <h1 align="center">OSX-Hyper-V</h1>
 <p align="center">
   <img
-    src="/docs/assets/graphic.png"
+    src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/graphic.png"
     alt="Graphic of Hyper-V Window"
     class="center"
     width=500px
@@ -54,7 +54,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/sonoma.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/sonoma.png"
           width=25
           hspace=2
           align="top"
@@ -70,7 +70,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/ventura.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/ventura.png"
           width=25
           hspace=2
           align="top"
@@ -86,7 +86,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/monterey.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/monterey.png"
           width=22
           hspace=2
           align="top"
@@ -102,7 +102,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/big-sur.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/big-sur.png"
           width=25
           hspace=2
           align="top"
@@ -118,7 +118,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/catalina.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/catalina.png"
           width=25
           hspace=2
           align="top"
@@ -134,7 +134,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/mojave.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/mojave.png"
           width=25
           hspace=2
           align="top"
@@ -150,7 +150,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/high-sierra.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/high-sierra.png"
           width=25
           hspace=2
           align="top"
@@ -166,7 +166,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/sierra.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/sierra.png"
           width=25
           hspace=2
           align="top"
@@ -182,7 +182,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/el-capitan.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/el-capitan.png"
           width=25
           hspace=2
           align="top"
@@ -198,7 +198,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/yosemite.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/yosemite.png"
           width=25
           hspace=2
           align="top"
@@ -214,7 +214,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/mavericks.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/mavericks.png"
           width=25
           hspace=2
           align="top"
@@ -230,7 +230,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/mountain-lion.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/mountain-lion.png"
           width=25
           hspace=2
           align="top"
@@ -246,7 +246,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/lion.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/lion.png"
           width=25
           hspace=2
           align="top"
@@ -262,7 +262,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/snow-leopard.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/snow-leopard.png"
           width=25
           hspace=2
           align="top"
@@ -278,7 +278,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/leopard.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/leopard.png"
           width=25
           hspace=2
           align="top"
@@ -294,7 +294,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     <tr>
       <td>
         <img
-          src="/docs/assets/tiger.png"
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/tiger.png"
           width=25
           hspace=2
           align="top"
