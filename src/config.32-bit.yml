@@ -7,9 +7,9 @@
 ##
 
 # This file extends the base `config.yml` patches for all macOS versions and the
-# `config.patch:legacy.yml` patches for legacy (10.7 and older) macOS versions.
+# `patch.legacy.yml` patches for legacy (10.7 and older) macOS versions.
 # @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.yml
-# @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/config.patch.legacy.yml
+# @see https://github.com/Qonfused/HyperV-OSX/blob/main/src/patch.legacy.yml
 
 
 ################################################################################
