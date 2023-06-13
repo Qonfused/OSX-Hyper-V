@@ -110,6 +110,11 @@ UEFI:
 
 Misc:
   Security:
+    # Allows setting a default boot entries when holding the CTRL key.
+    AllowSetDefault:        Boolean | true
+    # Allows all bootable parition types to show in the boot picker.
+    # - https://dortania.github.io/OpenCore-Post-Install/universal/security/scanpolicy.html
+    ScanPolicy:             Number  | 0
     # Apple Secure Boot hardware model and policy
     # - Possible values include:
     #   - Disabled: No model, Secure Boot will be disabled.
