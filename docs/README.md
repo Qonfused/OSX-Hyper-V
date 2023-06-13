@@ -392,6 +392,11 @@ First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virt
   Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
   ```
 
+To run powershell scripts, you may also need to set your executionpolicy:
+```ps
+Set-ExecutionPolicy RemoteSigned
+```
+
 #### i. Create a boot VHDX disk
 
 <details><summary>(Powershell script)</summary>

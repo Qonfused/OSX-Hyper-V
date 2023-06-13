@@ -24,7 +24,7 @@ $efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 1GB |
   Mount-VHD -Passthru |
   Initialize-Disk -PartitionStyle "GPT" -Confirm:$false -Passthru |
   New-Partition -AssignDriveLetter -UseMaximumSize |
-  Format-Volume -FileSystem "FAT32" -Confirm:$false -Force
+  Format-Volume -FileSystem "FAT32" -NewFileSystemLabel "EFI" -Confirm:$false -Force
 
 # Copy EFI folder to VHDX disk
 Copy-Item -Path "$path" -Recurse -Destination "$($efiDisk.DriveLetter):\EFI"
