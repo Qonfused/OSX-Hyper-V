@@ -474,6 +474,10 @@ Once created, right click on your new virtual-machine (under the 'Virtual Machin
   - Navigate to 'SCSI Controller' and add a new hard drive for your EFI VHDX (and installer VHDX if applicable).
     - You'll need to attach your EFI VHDX with a location value of `0` and change the location value for your main virtual hard disk to a different value (e.g. `1` or `2`).
 
+You may need to connect the default network switch manually for networking to work.
+- Navigate to **Network Adapter** and select the 'Default Switch' under the **Virtual Switch** option.
+- Navigate to **Firmware** and move the 'Network Adapter' boot entry below the 'EFI' boot option.
+
 ### 4. Using this EFI with macOS
 
 Installation of macOS should fall in line with the [Installation Process][Dortania-Guide/Installation-Process] section of the Dortania Guide. Some additional post-install sections are provided to facilitate with Hyper-V (or project) specifics.
