@@ -29,7 +29,7 @@ $efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 1GB |
 # Copy EFI folder to VHDX disk
 Copy-Item -Path "$path" -Recurse -Destination "$($efiDisk.DriveLetter):\EFI"
 # Copy macOS recovery image if present
-$recoveryImage = "$($pwd)\com.apple.recovery.boot"
+$recoveryImage = "com.apple.recovery.boot"
 if (Test-Path -Path "$($pwd)\$recoveryImage") {
   Copy-Item -Path "$($pwd)\$recoveryImage" -Recurse -Destination "$($efiDisk.DriveLetter):\$recoveryImage"
 }
