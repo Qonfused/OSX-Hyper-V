@@ -23,18 +23,23 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 }
 
 
-# Create and configure virtual machine
+# Create new virtual machine
 New-VM -Generation 2 -Name "$name" -path "$outdir" -NoVHD | Out-Null
-Set-VM -Name "$name" -ProcessorCount $cpu -MemoryStartupBytes $($ram*1GB)
-Set-VMFirmware -VMName "$name" -EnableSecureBoot Off
 
 # Create EFI disk
-$efiDisk = "$outdir\$name\EFI.vhdx"
+$efiVHD = "$outdir\$name\EFI.vhdx"
 & powershell.exe "$($pwd)\scripts\create-macos-recovery.ps1" -version "$version"
-& powershell.exe "$($pwd)\scripts\convert-efi-disk.ps1" -dest "$efiDisk"
-Add-VMHardDiskDrive -VMName "$name" -Path "$efiDisk" -ControllerType SCSI
+& powershell.exe "$($pwd)\scripts\convert-efi-disk.ps1" -dest "$efiVHD"
+Add-VMHardDiskDrive -VMName "$name" -Path "$efiVHD" -ControllerType SCSI
+$efiDisk = Get-VMHardDiskDrive -VMName "$name"
 
 # Create macOS disk
-$macOSDisk = "$outdir\$name\$name.vhdx" 
-New-VHD -SizeBytes $($size*1GB) -Path "$macOSDisk" | Out-Null
-Add-VMHardDiskDrive -VMName "$name" -Path "$macOSDisk" -ControllerType SCSI
+$macOSVHD = "$outdir\$name\$name.vhdx" 
+New-VHD -SizeBytes $($size*1GB) -Path "$macOSVHD" | Out-Null
+Add-VMHardDiskDrive -VMName "$name" -Path "$macOSVHD" -ControllerType SCSI
+
+# Configure virtual machine
+Set-VM -Name "$name" -ProcessorCount $cpu -MemoryStartupBytes $($ram*1GB)
+Set-VMFirmware -VMName "$name" `
+  -EnableSecureBoot Off `
+  -FirstBootDevice $efiDisk

@@ -20,6 +20,11 @@ CONFIG="$(realpath "$__PWD__/$CONFIG")"
 source ./lib/config.sh
 source ./lib/constants.sh
 
+# Copy powershell scripts
+cp "../convert-efi-disk.ps1" "$SCR_DIR/convert-efi-disk.ps1"
+cp "../create-macos-recovery.ps1" "$SCR_DIR/create-macos-recovery.ps1"
+cp "../create-virtual-machine.ps1" "$SCR_DIR/create-virtual-machine.ps1"
+
 # Extract daemons from release package's `Tools` folder
 LOCKFILE="${CONFIG%.*}.lock"
 pkg="$BUILD_DIR/.temp/@acidanthera/MacHyperVSupport"

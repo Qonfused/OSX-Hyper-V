@@ -8,8 +8,8 @@
 param (
   [string]$pwd = "$((Get-Item "$PSScriptRoot\..").FullName)",
   # Script arguments
-  [string]$path = "$($pwd)\dist\EFI",
-  [string]$dest = "$($pwd)\dist\EFI.vhdx"
+  [string]$path = "$($pwd)\EFI",
+  [string]$dest = "$($pwd)\EFI.vhdx"
 )
 
 # Prompt for Administrator priviledges
@@ -29,9 +29,9 @@ $efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 1GB |
 # Copy EFI folder to VHDX disk
 Copy-Item -Path "$path" -Recurse -Destination "$($efiDisk.DriveLetter):\EFI"
 # Copy macOS recovery image if present
-$recoveryImage = "com.apple.recovery.boot"
-if (Test-Path -Path "$path\..\$recoveryImage") {
-  Copy-Item -Path "$path\..\$recoveryImage" -Recurse -Destination "$($efiDisk.DriveLetter):\$recoveryImage"
+$recoveryImage = "$($pwd)\com.apple.recovery.boot"
+if (Test-Path -Path "$($pwd)\$recoveryImage") {
+  Copy-Item -Path "$($pwd)\$recoveryImage" -Recurse -Destination "$($efiDisk.DriveLetter):\$recoveryImage"
 }
 
 # Unmount VHDX disk

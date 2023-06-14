@@ -9,8 +9,6 @@
 # Change CWD for imports
 __PWD__=$(pwd); cd "$(realpath "$(dirname "${BASH_SOURCE[0]}")/../../")"
 
-source ./scripts/lib/constants.sh
-source ./scripts/lib/oce-build/lib/macros.sh
 
 while read -r args; do
   while read -r BUILD; do
@@ -18,12 +16,11 @@ while read -r args; do
     REPLACE="$(sed "s/oce-build: [A-Z]*/oce-build: $BUILD/" src/build.yml)"
     echo "$REPLACE" > src/build.yml
     # Run build script
-    TARGET="${args//|/-}";
+    TARGET="${args//|/-}"
+    FLAGS="--skip-serial --${args//|/ --}"
     echo "Building \"EFI-$TAG-$TARGET-$BUILD.zip\"..."
-    FLAGS="--${args//|/ --}"
-    bash scripts/lib/oce-build/build.sh -c "$CONFIG" "$FLAGS"
-    bash scripts/lib/vmtools.sh
+    bash scripts/build.sh "$FLAGS"
     # Compress EFI directory
-    (cd dist && zip -r -X "../EFI-$TAG-$TARGET-$BUILD.zip" EFI >/dev/null)
+    (cd dist && zip -r -X "../EFI-$TAG-$TARGET-$BUILD.zip" . >/dev/null)
   done <<< $'RELEASE\nDEBUG'
 done <<< $'64-bit\nlegacy|64-bit\nlegacy|32-bit'

@@ -72,9 +72,7 @@ jobs:
       - id: oce-build
         name: Run OCE-Build
         shell: sh
-        run: |
-          bash scripts/build.sh --skip-serial
-          bash scripts/lib/vmtools.sh
+        run: bash scripts/build.sh --skip-serial
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Runs quick validation of config.plist and EFI structure.

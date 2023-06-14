@@ -11,19 +11,14 @@
 
 # Build artifacts
 /dist
-EFI*-DEBUG.zip
-EFI*-RELEASE.zip
+EFI-*
 
 # macOS Boot Image
-/com.apple.recovery.boot
+**/com.apple.recovery.boot
 
 # OpenCore specific caches
 opencore-*[0-9].txt
 
 # macOS specific caches
-/.fseventsd
 /.Spotlight-V100
-/.Trashes
-
-# Windows specific caches
-/$RECYCLE.BIN
+.DS_Store
