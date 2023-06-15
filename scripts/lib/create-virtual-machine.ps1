@@ -26,6 +26,10 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 # Create new virtual machine
 New-VM -Generation 2 -Name "$name" -path "$outdir" -NoVHD | Out-Null
 
+# Configure network adapter to use the default vswitch
+$networkAdapter = Get-VMNetworkAdapter -VMName "$name"
+Connect-VMNetworkAdapter -VMName "$name" -Name "$($networkAdapter.name)" -SwitchName "Default Switch"
+
 # Create EFI disk
 $efiVHD = "$outdir\$name\EFI.vhdx"
 & powershell.exe "$($pwd)\scripts\create-macos-recovery.ps1" -version "$version"
