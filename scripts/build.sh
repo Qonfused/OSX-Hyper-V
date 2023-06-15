@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091,SC2164
+# shellcheck disable=SC1091,SC2154,SC2164
 
 ## @file
 # EFI build script for Hyper-V
