@@ -34,5 +34,11 @@ if (Test-Path -Path "$($pwd)\$recoveryImage") {
   Copy-Item -Path "$($pwd)\$recoveryImage" -Recurse -Destination "$($efiDisk.DriveLetter):\$recoveryImage"
 }
 
+# Copy post-install tools if present
+$toolsDir = "tools"
+if (Test-Path -Path "$($pwd)\$toolsDir") {
+  Copy-Item -Path "$($pwd)\$toolsDir" -Recurse -Destination "$($efiDisk.DriveLetter):\$toolsDir"
+}
+
 # Unmount VHDX disk
 Dismount-DiskImage -ImagePath "$dest" | Out-Null
