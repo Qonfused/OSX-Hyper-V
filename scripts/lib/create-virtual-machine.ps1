@@ -61,7 +61,11 @@ New-VHD -SizeBytes $($size*1GB) -Path "$macOSVHD" | Out-Null
 Add-VMHardDiskDrive -VMName "$name" -Path "$macOSVHD" -ControllerType SCSI
 
 # Configure virtual machine
-Set-VM -Name "$name" -ProcessorCount $cpu -MemoryStartupBytes $($ram*1GB)
+Set-VM `
+  -Name "$name" `
+  -ProcessorCount $cpu `
+  -MemoryStartupBytes $($ram*1GB) `
+  -AutomaticCheckpointsEnabled $false
 Set-VMFirmware -VMName "$name" `
   -EnableSecureBoot Off `
   -FirstBootDevice $efiDisk
