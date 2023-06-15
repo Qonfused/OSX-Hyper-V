@@ -33,6 +33,24 @@ $efiVHD = "$outdir\$name\EFI.vhdx"
 Add-VMHardDiskDrive -VMName "$name" -Path "$efiVHD" -ControllerType SCSI
 $efiDisk = Get-VMHardDiskDrive -VMName "$name"
 
+# Create post-install VHDX if tools folder is present
+$toolsDir = "$($pwd)\tools"
+if (Test-Path -Path "$toolsDir") {
+  $toolsVHD = "$outdir\$name\tools.vhdx" 
+  # Create and mount a new tools.vhdx disk
+  $toolsDisk = New-VHD -Path "$toolsVHD" -Dynamic -SizeBytes 512MB |
+    Mount-VHD -Passthru |
+    Initialize-Disk -PartitionStyle "GPT" -Confirm:$false -Passthru |
+    New-Partition -AssignDriveLetter -UseMaximumSize |
+    Format-Volume -FileSystem "FAT32" -NewFileSystemLabel "Tools" -Confirm:$false -Force
+  # Copy tools folder contents
+  Copy-Item -Path "$toolsDir\*" -Recurse -Destination "$($toolsDisk.DriveLetter):\"
+  # Unmount VHDX disk
+  Dismount-DiskImage -ImagePath "$toolsVHD" | Out-Null
+  # Add VHDX disk to virtual machine
+  Add-VMHardDiskDrive -VMName "$name" -Path "$toolsVHD" -ControllerType SCSI
+}
+
 # Create macOS disk
 $macOSVHD = "$outdir\$name\$name.vhdx" 
 New-VHD -SizeBytes $($size*1GB) -Path "$macOSVHD" | Out-Null

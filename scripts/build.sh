@@ -16,6 +16,10 @@ source ./scripts/lib/constants.sh
 
 # Run build script
 bash ./scripts/lib/oce-build/build.sh -c "$CONFIG" "$@"
+# Patch SMBIOS serial data
+if printf '%s\n' "$@" | grep -Fxq -- '--skip-serial'; then
+  echo "Skipping SMBIOS serial generation..."
+else bash ./scripts/lib/oce-build/scripts/patch-serial.sh -c "$CONFIG"; fi
 
 # Patch execution flow in OCE-Build for adding post-install tools
 pushd "$(realpath ./scripts/lib/oce-build)" > /dev/null
@@ -36,15 +40,10 @@ url="$($yq ".${pkg##*/}.url" "$LOCKFILE")"
 mkdir -p "$pkg" && curl -sL "$url" | bsdtar -xvf- -C "$pkg" > /dev/null 2>&1
 cp -a "$pkg/Tools/." "$BUILD_DIR/tools/daemons"
 # Update lockfile
-find "$pkg/Tools" -maxdepth 1 -type f | while read -r f; do
+find "$BUILD_DIR/tools/daemons" -maxdepth 1 -type f | while read -r f; do
   daemon="${f##*/}"; $yq -i e ".${pkg##*/}.bundled
     .\"$daemon\" = { \"extract\": \"./Tools/$daemon\", \"type\": \"binary\" }"\
     "$LOCKFILE"
 done
 # Teardown
 rm -r "$BUILD_DIR/.temp" && popd > /dev/null
-
-# Patch SMBIOS serial data
-if printf '%s\n' "$@" | grep -Fxq -- '--skip-serial'; then
-  echo "Skipping SMBIOS serial generation..."
-else bash ./scripts/lib/oce-build/scripts/patch-serial.sh -c "$CONFIG"; fi

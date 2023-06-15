@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## @file
-# Optimizes macOS virtual machines for Hyper-V
+# Post-Install script - Optimizes macOS virtual machines for Hyper-V
 #
 # Copyright (c) 2023, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
