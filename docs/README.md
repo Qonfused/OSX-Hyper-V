@@ -309,6 +309,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
   </tbody>
 </table>
 
+> **Note**: You can also find past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
+
 Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
 
 ## ✨ Getting Started
