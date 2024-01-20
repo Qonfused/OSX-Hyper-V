@@ -58,7 +58,7 @@ Kernel:
       Count:                Number  | 1
       Identifier:           String  | "com.apple.iokit.IOHIDFamily"
       MaxKernel:            String  | "9.6.99"
-      MinKernel:            String  | "9.5.0"
+      MinKernel:            String  | "9.4.0"
       Replace:              Data    | <31C0C3>
     # Disable scaling factor for X/Y mouse movement`
     - Arch:                 String  | "i386"
