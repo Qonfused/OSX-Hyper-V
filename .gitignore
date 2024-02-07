@@ -1,5 +1,4 @@
 .*
-!/.devcontainer/
 !/.github/
 !/.vscode/
 !/.env-example
