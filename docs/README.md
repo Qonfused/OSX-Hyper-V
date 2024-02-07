@@ -61,8 +61,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Sonoma
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://www.apple.com/macos/sonoma-preview/"><code>(Latest)</code></a></td>
     </tr>
@@ -77,8 +77,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Ventura
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://apps.apple.com/us/app/macos-ventura/id1638787999"><code>(Latest)</code></a></td>
     </tr>
@@ -93,8 +93,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Monterey
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://apps.apple.com/us/app/macos-monterey/id1576738294"><code>(Latest)</code></a></td>
     </tr>
@@ -109,8 +109,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Big Sur
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://apps.apple.com/us/app/macos-big-sur/id1526878132"><code>(Latest)</code></a></td>
     </tr>
@@ -125,8 +125,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Catalina
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://apps.apple.com/us/app/macos-catalina/id1466841314"><code>(Latest)</code></a></td>
     </tr>
@@ -141,8 +141,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Mojave
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://apps.apple.com/us/app/macos-mojave/id1398502828"><code>(Latest)</code></a></td>
     </tr>
@@ -157,8 +157,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         High Sierra
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://apps.apple.com/us/app/macos-high-sierra/id1246284741"><code>(Latest)</code></a></td>
     </tr>
@@ -173,8 +173,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Sierra
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="http://updates-http.cdn-apple.com/2019/cert/061-39476-20191023-48f365f4-0015-4c41-9f44-39d3d2aca067/InstallOS.dmg"><code>(Latest)</code></a></td>
     </tr>
@@ -189,8 +189,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         El Capitan
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="http://updates-http.cdn-apple.com/2019/cert/061-41424-20191024-218af9ec-cf50-4516-9011-228c78eda3d2/InstallMacOSX.dmg"><code>(Latest)</code></a></td>
     </tr>
@@ -205,8 +205,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Yosemite
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="http://updates-http.cdn-apple.com/2019/cert/061-41343-20191023-02465f92-3ab5-4c92-bfe2-b725447a070d/InstallMacOSX.dmg"><code>(Latest)</code></a></td>
     </tr>
@@ -221,8 +221,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Mavericks
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://archive.org/details/os-x-mavericks-10.9.5"><code>(Latest)</code></a></td>
     </tr>
@@ -237,8 +237,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Mountain Lion
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://updates.cdn-apple.com/2021/macos/031-0627-20210614-90D11F33-1A65-42DD-BBEA-E1D9F43A6B3F/InstallMacOSX.dmg"><code>(Latest)</code></a></td>
     </tr>
@@ -253,8 +253,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Lion
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><a href="https://updates.cdn-apple.com/2021/macos/041-7683-20210614-E610947E-C7CE-46EB-8860-D26D71F0D3EA/InstallMacOSX.dmg"><code>(Latest)</code></a></td>
     </tr>
@@ -269,8 +269,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Snow Leopard
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><code>(Retail)</code></td>
     </tr>
@@ -285,8 +285,8 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Leopard
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><code>(Retail)</code></td>
     </tr>
@@ -301,75 +301,57 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Tiger
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>Untested.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><code>(Retail)</code></td>
     </tr>
   </tbody>
 </table>
 
-> **Note**: You can also find past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
+> [!NOTE]
+> You can also find past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
 
 Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
 
 ## ✨ Getting Started
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Qonfused/OSX-Hyper-V)
 
 If you opt to use one of the pre-built releases from this repository, you can skip to [3. Setting up Hyper-V](#3-setting-up-hyper-v).
 
 ### 1. Clone this repository using Git
 
-To clone this repository locally with submodules, run the below commands:
+To clone this repository locally with submodules, run the below command:
 ```sh
 git clone --recurse-submodules https://github.com/Qonfused/OSX-Hyper-V
 cd OSX-Hyper-V
 ```
 
-If you've cloned this project without resolving submodules, you'll need to initialize them:
-```sh
-git submodule init
-git submodule update
-```
-
-> **Note**: Optionally, you can add git aliases to always resolve submodules:
-> ```sh
-> git config --global alias.clone-all 'clone --recurse-submodules'
-> git config --global alias.pull-all 'pull --recurse-submodules'
-> ```
-
 ### 2. Build this repository using OCE-Build
 
-This project uses the [OCE-Build](https://github.com/Qonfused/OCE-Build) to automatically version and build this repository's EFI. This is automatically included under the `scripts/lib/oce-build` folder.
+This project uses the [OCE-Build](https://github.com/Qonfused/OCE-Build) to automatically version and build this repository's EFI.
 
-#### i. Setting up OCE-Build
-> **Note** **OCE-Build** must be run in a Linux or macOS environment.
+> [!IMPORTANT]
+> To run powershell scripts, you may need to set your execution policy using:
+> ```powershell
+> Set-ExecutionPolicy RemoteSigned
+> ```
 
-For Windows users, refer to [aka.ms/wslinstall](aka.ms/wslinstall) and [aka.ms/wsl2](aka.ms/wsl2) for instructions on installing wsl and upgrading to the wsl2 kernel (recommended).
-- You can install a Linux distribution directly from the Microsoft Store (e.g. [Ubuntu 20.04.5 LTS](https://apps.microsoft.com/store/detail/ubuntu-20045-lts/9MTTCL66CPXJ)).
-- Alternatively, you can [setup devcontainers](https://code.visualstudio.com/docs/devcontainers/containers#_installation) with Docker and VSCode to run a containerized Linux environment on top of the wsl backend.
-  - The [devcontainer](/.devcontainer/devcontainer.json) for this project will setup and build the project automatically upon container creation.
-
-For Linux users (or wsl), ensure you install the following packages:
-- Install with `sudo apt install curl zip libarchive-tools acpica-tools`
-- Check with `curl --version`, `bsdtar --version`, or `iasl -v`
-
-#### ii. Building an EFI target
 To build this project's EFI, run one of the below commands at the root of the project:
-```sh
+```powershell
 # Build for macOS 10.8 and newer
-bash scripts/build.sh
+scripts\build.ps1
 
 # Build for macOS 10.7 and older
-bash scripts/build.sh --legacy
+scripts\build.ps1 --legacy
 
 # Build for macOS 10.4 - 10.5, 10.6 if running in 32-bit mode
-bash scripts/build.sh --legacy --32-bit
+scripts\build.ps1 --legacy --32-bit
 ```
 
 ### 3. Setting up Hyper-V
 
-> **Note** **MacHyperVSupport** currently requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is unsupported.
+> [!NOTE]
+> **MacHyperVSupport** currently requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is unsupported.
 
 First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) before proceeding.
 - You can run PowerShell as administrator and enable the Hyper-V role by running the below command:
@@ -381,21 +363,17 @@ First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virt
   Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
   ```
 
-To run powershell scripts, you may also need to set your execution policy with:
-```ps
-Set-ExecutionPolicy RemoteSigned
-```
-
-> **Note** After building or downloading this project's EFI, you can run the [`create-virtual-machine.ps1`](/scripts/lib/create-virtual-machine.ps1) script to quickly bootstrap a new virtual-machine.
->
+> [!TIP]
+> After building or downloading this project's EFI, you can run the [`create-virtual-machine.ps1`](/scripts/lib/create-virtual-machine.ps1) script to quickly bootstrap a new virtual-machine (to skip the below steps).
+> 
 > For example:
->
+> 
 > ```powershell
 > $ cd ~/Downloads/EFI-1.0.0-64-bit-DEBUG # Scripts are packaged with releases
->
+> 
 > # Use the latest version of macOS (cpu=2 cores, ram=8 GB, size=50 GB)
 > $ scripts\create-virtual-machine.ps1 -name "My New Virtual Machine"
->
+> 
 > # Use an older version of macOS (cpu=4 cores, ram=16 GB, size=128 GB)
 > $ scripts\create-virtual-machine.ps1 -name "Catalina" -version 10.15 -cpu 4 -ram 16 -size 128
 > ```
@@ -464,9 +442,10 @@ Once created, right click on your new virtual-machine (under the 'Virtual Machin
   - Navigate to 'SCSI Controller' and add a new hard drive for your EFI VHDX (and installer VHDX if applicable).
     - You'll need to attach your EFI VHDX with a location value of `0` and change the location value for your main virtual hard disk to a different value (e.g. `1` or `2`).
 
-You may need to connect the default network switch manually for networking to work.
-- Navigate to **Network Adapter** and select the 'Default Switch' under the **Virtual Switch** option.
-- Navigate to **Firmware** and move the 'Network Adapter' boot entry below the 'EFI' boot option.
+> [!IMPORTANT]
+> You may need to connect the default network switch manually for networking to work.
+> - Navigate to **Network Adapter** and select the 'Default Switch' under the **Virtual Switch** option.
+> - Navigate to **Firmware** and move the 'Network Adapter' boot entry below the 'EFI' boot option.
 
 ### 4. Using this EFI with macOS
 
@@ -483,21 +462,22 @@ There are some known limitations with the base configuration for Hyper-V:
 - Graphics Acceleration
   - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
   - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] with a supported GPU.
-    > **Note** DDA is only available for Windows Server and Microsoft Hyper-V Server versions 2016 and newer. Windows Pro and Windows Enterprise users have no support for DDA with Hyper-V.
 - Audio Support
   - By default, Hyper-V does not expose an audio device to macOS.
+
+> [!NOTE]
+> DDA is only available for Windows Server and Microsoft Hyper-V Server versions 2016 and newer. Windows Pro and Windows Enterprise users have no support for DDA with Hyper-V.
 
 [aka.ms/dda]: https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/deploy/deploying-graphics-devices-using-dda
 
 #### iServices
 
-To enable **iServices** functionality, you can either:
-- (A) Generate SMBIOS data with [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
+To enable **iServices** functionality, you can:
+1. Generate SMBIOS data with [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
   - Follow the Dortania [iServices guide](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html#using-gensmbios) to generate new SMBIOS data for your machine.
-- (B) For local builds of this EFI, generate and patch SMBIOS data automatically.
-  - This is automatically generated each time you run a build as long as no existing **.serialdata** file exists.
-  - You can re-generate this data by removing **.serialdata** and re-running the build script (or running `bash scripts/lib/oce-build/scripts/patch-serial.sh -c src/config.yml`).
-  - Please refer to the notice in the build-generated **.serialdata** file under the **src/** directory for instructions on validating your serial number.
+2. For local builds of this EFI, patch *existing* SMBIOS data automatically.
+  - This is automatically patched each time you run a build using the **.serialdata** file (using existing data or data generated by GenSMBIOS).
+  - Refer to the [**.serialdata.example**](/src/.serialdata.example) file for an example of the entry format.
 
 ## 🔥 Contributing
 Contributions of any size to this project are always welcome!
