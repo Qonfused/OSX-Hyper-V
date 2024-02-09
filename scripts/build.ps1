@@ -34,4 +34,6 @@ icm `
   -ArgumentList (@("build -c $pwd $patches") + $arguments)
 
 # Run the post-build script
+Write-Host "`nRunning post-build script..."
 powershell.exe "$PSScriptRoot\post-build.ps1"
+Write-Host "Done.`n"
