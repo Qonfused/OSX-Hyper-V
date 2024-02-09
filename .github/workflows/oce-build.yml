@@ -83,7 +83,7 @@ jobs:
           # Copy lockfile to EFI directory
           cp src/build.lock dist/EFI/build.lock
           # Compress EFI directory
-          zip -r -X EFI.zip dist/EFI
+          tar.exe -czf EFI.zip -C dist/EFI .
       # Upload built EFI as artifact
       #
       # Uploads EFI with a short-sha slug. The uploaded EFI will be available
