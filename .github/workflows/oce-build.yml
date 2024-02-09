@@ -65,8 +65,8 @@ jobs:
         name: Validate OCE-Build output
         shell: pwsh
         run: |
-          ocvalidate=dist\Utilities\ocvalidate\ocvalidate.exe
-          $ocvalidate .\dist\EFI\OC\config.plist
+          $OCVALIDATE=dist\Utilities\ocvalidate\ocvalidate.exe
+          $OCVALIDATE .\dist\EFI\OC\config.plist
       # Handles compression and lock-hash generation for upload task.
       #
       # This stores a hash of the output build's lockfile to associate with the
