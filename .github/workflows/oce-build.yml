@@ -65,8 +65,8 @@ jobs:
         name: Validate OCE-Build output
         shell: pwsh
         run: |
-          $OCVALIDATE = dist\Utilities\ocvalidate\ocvalidate.exe;
-          $PLIST_PATH = .\dist\EFI\OC\config.plist;
+          $OCVALIDATE = 'dist\Utilities\ocvalidate\ocvalidate.exe';
+          $PLIST_PATH = 'dist\EFI\OC\config.plist';
           Start-Process -Wait $OCVALIDATE -NoNewWindow -ArgumentList $PLIST_PATH;
       # Handles compression and lock-hash generation for upload task.
       #
