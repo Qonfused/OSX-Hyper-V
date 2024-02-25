@@ -40,22 +40,18 @@ jobs:
           echo "$BODY" > ${{ github.workspace }}-RELEASE_NOTES.txt
         env:
           TAG: ${{ env.TAG }}
-      # List all *.zip files (for debugging purposes only)
-      - id: list-zip-files
-        name: List all *.zip files
-        run: |
-          find . -type f -name "*.zip"
-      # # Publish release
-      # - name: Create Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     name: v${{ env.TAG }}
-      #     tag_name: ${{ env.TAG }}
-      #     body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
-      #     files: |
-      #       EFI-${{ env.TAG }}-64-bit-DEBUG.zip
-      #       EFI-${{ env.TAG }}-64-bit-RELEASE.zip
-      #       EFI-${{ env.TAG }}-legacy-32-bit-DEBUG.zip
-      #       EFI-${{ env.TAG }}-legacy-32-bit-RELEASE.zip
-      #       EFI-${{ env.TAG }}-legacy-64-bit-DEBUG.zip
-      #       EFI-${{ env.TAG }}-legacy-64-bit-RELEASE.zip
+      # Publish release
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ env.TAG }}
+          tag_name: ${{ env.TAG }}
+          body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
+          prerelease: true
+          files: |
+            EFI-${{ env.TAG }}-64-bit-DEBUG.zip
+            EFI-${{ env.TAG }}-64-bit-RELEASE.zip
+            EFI-${{ env.TAG }}-legacy-32-bit-DEBUG.zip
+            EFI-${{ env.TAG }}-legacy-32-bit-RELEASE.zip
+            EFI-${{ env.TAG }}-legacy-64-bit-DEBUG.zip
+            EFI-${{ env.TAG }}-legacy-64-bit-RELEASE.zip
