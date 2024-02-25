@@ -44,7 +44,7 @@ jobs:
       - id: list-zip-files
         name: List all *.zip files
         run: |
-          ls -l *.zip
+          find . -type f -name "*.zip"
       # # Publish release
       # - name: Create Release
       #   uses: softprops/action-gh-release@v1
