@@ -6,4 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
-## [0.0.0] - Unreleased
+## [0.1.0] - Unreleased
+
+## [0.0.0] - 2023-06-15

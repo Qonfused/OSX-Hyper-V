@@ -40,11 +40,6 @@ jobs:
           echo "$BODY" > RELEASE_NOTES.txt
         env:
           TAG: ${{ env.TAG }}
-      # List all files (for debugging purposes only)
-      - id: list-zip-files
-        name: List all files
-        run: |
-          ls
       # Publish release
       - name: Create Release
         uses: softprops/action-gh-release@v1
