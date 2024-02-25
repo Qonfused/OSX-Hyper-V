@@ -111,7 +111,7 @@ ACPI:
   @override
   Patch:
     # Companion to SSDT-HV-DEV-WS2022
-    - Base:                 String  | "\\\\P241"
+    - Base:                 String  | "\\P241"
       Comment:              String  | "_STA to XSTA rename (additional Hyper-V processors)"
       Count:                Number  | 1808
       Find:                 Data    | <5F535441>
@@ -155,7 +155,7 @@ ACPI:
       Find:                 Data    | <5F535441>
       Replace:              Data    | <58535441>
       TableSignature:       Data    | <44534454>
-    - Base:                 String  | "\\\\P001"
+    - Base:                 String  | "\\P001"
       Comment:              String  | "_STA to XSTA rename (Hyper-V processors)"
       Count:                Number  | 240
       Find:                 Data    | <5F535441>
