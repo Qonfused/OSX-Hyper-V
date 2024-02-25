@@ -37,7 +37,7 @@ jobs:
         shell: sh
         run: |
           BODY="$(sed -n "/## \[$TAG\]/,/## \[/p" docs/CHANGELOG.md | sed -e '1,2d;$d')"
-          echo "$BODY" > ${{ github.workspace }}-RELEASE_NOTES.txt
+          echo "$BODY" > RELEASE_NOTES.txt
         env:
           TAG: ${{ env.TAG }}
       # List all files (for debugging purposes only)
@@ -51,7 +51,7 @@ jobs:
         with:
           name: v${{ env.TAG }}
           tag_name: ${{ env.TAG }}
-          body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
+          body_path: RELEASE_NOTES.txt
           prerelease: true
           files: |
             EFI-${{ env.TAG }}-64-bit-DEBUG.zip

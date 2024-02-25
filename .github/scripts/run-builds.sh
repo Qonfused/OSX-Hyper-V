@@ -17,7 +17,7 @@ while read -r args; do
     echo "$REPLACE" > src/build.yml
     # Run build script
     TARGET="${args//|/-}"
-    FLAGS="--skip-serial --${args//|/ --}"
+    FLAGS="--${args//|/ --}"
     echo "Building \"EFI-$TAG-$TARGET-$BUILD.zip\"..."
     powershell.exe scripts/build.ps1 "$FLAGS"
     # Compress EFI directory
