@@ -320,9 +320,9 @@ If you opt to use one of the pre-built releases from this repository, you can sk
 
 ### 1. Clone this repository using Git
 
-To clone this repository locally with submodules, run the below command:
+To clone this repository, run the below command:
 ```sh
-git clone --recurse-submodules https://github.com/Qonfused/OSX-Hyper-V
+git clone https://github.com/Qonfused/OSX-Hyper-V
 cd OSX-Hyper-V
 ```
 
