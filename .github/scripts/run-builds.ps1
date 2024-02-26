@@ -21,13 +21,14 @@ $flagsList = @(
 
 foreach ($build in $buildList) {
   # Prepare for each build configuration
-  Remove-Item -Path dist -Recurse -ErrorAction SilentlyContinue
-  Remove-Item -Path src\build.lock -ErrorAction SilentlyContinue
+  Remove-Item src\build.lock -ErrorAction SilentlyContinue
   (Get-Content src\build.yml) -replace '^build: [A-Z]*', "build: $build" |
     Set-Content src\build.yml
 
   # Run build for each flag configuration
   foreach ($flags in $flagsList) {
+    Remove-Item dist -Force -Recurse -ErrorAction SilentlyContinue
+  
     # Run build script
     $flags = $($flags -join ' ')
     Write-Host "Starting $build build with flags: $flags"
