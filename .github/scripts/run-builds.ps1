@@ -36,7 +36,7 @@ foreach ($build in $buildList) {
 
     # Compress EFI directory
     $identifier = "$($flags -replace '--', '' -join '-')-$build"
-    mv src\build.lock dist\EFI\OC\build.lock
+    cp src\build.lock dist\EFI\OC\build.lock
     tar.exe -czf "EFI-$env:TAG-$identifier.zip" -C dist .
   }
 }
