@@ -27,8 +27,8 @@ jobs:
       # folders needed for downstream build tasks.
       - id: oce-build
         name: Run OCE-Build for all build targets
-        shell: sh
-        run: bash .github/scripts/run-builds.sh
+        shell: pwsh
+        run: .\.github\scripts\run-builds.ps1
         env:
           TAG: ${{ env.TAG }}
       # Generate Changelog notes and release info
