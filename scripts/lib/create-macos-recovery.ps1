@@ -8,7 +8,7 @@
 param (
   [string]$pwd = "$((Get-Item "$PSScriptRoot\..").FullName)",
   # Script arguments
-  [string]$macrecovery = "$($pwd)\scripts\macrecovery\macrecovery.py",
+  [string]$macrecovery = "$($pwd)\Utilities\macrecovery\macrecovery.py",
   [string]$version = "latest",
   [string]$outdir = "$($pwd)\com.apple.recovery.boot"
 )

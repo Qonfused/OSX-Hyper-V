@@ -1,3 +1,0 @@
-[submodule "scripts/lib/oce-build"]
-	path = scripts/lib/oce-build
-	url = https://github.com/Qonfused/OCE-Build.git

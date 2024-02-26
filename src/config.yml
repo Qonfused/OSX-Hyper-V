@@ -7,22 +7,111 @@
 ##
 
 # This file builds on the existing defaults from OCE-Build and MacHyperVSupport.
-# @see https://github.com/Qonfused/OCE-Build/blob/main/base-config.yml
+# @see https://github.com/Qonfused/OCE-Build/blob/main/docs/resources/base-config.yml
 # @see https://github.com/acidanthera/MacHyperVSupport/blob/master/README.md
 
 # Refer to the below resources for more information on sensible defaults:
 # - https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Configuration.pdf
 #   (or https://dortania.github.io/docs/latest/Configuration.html)
 
+#region: Base Configuration - Keep in sync with docs/resources/base-config.yml
+
+################################################################################
+#                             Misc. Cosmetic fixes                             #
+################################################################################
+
+# Remove warning comments
+@delete('#WARNING - 1', '#WARNING - 2', '#WARNING - 3', '#WARNING - 4')
+# Remove redundant comment
+@delete('NVRAM.Add.7C436110-AB2A-4BBB-A880-FE41995C9F82.#INFO (prev-lang:kbd)')
+
+@ifdef(RELEASE)
+# Use default GoldenGate theme with OpenCanopy.
+# - https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui.html
+Misc:
+  Boot:
+    PickerMode:                       String  | "External"
+    PickerVariant:                    String  | "Acidanthera\GoldenGate"
+@endif
+
+# Changes default macOS installer/keyboard language to English.
+# - You can find a list of supported languages below (convert HEX -> ASCI):
+#   https://github.com/acidanthera/OpenCorePkg/blob/master/Utilities/AppleKeyboardLayouts/AppleKeyboardLayouts.txt
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      prev-lang:kbd:                  String  | "en-US:0"
+
+################################################################################
+#                           Platform (SMBIOS) fixes                            #
+################################################################################
+
+# Prevents SMBIOS injection into non-Apple operating systems.
+#
+# This approach with UpdateSMBIOSMode relegates SMBIOS updates to macOS to avoid
+# colliding with OEM Windows license activation and other custom OEM software.
+#
+# This works by writing SMBIOS information to another area of the SMBIOS table
+# not read by Windows and instead patching macOS's AppleSmbios.kext to read from
+# the new location. The original SMBIOS information area is left untouched.
+#
+# - Note1: All ACPI injections, patches, deletions are still applied by OpenCore
+#          when using this method. To prevent any ACPI manipulation from being
+#          applied, it is better to boot into the Windows Boot Manager instead.
+#
+# - Note2: OEM Windows license activation is only problematic with SMBIOS
+#          injection for licenses with no Windows accounts tied to them.
+#
+# - Note3: This has a side-effect of breaking Bootcamp compatibility on Windows.
+#          You can restore this functionality (at the cost of breaking OEM
+#          software on hackintoshes) by using the below OpenCore defaults:
+#
+#              Kernel.Quirks.CustomSMBIOSGuid: Boolean | false
+#              PlatformInfo.UpdateSMBIOSMode:  String  | "Create"
+Kernel:
+  Quirks:
+    CustomSMBIOSGuid:                 Boolean | true
+PlatformInfo:
+  UpdateSMBIOSMode:                   String  | "Custom"
+
+################################################################################
+
+@ifdef(DEBUG)
+# Debugging quirks (recommended with DEBUG version of OpenCore)
+# - https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/debug.html
+# - https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/kernel-debugging.html#nvram
+Kernel:
+  Quirks:
+    PanicNoKextDump:                  Boolean | true
+    PowerTimeoutKernelPanic:          Boolean | true
+Misc:
+  Debug:
+    AppleDebug:                       Boolean | true
+    ApplePanic:                       Boolean | true
+    DisableWatchDog:                  Boolean | true
+    Target:                           Number  | 67
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Breakdown of used boot args:
+      # `-v`              (verbose mode)
+      # `debug=0x100`     (debug mask; disables watchdog to avoid panic reboot)
+      # `keepsyms=1`      (show panic log debug symbols)
+      # `msgbuf=1048576`  (Resizes kernel msg buffer to 1 MB; avoids truncation)
+      boot-args:                      String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576"
+@endif
+
+#endregion
 
 ################################################################################
 #                               ACPI related fixes                             #
 ################################################################################
 
 ACPI:
+  @override
   Patch:
     # Companion to SSDT-HV-DEV-WS2022
-    - Base:                 String  | "\\\\P241"
+    - Base:                 String  | "\\P241"
       Comment:              String  | "_STA to XSTA rename (additional Hyper-V processors)"
       Count:                Number  | 1808
       Find:                 Data    | <5F535441>
@@ -66,7 +155,7 @@ ACPI:
       Find:                 Data    | <5F535441>
       Replace:              Data    | <58535441>
       TableSignature:       Data    | <44534454>
-    - Base:                 String  | "\\\\P001"
+    - Base:                 String  | "\\P001"
       Comment:              String  | "_STA to XSTA rename (Hyper-V processors)"
       Count:                Number  | 240
       Find:                 Data    | <5F535441>
@@ -137,3 +226,30 @@ NVRAM:
       #   - FF0F0000: Disables all flags in macOS Big Sur
       # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
       csr-active-config:    Data    | <00000000>
+
+################################################################################
+#                            Cosmetic Plist Fixes                              #
+################################################################################
+
+# Clear default entries from Sample.plist
+ACPI:
+  @override
+  Delete:                             Array   | []
+Booter:
+  @override
+  MmioWhitelist:                      Array   | []
+  @override
+  Patch:                              Array   | []
+Kernel:
+  @override
+  Block:                              Array   | []
+  @override
+  Force:                              Array   | []
+  @override
+  Patch:                              Array   | []
+Misc:
+  @override
+  Entries:                            Array   | []
+UEFI:
+  @override
+  ReservedMemory:                     Array   | []

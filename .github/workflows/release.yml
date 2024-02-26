@@ -4,34 +4,16 @@ permissions:
   contents: write
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      # Installs dependencies needed for running OCE-Build.
-      #
-      # This includes the following required commands:
-      # - libarchive-tools:
-      #   - **BSDTAR**: Used for unarchiving .zip files.
-      # - acpica-tools:
-      #   - **iasl**: Required for compiling .dsl files.
-      - name: Install OCE-Build dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt install -qq -o=Dpkg::Use-Pty=0 \
-            libarchive-tools \
-            acpica-tools
       # Fetches remote repository without --progress option.
       #
       # The default behavior of @actions/checkout outputs many noisy lines of
       # status output in the workflow log, which is problematic for log size.
-      #
-      # Refer to the below PR for updates on this issue:
-      # - https://github.com/actions/checkout/pull/1067
       - name: Checkout latest repository commit
-        # uses: actions/checkout@v3
-        uses: simonbaird/checkout@no-progress-option
+        uses: actions/checkout@v4
         with:
           show-progress: false
-          submodules: recursive
       # Generate Changelog notes and release info
       - id: get-tag
         name: Fetches latest release tag
@@ -45,8 +27,8 @@ jobs:
       # folders needed for downstream build tasks.
       - id: oce-build
         name: Run OCE-Build for all build targets
-        shell: sh
-        run: bash .github/scripts/run-builds.sh
+        shell: pwsh
+        run: .\.github\scripts\run-builds.ps1
         env:
           TAG: ${{ env.TAG }}
       # Generate Changelog notes and release info
@@ -55,16 +37,18 @@ jobs:
         shell: sh
         run: |
           BODY="$(sed -n "/## \[$TAG\]/,/## \[/p" docs/CHANGELOG.md | sed -e '1,2d;$d')"
-          echo "$BODY" > ${{ github.workspace }}-RELEASE_NOTES.txt
+          echo "$BODY" > RELEASE_NOTES.txt
         env:
           TAG: ${{ env.TAG }}
       # Publish release
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        # uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@4634c16e79c963813287e889244c50009e7f0981
         with:
           name: v${{ env.TAG }}
           tag_name: ${{ env.TAG }}
-          body_path: ${{ github.workspace }}-RELEASE_NOTES.txt
+          body_path: RELEASE_NOTES.txt
+          prerelease: true
           files: |
             EFI-${{ env.TAG }}-64-bit-DEBUG.zip
             EFI-${{ env.TAG }}-64-bit-RELEASE.zip

@@ -1,34 +1,33 @@
 ---
-oc-version: latest
-oc-build: DEBUG
+version: latest
+build: DEBUG
 ---
-include:
-  "*":
-  - ".contentVisibility"
-  acpi:
-    SSDT-HV-DEV-WS2022: "ACPI/SSDT-HV-DEV-WS2022.dsl"
-    SSDT-HV-DEV: "ACPI/SSDT-HV-DEV.dsl"
-    SSDT-HV-VMBUS: "ACPI/SSDT-HV-VMBUS.dsl"
-    # This SSDT must be loaded after SSDT-HV-DEV
-    SSDT-HV-PLUG: "ACPI/SSDT-HV-PLUG.dsl"
-  drivers:
+ACPI:
+  SSDT-HV-DEV-WS2022: "ACPI/SSDT-HV-DEV-WS2022.dsl"
+  SSDT-HV-DEV: "ACPI/SSDT-HV-DEV.dsl"
+  SSDT-HV-VMBUS: "ACPI/SSDT-HV-VMBUS.dsl"
+  # This SSDT must be loaded after SSDT-HV-DEV
+  SSDT-HV-PLUG: "ACPI/SSDT-HV-PLUG.dsl"
+Drivers:
   - HfsPlus
+@ifdef(RELEASE)
   - OpenCanopy
+@endif
   - OpenRuntime
   - ResetNvramEntry
-  kexts:
-    Lilu: latest
-    VirtualSMC: latest
-    # Core Hyper-V support kext for macOS 12.0 and newer.
-    MacHyperVSupportMonterey:
-      specifier: "*"
+Kexts:
+  Lilu: latest
+  VirtualSMC: latest
+  # Core Hyper-V support kext for macOS 12.0 and newer.
+  MacHyperVSupportMonterey:
+    specifier: "*"
+    properties:
       MinKernel: "21.0.0"
-    # Core Hyper-V support kext for macOS 10.4 to 11.0.
-    MacHyperVSupport:
-      specifier: "latest"
+  # Core Hyper-V support kext for macOS 10.4 to 11.0.
+  MacHyperVSupport:
+    specifier: latest
+    properties:
       MaxKernel: "20.9.9"
-  tools:
+Tools:
+  # Also known as UEFIShell
   - OpenShell
-exclude:
-  "*":
-  - ".contentFlavour"

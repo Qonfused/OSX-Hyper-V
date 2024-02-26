@@ -1,10 +1,9 @@
 .*
-!/.devcontainer/
 !/.github/
 !/.vscode/
+!/.env-example
 !/.gitattributes
 !/.gitignore
-!/.gitmodules
 
 # Build config files
 !.serialdata.example

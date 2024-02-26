@@ -32,15 +32,15 @@ Connect-VMNetworkAdapter -VMName "$name" -Name "$($networkAdapter.name)" -Switch
 
 # Create EFI disk
 $efiVHD = "$outdir\$name\EFI.vhdx"
-& powershell.exe "$($pwd)\scripts\create-macos-recovery.ps1" -version "$version"
-& powershell.exe "$($pwd)\scripts\convert-efi-disk.ps1" -dest "$efiVHD"
+& powershell.exe "$PSScriptRoot\create-macos-recovery.ps1" -version "$version"
+& powershell.exe "$PSScriptRoot\convert-efi-disk.ps1" -dest "$efiVHD"
 Add-VMHardDiskDrive -VMName "$name" -Path "$efiVHD" -ControllerType SCSI
 $efiDisk = Get-VMHardDiskDrive -VMName "$name"
 
 # Create post-install VHDX if tools folder is present
-$toolsDir = "$($pwd)\tools"
+$toolsDir = "$($pwd)\Tools"
 if (Test-Path -Path "$toolsDir") {
-  $toolsVHD = "$outdir\$name\tools.vhdx" 
+  $toolsVHD = "$outdir\$name\Tools.vhdx" 
   # Create and mount a new tools.vhdx disk
   $toolsDisk = New-VHD -Path "$toolsVHD" -Dynamic -SizeBytes 512MB |
     Mount-VHD -Passthru |
