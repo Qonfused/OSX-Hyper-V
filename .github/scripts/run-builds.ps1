@@ -27,7 +27,7 @@ foreach ($build in $buildList) {
 
   # Run build for each flag configuration
   foreach ($flags in $flagsList) {
-    Remove-Item dist -Force -Recurse -ErrorAction SilentlyContinue
+    $identifier = "$($flags -replace '--', '' -join '-')-$build"
   
     # Run build script
     $flags = $($flags -join ' ')
@@ -35,8 +35,10 @@ foreach ($build in $buildList) {
     powershell.exe "$pwd\scripts\build.ps1" $flags
 
     # Compress EFI directory
-    $identifier = "$($flags -replace '--', '' -join '-')-$build"
     cp src\build.lock dist\EFI\OC\build.lock
     tar.exe -czf "EFI-$env:TAG-$identifier.zip" -C dist .
+
+    # Cleanup
+    Remove-Item dist -Force -Recurse -ErrorAction SilentlyContinue
   }
 }
