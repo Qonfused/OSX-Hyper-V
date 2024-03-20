@@ -12,7 +12,7 @@
 <div align="center">
 
   <a href="/LICENSE">![License](https://img.shields.io/badge/⚖_License-BSD_3_Clause-lightblue?labelColor=3f4551)</a>
-  <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/badge/SemVer-v0.0.0-important?logo=SemVer&labelColor=3f4551)</a>
+  <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/badge/SemVer-v0.1.0-important?logo=SemVer&labelColor=3f4551)</a>
   <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2014-important?labelColor=3f4551)</a>
     <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-0.9.8-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
   <a href="https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml">![OCE Build](https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml/badge.svg?branch=main)</a>
@@ -328,7 +328,7 @@ cd OSX-Hyper-V
 
 ### 2. Build this repository using OCE-Build
 
-This project uses the [OCE-Build](https://github.com/Qonfused/OCE-Build) to automatically version and build this repository's EFI.
+This project uses [OCE-Build](https://github.com/Qonfused/OCE-Build) to automatically version and build this repository's EFI.
 
 > [!IMPORTANT]
 > To run powershell scripts, you may need to set your execution policy using:
@@ -354,7 +354,7 @@ scripts\build.ps1 --legacy --32-bit
 > **MacHyperVSupport** currently requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is unsupported.
 
 First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) before proceeding.
-- You can run PowerShell as administrator and enable the Hyper-V role by running the below command:
+- You can enable the Hyper-V role by running the below command in PowerShell as administrator:
   ```ps
   Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
   ```
@@ -461,7 +461,7 @@ There are some known limitations with the base configuration for Hyper-V:
   - The default virtual display resolution is set to a 1024x768 resolution and is not resizable.
 - Graphics Acceleration
   - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
-  - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] with a supported GPU.
+  - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] using a supported GPU.
 - Audio Support
   - By default, Hyper-V does not expose an audio device to macOS.
 
