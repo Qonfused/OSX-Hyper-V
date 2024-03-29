@@ -310,7 +310,10 @@ Supported versions below include macOS versions **10.4** to **14.0**.
 </table>
 
 > [!NOTE]
-> You can also find past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
+> Installations of OS X Tiger (10.4) to Lion (10.7) are not possible directly. It is recommended to first install a newer version of macOS and restore to the desired version using a [disk image provided by Acidanthera](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install-dmg.html).
+
+> [!NOTE]
+> You can also find other past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
 
 Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
 
