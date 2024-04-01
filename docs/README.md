@@ -6,7 +6,7 @@
     class="center"
     width=500px
   ><br>
-  A <b>Hackintosh</b> project for implementing the <a href="https://github.com/acidanthera/MacHyperVSupport">MacHyperVSupport</a> package for <b>Windows Hyper-V</b> built on top of the <a href="https://github.com/acidanthera/OpenCorePkg">OpenCore</a> bootloader and <a href="https://github.com/Qonfused/OCE-Build">OCE-Build</a> build manager.
+  A <b>Hackintosh</b> project implementing the <a href="https://github.com/acidanthera/MacHyperVSupport">MacHyperVSupport</a> package for <b>Windows Hyper-V</b>, built on top of the <a href="https://github.com/acidanthera/OpenCorePkg">OpenCore</a> bootloader and <a href="https://github.com/Qonfused/OCE-Build">OCE-Build</a> build manager.
 </p>
 
 <div align="center">
@@ -39,6 +39,11 @@ Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes im
 ### macOS Version Support:
 
 Supported versions below include macOS versions **10.4** to **14.0**.
+
+> [!NOTE]
+> Installations of OS X Tiger (10.4) to Lion (10.7) are not possible directly. It is recommended to first install a newer version of macOS and restore to the desired version using a [disk image provided by Acidanthera](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install-dmg.html).
+>
+> You can also find other past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
 
 <table>
   <thead>
@@ -309,12 +314,6 @@ Supported versions below include macOS versions **10.4** to **14.0**.
   </tbody>
 </table>
 
-> [!NOTE]
-> Installations of OS X Tiger (10.4) to Lion (10.7) are not possible directly. It is recommended to first install a newer version of macOS and restore to the desired version using a [disk image provided by Acidanthera](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install-dmg.html).
-
-> [!NOTE]
-> You can also find other past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
-
 Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/blob/master/Docs/HyperV-versions.md) for a complete breakdown of macOS compatibility with Windows Client, Server, and Hyper-V versions.
 
 ## ✨ Getting Started
@@ -354,7 +353,7 @@ scripts\build.ps1 --legacy --32-bit
 ### 3. Setting up Hyper-V
 
 > [!NOTE]
-> **MacHyperVSupport** currently requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is unsupported.
+> **MacHyperVSupport** requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is currently unsupported.
 
 First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) before proceeding.
 - You can enable the Hyper-V role by running the below command in PowerShell as administrator:
@@ -381,26 +380,32 @@ First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virt
 > $ scripts\create-virtual-machine.ps1 -name "Catalina" -version 10.15 -cpu 4 -ram 16 -size 128
 > ```
 
+Below outline the steps to manually create a new virtual machine for macOS:
+
+---
+
 #### i. Create a boot VHDX disk
 
 Format a small (1GB) FAT32 disk initialized with GPT (GUID partition table) and mount it. This will serve as the boot partition for your macOS virtual machine and contain the OpenCore EFI folder.
 - Choose one of three ways of creating VHD/VHDX disks:
-  - (A) Hyper-V Manager - Navigate to `Action > New > Hard Disk`.
+  - (A) Hyper-V Manager - Navigate to `Action > New > Hard Disk`. <br>![A-VHD](https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/README/A-VHD.png)
     - Hard disks are located under `C:\ProgramData\Microsoft\Windows\Virtual Hard Disks\`.
     - You can mount a VHD/VHDX disk by right clicking on the file and selecting `Mount`.
     - You can unmount by right-clicking on the mounted disk and selecting `Eject`.
-  - (B) Disk Management - Navigate to `Action > Create VHD`.
+  - (B) Disk Management - Navigate to `Action > Create VHD`. <br>![B-VHD](https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/README/B-VHD.png)
+    - Make sure to initialize the disk as GPT and create a new FAT32 partition.
     - You can mount a VHD/VHDX disk with `Action > Attach VHD`.
     - You can unmount by right-clicking on the volume and selecting `Detach VHD`.
   - (C) Powershell - Create a new VHD/VHDX disk with the [`New-VHD`][ps/New-VHD] command.
     <details><summary>(Powershell command)</summary>
 
     ```ps
+    # Run this command in PowerShell as Administrator
+
     $vhdpath = "$env:USERPROFILE\Desktop\EFI.vhdx"
     $vhdsize = 1GB
     $vhdpart = "GPT"
     $vhdfs = "FAT32"
-    # Run this command in PowerShell as Administrator
     New-VHD -Path $vhdpath -Dynamic -SizeBytes $vhdsize |
       Mount-VHD -Passthru |
       Initialize-Disk -PartitionStyle $vhdpart -Confirm:$false -Passthru |
@@ -415,40 +420,45 @@ Move the EFI folder (the whole folder) to the root of the VHDX disk.
 
 [ps/New-VHD]: https://learn.microsoft.com/en-us/powershell/module/hyper-v/new-vhd
 
-#### ii. Create a macOS installer/recovery VHDX disk
-Create or add an installer disk by either:
-- (A) Convert a DMG installer to a VHDX disk with [`qemu-img`][qemu-img/docs]:
-  - If you already have a DMG installer for macOS (e.g. on Sierra and older), you can convert the installer image to a VHDX disk directly by running:
-    ```sh
-    qemu-img convert -f raw -O vhdx InstallMacOSX.dmg InstallMacOSX.vhdx
-    ```
-- (B) Download a BaseSystem or RecoveryImage file directly from Apple using [macrecovery.py][OpenCorePkg]:
-  - Follow the [Dortania-Guide][Dortania-Guide/Installer#Windows] for steps on downloading macOS installer images.
-  - Move both `.chunklist` and `.dmg` files downloaded by macrecovery to your EFI VHDX disk under a new folder named `com.apple.recovery.boot`.
-  - You should be left with both an `EFI/` and `com.apple.recovery.boot/` folder at the root of your EFI VHDX disk.
+---
 
-[qemu-img/docs]: https://qemu.readthedocs.io/en/latest/tools/qemu-img.html
+#### ii. Create a macOS installer/recovery VHDX disk
+Create or add an installer disk with either of the below methods:
+- (A) Download a BaseSystem or Recovery image file directly from Apple using [macrecovery.py][OpenCorePkg]:
+  - Follow the [Dortania-Guide][Dortania-Guide/Installer#Windows] for steps on downloading macOS installer images.
+  - Move both `.chunklist` and `.dmg` files downloaded by macrecovery to your EFI VHDX disk under a new folder named `com.apple.recovery.boot`. You should be left with both an `EFI/` and `com.apple.recovery.boot/` folder at the root of your EFI VHDX disk.
+- (B) Convert a DMG installer to a VHDX disk with [`qemu-img`][qemu-img/docs]:
+  - If you already have a DMG installer for macOS (e.g. on Sierra and older), you can convert the installer image to a VHDX disk directly by running qemu-img with the command:
+    ```powershell
+    qemu-img.exe convert -f raw -O vhdx InstallMacOSX.dmg InstallMacOSX.vhdx
+    ```
+
+[qemu-img/docs]: https://cloudbase.it/qemu-img-windows/
 [OpenCorePkg]: https://github.com/acidanthera/OpenCorePkg/releases
 [Dortania-Guide/Installer#Windows]: https://dortania.github.io/OpenCore-Install-Guide/installer-guide/windows-install.html
+
+---
 
 #### iii. Creating the macOS Virtual Machine
 
 In the Hyper-V Manager, navigate to `Action > New > Virtual Machine`.
-  - Configure the below options while going through the wizard:
-    - **Specify Generation**: Choose `Generation 2`
-    - **Assign Memory**: Allocate at least `4096 MB` (recommended is `8192 MB`)
-    - **Connect Virtual Hard Disk**: Name and select the size of the disk to install macOS on.
+![3-New-VM](https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/README/3-New-VM.png)
+
+Configure the below options while going through the wizard:
+- **Specify Generation**: Choose `Generation 2`.
+- **Assign Memory**: Allocate at least `4096 MB` (recommended is `8192 MB` for Big Sur and newer).
+- **Configure Networking**: Choose the default network switch.
+- **Connect Virtual Hard Disk**: Name and select the size of the disk to install macOS on.
 
 Once created, right click on your new virtual-machine (under the 'Virtual Machines' section of the window), and select `Settings`.
-- Configure the below options under the Hardware section:
-  - Navigate to 'Security' and uncheck `Enable Secure Boot` (disable).
-  - Navigate to 'SCSI Controller' and add a new hard drive for your EFI VHDX (and installer VHDX if applicable).
-    - You'll need to attach your EFI VHDX with a location value of `0` and change the location value for your main virtual hard disk to a different value (e.g. `1` or `2`).
+![3-VM-Settings](https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/README/3-VM-Settings.png)
 
-> [!IMPORTANT]
-> You may need to connect the default network switch manually for networking to work.
-> - Navigate to **Network Adapter** and select the 'Default Switch' under the **Virtual Switch** option.
-> - Navigate to **Firmware** and move the 'Network Adapter' boot entry below the 'EFI' boot option.
+Then configure the below options under the Hardware section:
+- Navigate to 'Security' and uncheck `Enable Secure Boot` (disable).
+- Navigate to 'SCSI Controller' and add a new hard drive for your EFI VHDX (and installer VHDX if applicable).
+  - You'll need to attach your EFI VHDX with a location value of `0` and change the location value for your main virtual hard disk to a different value (e.g. `1` or `2`). This is to ensure that the EFI disk is the first disk in the boot order.
+
+---
 
 ### 4. Using this EFI with macOS
 
@@ -464,7 +474,9 @@ There are some known limitations with the base configuration for Hyper-V:
   - The default virtual display resolution is set to a 1024x768 resolution and is not resizable.
 - Graphics Acceleration
   - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
-  - GPU acceleration is however possible through [Discrete Device Assignment (DDA)][aka.ms/dda] using a supported GPU.
+  - GPU acceleration is possible through [Discrete Device Assignment (DDA)][aka.ms/dda] using a supported GPU, however there exist a couple major caveats:
+    - AMD GPUs (particularly Navi and older GPUs) generally have poor compatibility with macOS through DDA. Natively supported NVIDIA GPUs (using driver v465 or later on Windows) tend to have the best results.
+    - GPU patching with Lilu and WhateverGreen is currently not supported (refer to [#2299](https://github.com/acidanthera/bugtracker/issues/2299) for tracking). This also applies to other kexts like NootedRed/NootedRX that use Lilu.
 - Audio Support
   - By default, Hyper-V does not expose an audio device to macOS.
 
