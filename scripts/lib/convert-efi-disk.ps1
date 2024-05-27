@@ -20,7 +20,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 
 # Create and mount a new EFI.vhdx disk
-$efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 1GB |
+$efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 5GB |
   Mount-VHD -Passthru |
   Initialize-Disk -PartitionStyle "GPT" -Confirm:$false -Passthru |
   New-Partition -AssignDriveLetter -UseMaximumSize |
@@ -28,6 +28,7 @@ $efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 1GB |
 
 # Copy EFI folder to VHDX disk
 Copy-Item -Path "$path" -Recurse -Destination "$($efiDisk.DriveLetter):\EFI"
+
 # Copy macOS recovery image if present
 $recoveryImage = "com.apple.recovery.boot"
 if (Test-Path -Path "$($pwd)\$recoveryImage") {
@@ -35,4 +36,12 @@ if (Test-Path -Path "$($pwd)\$recoveryImage") {
 }
 
 # Unmount VHDX disk
-Dismount-DiskImage -ImagePath "$dest" | Out-Null
+Dismount-VHD -Path "$dest" | Out-Null
+
+# Optimize the VHDX disk to compress the image
+Mount-VHD -Path "$dest" -ReadOnly | Out-Null
+Optimize-VHD -Path "$dest" -Mode Full
+Dismount-VHD -Path "$dest" | Out-Null
+
+# Shrink the VHDX disk to minimum size
+Resize-VHD -Path "$dest" -ToMinimumSize
