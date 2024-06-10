@@ -38,12 +38,15 @@ Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes im
 
 ### macOS Version Support:
 
-Supported versions below include macOS versions **10.4** to **14.0**.
+> [!IMPORTANT]
+> Beta versions of macOS may require the boot arg `-lilubetaall` to be set in the `boot-args` section of your config.plist. This is needed to allow Lilu and all dependent plugins to load on macOS versions that are not yet officially supported.
 
 > [!NOTE]
-> Installations of OS X Tiger (10.4) to Lion (10.7) are not possible directly. It is recommended to first install a newer version of macOS and restore to the desired version using a [disk image provided by Acidanthera](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install-dmg.html).
+> Installations of OS X Tiger (10.4) to Snow Leopard (10.6) are not possible directly. It is recommended to first install a newer version of macOS and restore to the desired version using a [disk image provided by Acidanthera](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install-dmg.html).
 >
 > You can also find other past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
+
+Supported versions below include macOS versions **10.4** to **15.0**.
 
 <table>
   <thead>
@@ -55,6 +58,22 @@ Supported versions below include macOS versions **10.4** to **14.0**.
     </tr>
   </thead>
   <tbody>
+  <!-- macOS 15 -->
+    <tr>
+      <td>
+        <img
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/sequoia.png"
+          width=25
+          hspace=2
+          align="top"
+        />
+        Sequoia
+      </td>
+      <td style="text-align: center;">🚧</td>
+      <td>In Preview.</td>
+      <td><code>(None)</code></td>
+      <td><a href="https://www.apple.com/macos/macos-sequoia-preview/"><code>(Latest)</code></a></td>
+    </tr>
   <!-- macOS 14 -->
     <tr>
       <td>
@@ -69,7 +88,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
       <td style="text-align: center;">✅</td>
       <td>Supported.</td>
       <td><code>(None)</code></td>
-      <td><a href="https://www.apple.com/macos/sonoma-preview/"><code>(Latest)</code></a></td>
+      <td><a href="https://apps.apple.com/us/app/macos-sonoma/id6450717509"><code>(Latest)</code></a></td>
     </tr>
   <!-- macOS 13 -->
     <tr>
@@ -274,7 +293,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Snow Leopard
       </td>
-      <td style="text-align: center;">✅</td>
+      <td style="text-align: center;">🚧</td>
       <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><code>(Retail)</code></td>
@@ -290,7 +309,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Leopard
       </td>
-      <td style="text-align: center;">✅</td>
+      <td style="text-align: center;">🚧</td>
       <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><code>(Retail)</code></td>
@@ -306,7 +325,7 @@ Supported versions below include macOS versions **10.4** to **14.0**.
         />
         Tiger
       </td>
-      <td style="text-align: center;">✅</td>
+      <td style="text-align: center;">🚧</td>
       <td>Supported.</td>
       <td><code>(None)</code></td>
       <td><code>(Retail)</code></td>
