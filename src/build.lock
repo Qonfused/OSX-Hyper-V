@@ -36,11 +36,11 @@ dependencies:
     Lilu:
       build: DEBUG
       version: 1.6.8
-      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-472442f/Lilu-1.6.8-DEBUG.zip'
-      resolution: 'acidanthera/Lilu@github:1.6.8#commit=472442f344531f88d31628da44f0778655a8e532'
+      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-2dd82ab/Lilu-1.6.8-DEBUG.zip'
+      resolution: 'acidanthera/Lilu@github:1.6.8#commit=2dd82ab744e4ee5311ac17023038abe110b662fc'
       specifier: 'acidanthera/Lilu@github'
       kind: Kext
-      revision: '{ SHA1: 472442f344531f88d31628da44f0778655a8e532 }'
+      revision: '{ SHA1: 2dd82ab744e4ee5311ac17023038abe110b662fc }'
     MacHyperVSupport:
       build: DEBUG
       version: 0.9.8
@@ -67,9 +67,9 @@ dependencies:
       revision: '{ SHA1: af09b0bf763363ec9f4ecdbbe2f0adeb970948d8 }'
     OpenCore:
       build: DEBUG
-      version: 0.9.8
-      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/0.9.8/OpenCore-0.9.8-DEBUG.zip'
-      resolution: 'acidanthera/OpenCorePkg@github:0.9.8#commit=7a3f8cc4269a2f176969534c036b3951c07c3a26'
+      version: 1.0.0
+      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.0/OpenCore-1.0.0-DEBUG.zip'
+      resolution: 'acidanthera/OpenCorePkg@github:1.0.0#commit=b83537dde8b146ba4f3f4a3d2c7e6ea43b0522fa'
       specifier: 'acidanthera/OpenCorePkg@github:latest'
       kind: Binary
-      revision: '{ SHA1: 7a3f8cc4269a2f176969534c036b3951c07c3a26 }'
+      revision: '{ SHA1: b83537dde8b146ba4f3f4a3d2c7e6ea43b0522fa }'
