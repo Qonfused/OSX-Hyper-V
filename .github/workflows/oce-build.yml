@@ -89,7 +89,7 @@ jobs:
       # Uploads EFI with a short-sha slug. The uploaded EFI will be available
       # for download after the current job run as finished.
       - name: Upload built EFI
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: EFI-${{ steps.prepare-efi.outputs.LOCKFILE_HASH }}
           path: EFI.zip
