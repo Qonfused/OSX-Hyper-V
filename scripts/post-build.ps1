@@ -10,6 +10,12 @@ param (
   [string]$pwd = "$((Get-Item "$PSScriptRoot\..").FullName)"
 )
 
+$buildDir = "$pwd\dist"
+if (-not (Test-Path $buildDir)) {
+  throw (`
+    "Unable to locate OCE-Build build directory. " +
+    "Please ensure the build script is ran before running the post-build script.");
+}
 
 # Copy Hyper-V setup and post-install scripts under 'dist/Scripts'
 $ScriptsDir = "$pwd\dist\Scripts"
@@ -27,6 +33,11 @@ if (-not (Test-Path $ToolsDir)) {
 
   # Extract the contents of MacHyperVSupport archive to the temporary directory
   $TempDir = Get-Item "$([System.IO.Path]::GetTempPath())\ocebuild-unpack-*"
+  if (-not $TempDir) {
+    throw (`
+      "Unable to locate OCE-Build temporary directory. " +
+      "Please ensure the build script is ran before running the post-build script.");
+  }
   $MacHyperVSupport = "$TempDir\MacHyperVSupport.zip"
   iwr -Uri $Matches[1] -OutFile $MacHyperVSupport
   Expand-Archive -Path $MacHyperVSupport -Destination $TempDir
@@ -35,5 +46,7 @@ if (-not (Test-Path $ToolsDir)) {
   Move-Item -Path "$TempDir\Tools" -Destination $ToolsDir
 
   # Clean up the temporary directory
-  Remove-Item -Path $TempDir\* -Recurse -Force
+  if ($TempDir -match "ocebuild-unpack-") {
+    Remove-Item -Path $TempDir\* -Recurse -Force
+  }
 }
