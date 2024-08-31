@@ -12,12 +12,11 @@
 #   [parameter(ValueFromRemainingArguments)][string[]]$arguments
 # )
 
-$buildList = @('RELEASE', 'DEBUG')
-$flagsList = @(
-  @('--64-bit'),
-  @('legacy', '--32-bit'),
-  @('legacy', '--64-bit')
-)
+$buildList = 'RELEASE',
+             'DEBUG'
+$flagsList = '--64-bit',
+            ('--64-bit', '--legacy'),
+            ('--32-bit', '--legacy')
 
 foreach ($build in $buildList) {
   # Prepare for each build configuration
@@ -27,16 +26,14 @@ foreach ($build in $buildList) {
 
   # Run build for each flag configuration
   foreach ($flags in $flagsList) {
-    $identifier = "$($flags -replace '--', '' -join '-')-$build"
-  
     # Run build script
-    $flags = $($flags -join ' ')
-    Write-Host "Starting $build build with flags: $flags"
-    powershell.exe "$pwd\scripts\build.ps1" $flags
+    Write-Host "Running $build build with flags: $flags..."
+    pwsh "$pwd/scripts/build.ps1" -ArgumentList "$($flags -join ' ')"
 
     # Compress EFI directory
-    cp src\build.lock dist\EFI\OC\build.lock
-    tar.exe -czf "EFI-$env:TAG-$identifier.zip" -C dist .
+    cp "$pwd/src/build.lock" "$pwd/dist/EFI/OC/build.lock"
+    $identifier = "$($flags -replace '--', '' -join '-')-$build"
+    tar -czf "EFI-$env:TAG-$identifier.zip" -C dist .
 
     # Cleanup
     Remove-Item dist -Force -Recurse -ErrorAction SilentlyContinue

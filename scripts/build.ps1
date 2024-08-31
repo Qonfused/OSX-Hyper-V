@@ -15,14 +15,16 @@ param (
 function HasFlag {
   param ([string]$flag)
 
-  if ($arguments -eq $flag) {
-    $arguments = $arguments -ne $flag
-    return $true
+  $arg_array = $arguments -split ' '
+  foreach ($arg in $arg_array) {
+    if ($arg -eq $flag) {
+      $arguments = ($arg_array | ? { $_ -ne $flag }) -join ' '
+      return $true
+    }
   }
 
   return $false
 }
-
 
 # Switches for additional '--legacy' and '--32-bit' patches
 $patches = @('-p config.yml')
@@ -35,5 +37,5 @@ icm `
 
 # Run the post-build script
 Write-Host "`nRunning post-build script..."
-powershell.exe "$PSScriptRoot\post-build.ps1"
+& "$PSScriptRoot\post-build.ps1"
 Write-Host "Done.`n"
