@@ -12,11 +12,11 @@
 #   [parameter(ValueFromRemainingArguments)][string[]]$arguments
 # )
 
-$buildList = 'RELEASE',
-             'DEBUG'
-$flagsList = '--64-bit',
-            ('--64-bit', '--legacy'),
-            ('--32-bit', '--legacy')
+$buildList = 'DEBUG',
+             'RELEASE'
+$flagsList =             '--64-bit',
+            ('--legacy', '--64-bit'),
+            ('--legacy', '--32-bit')
 
 foreach ($build in $buildList) {
   # Prepare for each build configuration
