@@ -27,24 +27,10 @@ Kernel:
 
 ################################################################################
 
-'@ifdef': RELEASE
 NVRAM:
   Add:
+    # Breakdown of used boot args:
+    # `-legacy`         (Force legacy 32-bit mode)
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
-      # Breakdown of used boot args:
-      # `-legacy`         (Force legacy 32-bit mode)
+      @append(" ")
       boot-args:            String  | "-legacy"
-'@endif':
-
-'@ifdef': DEBUG
-NVRAM:
-  Add:
-    7C436110-AB2A-4BBB-A880-FE41995C9F82:
-      # Breakdown of used boot args:
-      # `-v`              (verbose mode)
-      # `debug=0x100`     (debug mask; disables watchdog to avoid panic reboot)
-      # `keepsyms=1`      (show panic log debug symbols)
-      # `msgbuf=1048576`  (Resizes kernel msg buffer to 1 MB; avoids truncation)
-      # `-legacy`         (Force legacy 32-bit mode)
-      boot-args:            String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576 -legacy"
-'@endif':
