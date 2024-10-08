@@ -14,7 +14,7 @@
   <a href="/LICENSE">![License](https://img.shields.io/badge/⚖_License-BSD_3_Clause-lightblue?labelColor=3f4551)</a>
   <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/badge/SemVer-v0.1.0-important?logo=SemVer&labelColor=3f4551)</a>
   <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2015-important?labelColor=3f4551)</a>
-    <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.1-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
+    <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.2-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
   <a href="https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml">![OCE Build](https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml/badge.svg?branch=main)</a>
 
 </div>

@@ -35,12 +35,12 @@ dependencies:
   Kexts:
     Lilu:
       build: DEBUG
-      version: 1.6.8
-      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-7fd770c/Lilu-1.6.8-DEBUG.zip'
-      resolution: 'acidanthera/Lilu@github:1.6.8#commit=7fd770c407307a64b966df2b559f2b311db382df'
+      version: 1.6.9
+      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-8e8eb25/Lilu-1.6.9-DEBUG.zip'
+      resolution: 'acidanthera/Lilu@github:1.6.9#commit=8e8eb256c5d8fa50d44b49255a55f093132d2f25'
       specifier: 'acidanthera/Lilu@github'
       kind: Kext
-      revision: '{ SHA1: 7fd770c407307a64b966df2b559f2b311db382df }'
+      revision: '{ SHA1: 8e8eb256c5d8fa50d44b49255a55f093132d2f25 }'
     MacHyperVSupport:
       build: DEBUG
       version: 0.9.8
@@ -51,12 +51,12 @@ dependencies:
       revision: '{ SHA1: e987ee22940b483df5a8b4d419d13350e494d95b }'
     VirtualSMC:
       build: DEBUG
-      version: 1.3.3
-      url: 'https://github.com/dortania/build-repo/releases/download/VirtualSMC-463e335/VirtualSMC-1.3.3-DEBUG.zip'
-      resolution: 'acidanthera/VirtualSMC@github:1.3.3#commit=463e335466197dc8d842adc127fb5d3599e31edc'
+      version: 1.3.4
+      url: 'https://github.com/dortania/build-repo/releases/download/VirtualSMC-c6da306/VirtualSMC-1.3.4-DEBUG.zip'
+      resolution: 'acidanthera/VirtualSMC@github:1.3.4#commit=c6da306bf075fe912e89c15b88bb95a691bebec3'
       specifier: 'acidanthera/VirtualSMC@github'
       kind: Kext
-      revision: '{ SHA1: 463e335466197dc8d842adc127fb5d3599e31edc }'
+      revision: '{ SHA1: c6da306bf075fe912e89c15b88bb95a691bebec3 }'
   OpenCorePkg:
     OcBinaryData:
       build: DEBUG
@@ -67,9 +67,9 @@ dependencies:
       revision: '{ SHA1: af09b0bf763363ec9f4ecdbbe2f0adeb970948d8 }'
     OpenCore:
       build: DEBUG
-      version: 1.0.1
-      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.1/OpenCore-1.0.1-DEBUG.zip'
-      resolution: 'acidanthera/OpenCorePkg@github:1.0.1#commit=9d30e2b75e1935f27ec7578e88be5c28ff0d0d07'
+      version: 1.0.2
+      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.2/OpenCore-1.0.2-DEBUG.zip'
+      resolution: 'acidanthera/OpenCorePkg@github:1.0.2#commit=22171e0903954cac74e7734c945d031c32a7c8c7'
       specifier: 'acidanthera/OpenCorePkg@github:latest'
       kind: Binary
-      revision: '{ SHA1: 9d30e2b75e1935f27ec7578e88be5c28ff0d0d07 }'
+      revision: '{ SHA1: 22171e0903954cac74e7734c945d031c32a7c8c7 }'
