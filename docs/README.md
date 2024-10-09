@@ -69,10 +69,10 @@ Supported versions below include macOS versions **10.4** to **15.0**.
         />
         Sequoia
       </td>
-      <td style="text-align: center;">🚧</td>
-      <td>In Preview.</td>
+      <td style="text-align: center;">✅</td>
+      <td>Supported.</td>
       <td><code>(None)</code></td>
-      <td><a href="https://www.apple.com/macos/macos-sequoia-preview/"><code>(Latest)</code></a></td>
+      <td><a href="https://www.apple.com/macos/macos-sequoia/"><code>(Latest)</code></a></td>
     </tr>
   <!-- macOS 14 -->
     <tr>
