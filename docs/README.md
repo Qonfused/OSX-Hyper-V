@@ -360,13 +360,13 @@ This project uses [OCE-Build](https://github.com/Qonfused/OCE-Build) to automati
 To build this project's EFI, run one of the below commands at the root of the project:
 ```powershell
 # Build for macOS 10.8 and newer
-scripts\build.ps1
+.\scripts\build.ps1
 
 # Build for macOS 10.7 and older
-scripts\build.ps1 --legacy
+.\scripts\build.ps1 --legacy
 
 # Build for macOS 10.4 - 10.5, 10.6 if running in 32-bit mode
-scripts\build.ps1 --legacy --32-bit
+.\scripts\build.ps1 --legacy --32-bit
 ```
 
 ### 3. Setting up Hyper-V
@@ -385,18 +385,26 @@ First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virt
   ```
 
 > [!TIP]
-> After building or downloading this project's EFI, you can run the [`create-virtual-machine.ps1`](/scripts/lib/create-virtual-machine.ps1) script to quickly bootstrap a new virtual-machine (to skip the below steps).
+> After **building** or **downloading this project's EFI**, you can run the `create-virtual-machine.ps1` script to quickly setup a new virtual-machine.
 > 
-> For example:
-> 
+> For example, from a local build of this project:
+>
 > ```powershell
-> $ cd ~/Downloads/EFI-1.0.0-64-bit-DEBUG # Scripts are packaged with releases
-> 
 > # Use the latest version of macOS (cpu=2 cores, ram=8 GB, size=50 GB)
-> $ scripts\create-virtual-machine.ps1 -name "My New Virtual Machine"
+> .\dist\Scripts\create-virtual-machine.ps1 -name "My New Virtual Machine"
 > 
 > # Use an older version of macOS (cpu=4 cores, ram=16 GB, size=128 GB)
-> $ scripts\create-virtual-machine.ps1 -name "Catalina" -version 10.15 -cpu 4 -ram 16 -size 128
+> .\dist\Scripts\create-virtual-machine.ps1 -name "Catalina" -version 10.15 -cpu 4 -ram 16 -size 128
+> ```
+> or from a downloaded release:
+> ```powershell
+> cd ~/Downloads/EFI-1.0.0-64-bit-DEBUG # Scripts are packaged with releases
+> 
+> # Use the latest version of macOS (cpu=2 cores, ram=8 GB, size=50 GB)
+> .\Scripts\create-virtual-machine.ps1 -name "My New Virtual Machine"
+> 
+> # Use an older version of macOS (cpu=4 cores, ram=16 GB, size=128 GB)
+> .\Scripts\create-virtual-machine.ps1 -name "Catalina" -version 10.15 -cpu 4 -ram 16 -size 128
 > ```
 
 Below outline the steps to manually create a new virtual machine for macOS:
