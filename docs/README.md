@@ -347,7 +347,184 @@ git clone https://github.com/Qonfused/OSX-Hyper-V
 cd OSX-Hyper-V
 ```
 
-### 2. Build this repository using OCE-Build
+### 2. Configure OpenCore for your hardware
+
+> [!NOTE]
+> **MacHyperVSupport** requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is currently unsupported.
+
+As Hyper-V is a type-1 hypervisor, it requires a compatible CPU to run macOS. This means that any passed-through hardware needs to be supported or patched as you would on a bare-metal Hackintosh.
+
+There is no GPU acceleration by default, which means any graphics-related tasks will be driven by the CPU and will be slow. To get GPU acceleration, you will need to use Discrete Device Assignment (DDA) to pass through a supported GPU for acceleration.
+
+> [!IMPORTANT]
+> Unlike bare metal, iGPU/APUs are not visible to the VM by default and require DDA support for GPU passthrough. Additionally, most discrete GPUs, even if natively supported, may not work if passed through with DDA. Refer to the [limitations](https://github.com/Qonfused/OSX-Hyper-V?tab=readme-ov-file#limitations) section for an overview of current support in Hyper-V.
+
+For a general overview of hardware support, refer to the [CPU Support](https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#cpu-support) and [GPU Support](https://dortania.github.io/OpenCore-Install-Guide/macos-limits.html#gpu-support) sections of the Dortania guide for a breakdown of hardware support by macOS version.
+
+To setup OpenCore for your specific CPU, follow the Intel or AMD section of the [Dortania Install](https://dortania.github.io/OpenCore-Install-Guide/) guide for your CPU family. Ignore any USB mapping, firmware, or motherboard-specific sections as they are not relevant to Hyper-V (which provides its own virtualized hardware).
+
+See the below sections for a breakdown of hardware support and Hyper-V-specific configuration.
+
+#### Intel
+
+> [!NOTE]
+> For Intel Tiger Lake and newer (11th Gen and newer), you can follow the Dortania install guide for [Comet Lake](https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html).
+>
+> You'll need to spoof your CPU as Comet Lake by using the below CPUID patch:
+> ```yml
+> Kernel:
+>   Emulate:
+>     Cpuid1Data: Data | <55 06 0A 00 00 00 00 00 00 00 00 00 00 00 00 00>
+>     Cpuid1Mask: Data | <FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00>
+> ```
+> Add this to the **config.yml** file under the `Kernel -> Emulate` section or
+> manually to the generated **config.plist** file under `EFI/OC/config.plist`.
+>
+> See [Cpuid1Data](https://github.com/Qonfused/OCE-Build/blob/main/docs/schema.md#kernel---emulate---cpuid1data) for other available CPUID patches for better XCPM support.
+
+Below is a list of supported CPU generations and their initial and latest supported macOS versions:
+
+##### Desktop CPUs:
+
+| Generation                      | Initial Support            | Latest Support              |
+| ------------------------------- | -------------------------- | --------------------------- |
+| [Penryn](ID-1)                  | OS X 10.4.10 (Tiger)       | macOS 10.13.6 (High Sierra) |
+| [Clarkdale (1st Gen)](ID-2)     | OS X 10.6.3 (Snow Leopard) | macOS 12 (Monterey)         |
+| [Sandy Bridge (2nd Gen)](ID-3)  | OS X 10.6.7 (Snow Leopard) | macOS 12 (Monterey)         |
+| [Ivy Bridge (3rd Gen)](ID-4)    | OS X 10.7 (Lion)           | macOS 12 (Monterey)         |
+| [Haswell (4th Gen)](ID-5)       | OS X 10.8 (Mountain Lion)  | (Current)                   |
+| [Skylake (6th Gen)](ID-6)       | OS X 10.11 (El Capitan)    | (Current)                   |
+| [Kaby Lake (7th Gen)](ID-7)     | macOS 10.12 (Sierra)       | (Current)                   |
+| [Coffee Lake (8th Gen)](ID-8 )  | macOS 10.13 (High Sierra)  | (Current)                   |
+| [Comet Lake (10th Gen)](ID-9)   | macOS 10.15 (Catalina)     | (Current)                   |
+
+[ID-1]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/penryn.html
+[ID-2]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/clarkdale.html
+[ID-3]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/sandy-bridge.html
+[ID-4]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/ivy-bridge.html
+[ID-5]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/haswell.html
+[ID-6]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/skylake.html
+[ID-7]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/kaby-lake.html
+[ID-8]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/coffee-lake.html
+[ID-9]: https://dortania.github.io/OpenCore-Install-Guide/config.plist/comet-lake.html
+
+##### Mobile CPUs:
+
+| Generation                     | Initial Support            | Latest Support              |
+| ------------------------------ | -------------------------- | --------------------------- |
+| [Arrandale (1st Gen)](IM-1)    | OS X 10.6.3 (Snow Leopard) | macOS 10.13 (High Sierra)   |
+| [Sandy Bridge (2nd Gen)](IM-2) | OS X 10.6.7 (Snow Leopard) | macOS 12 (Monterey)         |
+| [Ivy Bridge (3rd Gen)](IM-3)   | OS X 10.7 (Lion)           | macOS 12 (Monterey)         |
+| [Haswell (4th Gen)](IM-4)      | OS X 10.8 (Mountain Lion)  | macOS 12 (Monterey)         |
+| [Broadwell (5th Gen)](IM-5)    | OS X 10.10 (Yosemite)      | macOS 12 (Monterey)         |
+| [Skylake (6th Gen)](IM-6)      | OS X 10.11 (El Capitan)    | (Current)                   |
+| [Kaby Lake (7th Gen)](IM-7)    | macOS 10.12 (Sierra)       | (Current)                   |
+| [Coffee Lake (8th Gen)](IM-8)  | macOS 10.13 (High Sierra)  | (Current)                   |
+| [Whiskey Lake (8th Gen)](IM-8) | macOS 10.14.1 (Mojave)     | (Current)                   |
+| [Comet Lake (10th Gen)](IM-9)  | macOS 10.15.4 (Catalina)   | (Current)                   |
+| [Ice Lake (10th Gen)](IM-10)    | macOS 10.15.4 (Catalina)   | (Current)                   |
+
+[IM-1]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/arrandale.html
+[IM-2]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/sandy-bridge.html
+[IM-3]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/ivy-bridge.html
+[IM-4]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/haswell.html
+[IM-5]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/broadwell.html
+[IM-6]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/skylake.html
+[IM-7]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/kaby-lake.html
+[IM-8]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/coffee-lake.html
+[IM-9]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/coffee-lake-plus.html
+[IM-10]: https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/icelake.html
+
+#### AMD
+
+> [!IMPORTANT]
+> AMD CPUs require the [`Kernel -> Emulate -> DummyPowerManagement`](https://github.com/Qonfused/OCE-Build/blob/main/docs/schema.md#kernel---emulate---dummypowermanagement) option to be enabled in the config.plist as AMD does not have a native power management driver in macOS:
+> ```yml
+> Kernel:
+>   Emulate:
+>     DummyPowerManagement: | Boolean | true
+> ```
+
+Below is a list of supported CPU generations and their initial and latest supported macOS versions:
+
+| Generation                 | Initial Support        | Latest Support      |
+| -------------------------- | ---------------------- | ------------------- |
+| [Bulldozer (15h)](AD-1)    | macOS 13 (High Sierra) | macOS 12 (Monterey) |
+| [Jaguar (16h)](AD-1)       | macOS 13 (High Sierra) | macOS 12 (Monterey) |
+| [Ryzen (17h)](AD-2)        | macOS 13 (High Sierra) | (Current)           |
+| [Threadripper (19h)](AD-2) | macOS 13 (High Sierra) | (Current)           |
+
+[AD-1]: https://dortania.github.io/OpenCore-Install-Guide/AMD/fx.html
+[AD-2]: https://dortania.github.io/OpenCore-Install-Guide/AMD/zen.html
+
+In addition to [AMD kernel patches](https://github.com/AMD-OSX/AMD_Vanilla) (for AMD CPU families 15h, 16h, 17h and 19h), the below kernel patch is required for High Sierra and above:
+
+```yml
+Kernel:
+  Patch:
+    - Arch:                 String  | "x86_64"
+      Base:                 String  | "_cpu_syscall_init"
+      Comment:              String  | "flagers - kill invalid wrmsr | 10.13+"
+      Count:                Integer | 3
+      Find:                 Data    | "0F30"
+      Identifier:           String  | "kernel"
+      MaxKernel:            String  | "24.99.99"
+      MinKernel:            String  | "17.0.0"
+      Replace:              Data    | "9090"
+```
+
+You can also manually add the below plist entry to your config.plist:
+
+<details><summary>Plist entry (file: <a href="https://github.com/Qonfused/OSX-Hyper-V/files/14821955/patch.plist.zip">patch.plist.zip</a>)</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Kernel</key>
+    <dict>
+        <key>Patch</key>
+        <array>
+            <dict>
+                <key>Arch</key>
+                <string>x86_64</string>
+                <key>Base</key>
+                <string>_cpu_syscall_init</string>
+                <key>Comment</key>
+                <string>flagers - kill invalid wrmsr | 10.13+</string>
+                <key>Count</key>
+                <integer>3</integer>
+                <key>Enabled</key>
+                <true/>
+                <key>Find</key>
+                <data>DzA=</data>
+                <key>Identifier</key>
+                <string>kernel</string>
+                <key>Limit</key>
+                <integer>0</integer>
+                <key>Mask</key>
+                <data></data>
+                <key>MaxKernel</key>
+                <string>24.99.99</string>
+                <key>MinKernel</key>
+                <string>17.0.0</string>
+                <key>Replace</key>
+                <data>kJA=</data>
+                <key>ReplaceMask</key>
+                <data></data>
+                <key>Skip</key>
+                <integer>0</integer>
+            </dict>
+        </array>
+    </dict>
+</dict>
+</plist>
+```
+
+</details>
+
+### 3. Build this repository using OCE-Build
 
 This project uses [OCE-Build](https://github.com/Qonfused/OCE-Build) to automatically version and build this repository's EFI.
 
@@ -369,10 +546,9 @@ To build this project's EFI, run one of the below commands at the root of the pr
 .\scripts\build.ps1 --legacy --32-bit
 ```
 
-### 3. Setting up Hyper-V
+This will create a new `dist/` directory containing the EFI.vhdx virtual disk and a `dist/Scripts/` directory containing various scripts for creating and configuring the virtual machine.
 
-> [!NOTE]
-> **MacHyperVSupport** requires Windows Server 2012 R2 / Windows 8.1 or higher. Windows Server 2016 is currently unsupported.
+### 4. Setting up Hyper-V
 
 First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) before proceeding.
 - You can enable the Hyper-V role by running the below command in PowerShell as administrator:
@@ -487,9 +663,9 @@ Then configure the below options under the Hardware section:
 
 ---
 
-### 4. Using this EFI with macOS
+### 5. Using this EFI with macOS
 
-Installation of macOS should fall in line with the [Installation Process][Dortania-Guide/Installation-Process] section of the Dortania Guide. Some additional post-install sections are provided to facilitate with Hyper-V (or project) specifics.
+Refer to the [Installation Process][Dortania-Guide/Installation-Process] section of the Dortania Guide. Some additional post-install sections are provided to facilitate with Hyper-V (or project) specifics.
 
 [Dortania-Guide/Installation-Process]: https://dortania.github.io/OpenCore-Install-Guide/installation/installation-process.html
 
