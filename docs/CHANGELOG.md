@@ -6,10 +6,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
-## [0.1.0] - Unreleased
+## [0.2.0] - 2024-11-04
 
-> [!NOTE]
-> This release is currently in development and is not recommended for use.
+## Changed
+- Upgraded OpenCore to v1.0.2 ([`58ccd4b`](https://github.com/Qonfused/OSX-Hyper-V/commit/58ccd4b6e1c6492fab0d704d4b2bf24b834e56f7))
+- Simplified `-legacy` boot arg patch ([`36b00a7`](https://github.com/Qonfused/OSX-Hyper-V/commit/36b00a73eaf1bee4ab42b07c70f1900e7500db10))
+- Refactored build script for PowerShell Core compatibility ([`31680e2`](https://github.com/Qonfused/OSX-Hyper-V/commit/31680e2a762059555ae85407db450f625cf5d939))
+
+### Added
+- Added Sonoma board-id for creating macOS Recovery ([`3bc60c6`](https://github.com/Qonfused/OSX-Hyper-V/commit/3bc60c6a2d7b5b17603123b0565d795870dfa089))
+
+### Fixed
+- Changed the default disk size to fit larger macOS Recovery images ([`25e9275`](https://github.com/Qonfused/OSX-Hyper-V/commit/25e92751264f71671e4c1287744a211d87b49482))
+- Ensure build script is ran before post-install scripts ([`ee0c7e3`](https://github.com/Qonfused/OSX-Hyper-V/commit/ee0c7e3760e9b0c191fbae5fff124ef78afba0cf))
+
+## [0.1.0] - 2024-02-26
 
 ### Changed
 - Migrate build to new OCE-Build rewrite ([`83f31a5`](https://github.com/Qonfused/OSX-Hyper-V/pull/4/commits/83f31a53f26d0d3451ffc9215564bc8e156cb8cb))
