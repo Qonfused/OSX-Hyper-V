@@ -19,6 +19,7 @@ The latest progress can be viewed on this repository's [project board](#).
 ### Fixed
 - Changed the default disk size to fit larger macOS Recovery images ([`25e9275`](https://github.com/Qonfused/OSX-Hyper-V/commit/25e92751264f71671e4c1287744a211d87b49482))
 - Ensure build script is ran before post-install scripts ([`ee0c7e3`](https://github.com/Qonfused/OSX-Hyper-V/commit/ee0c7e3760e9b0c191fbae5fff124ef78afba0cf))
+- Fixed incorrect archive metadata and extension in release artifacts ([`24ad5a2`](https://github.com/Qonfused/OSX-Hyper-V/commit/24ad5a2decd27c34ea906e23ec465e685eee756f))
 
 ## [0.1.0] - 2024-02-26
 
