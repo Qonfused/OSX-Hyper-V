@@ -33,7 +33,10 @@ foreach ($build in $buildList) {
     # Compress EFI directory
     cp "$pwd/src/build.lock" "$pwd/dist/EFI/OC/build.lock"
     $identifier = "$($flags -replace '--', '' -join '-')-$build"
-    tar -czf "EFI-$env:TAG-$identifier.zip" -C dist .
+    Compress-Archive `
+      -Path "$pwd/dist/*" `
+      -DestinationPath "EFI-$env:TAG-$identifier.zip" `
+      -Force
 
     # Cleanup
     Remove-Item dist -Force -Recurse -ErrorAction SilentlyContinue
