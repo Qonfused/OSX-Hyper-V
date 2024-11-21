@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.2.1] - 2024-11-21
+
+## Added
+- Added VMHide kext for macOS Sequoia ([`d594e28`](https://github.com/Qonfused/OSX-Hyper-V/commit/d594e28e791a432a84ad665f674fa1b576fb132b))
+
 ## [0.2.0] - 2024-11-04
 
 ## Changed
