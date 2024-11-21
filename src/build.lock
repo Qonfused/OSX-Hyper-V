@@ -49,6 +49,14 @@ dependencies:
       specifier: 'acidanthera/MacHyperVSupport@github'
       kind: Kext
       revision: '{ SHA1: e987ee22940b483df5a8b4d419d13350e494d95b }'
+    VMMHide:
+      build: DEBUG
+      version: 1.0.1
+      url: 'https://github.com/Carnations-Botanica/VMHide/releases/download/1.0.1/VMHide-1.0.1-DEBUG.zip'
+      resolution: 'Carnations-Botanica/VMHide@github:1.0.1#commit=62d737a323758777cc21b1e377c03c3b1d8ba046'
+      specifier: 'Carnations-Botanica/VMHide@github:latest'
+      kind: Kext
+      revision: '{ SHA1: 62d737a323758777cc21b1e377c03c3b1d8ba046 }'
     VirtualSMC:
       build: DEBUG
       version: 1.3.4

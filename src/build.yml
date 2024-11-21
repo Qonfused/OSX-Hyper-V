@@ -18,6 +18,14 @@ Drivers:
 Kexts:
   Lilu: latest
   VirtualSMC: latest
+  # Workaround for macOS 15 VM detection
+  # - This reroutes the hv_vmm_present handler to bypass new VMApple additions
+  #   added in Sequoia (often breaking iCloud services).
+  # - Tested on macOS 14 (Sonoma, 23.0.0+) and macOS 15 (Sequoia, 24.0.0+).
+  VMMHide:
+    specifier: Carnations-Botanica/VMHide=latest
+    properties:
+      MinKernel: "24.0.0"
   # Core Hyper-V support kext for macOS 12.0 and newer.
   MacHyperVSupportMonterey:
     specifier: "*"
