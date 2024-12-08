@@ -226,6 +226,11 @@ NVRAM:
       #   - FF0F0000: Disables all flags in macOS Big Sur
       # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
       csr-active-config:    Data    | <00000000>
+NVRAM:
+  Delete:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      # Overrides the default SIP setting in macOS.
+      - csr-active-config
 
 ################################################################################
 #                            Cosmetic Plist Fixes                              #
