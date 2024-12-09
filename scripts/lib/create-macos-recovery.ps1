@@ -13,6 +13,11 @@ param (
   [string]$outdir = "$($pwd)\com.apple.recovery.boot"
 )
 
+# Check if python is installed, otherwise fail the script immediately.
+if (-not (Get-Command python.exe -ErrorAction SilentlyContinue)) {
+  Write-Error "Python is not installed. Please install Python 3.8 or later."
+  exit 1
+}
 
 # Create `outdir` if it doesn't exist
 New-Item -ItemType Directory "$outdir" -Force | Out-Null

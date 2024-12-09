@@ -337,7 +337,17 @@ Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/bl
 
 ## ✨ Getting Started
 
-If you opt to use one of the pre-built releases from this repository, you can skip to [3. Setting up Hyper-V](#3-setting-up-hyper-v).
+> [!IMPORTANT]
+> This project requires Python 3 to be installed. You can download the latest version of Python from the [official website](https://www.python.org/downloads/) or from the [Microsoft Store](https://apps.microsoft.com/search/publisher?name=Python+Software+Foundation&hl=en-us&gl=US).
+>
+> After installing Python, you can check if it's installed correctly by running the below command in PowerShell:
+> ```ps
+> python --version
+> ```
+
+If you opt to use one of the pre-built releases from this repository, you can skip to [2. Configure OpenCore for your hardware](#2-configure-opencore-for-your-hardware) to setup OpenCore for your specific CPU, and then proceed to [4. Setting up Hyper-V](#4-setting-up-hyper-v) to create a new virtual machine.
+
+Those who wish to build this project from source can follow the below steps to clone this repository, build the EFI, and setup Hyper-V.
 
 ### 1. Clone this repository using Git
 
@@ -346,6 +356,14 @@ To clone this repository, run the below command:
 git clone https://github.com/Qonfused/OSX-Hyper-V
 cd OSX-Hyper-V
 ```
+
+> [!TIP]
+> Alternatively, you can use the curl command to download and extract the tarball from GitHub:
+> ```pwsh
+> iwr https://github.com/Qonfused/OSX-Hyper-V/archive/refs/heads/main.zip -OutFile OSX-Hyper-V-main.zip | tar -xf OSX-Hyper-V-main.zip
+> rm OSX-Hyper-V-main.zip
+> cd OSX-Hyper-V-main
+> ```
 
 ### 2. Configure OpenCore for your hardware
 
