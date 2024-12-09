@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.2.2] - 2024-12-08
+
+## Added
+- Added csr-active-config to NVRAM delete list ([`08fc280`](https://github.com/Qonfused/OSX-Hyper-V/commit/08fc28037db79ad947983d108787aa765c545298))
+- Added OpenCore ISA switch for 32-bit OSes ([`d84213c`](https://github.com/Qonfused/OSX-Hyper-V/commit/d84213c58480bd2f75150f1a094203f2e7513c0a))
+
+## Changed
+- Upgraded OpenCore to v1.0.3 ([`0f66426`](https://github.com/Qonfused/OSX-Hyper-V/commit/0f664268253389eb70388cd5ed229c8e42e3db97))
+
 ## [0.2.1] - 2024-11-21
 
 ## Added
