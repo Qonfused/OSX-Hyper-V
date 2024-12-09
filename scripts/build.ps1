@@ -29,7 +29,16 @@ function HasFlag {
 # Switches for additional '--legacy' and '--32-bit' patches
 $patches = @('-p config.yml')
 if (HasFlag '--legacy') { $patches += @('-p patch.legacy.yml') }
-if (HasFlag '--32-bit') { $patches += @('-p patch.32-bit.yml') }
+if (HasFlag '--32-bit') {
+  $patches += @('-p patch.32-bit.yml')
+  # Ensure the target architecture is set to IA32
+  (Get-Content "$pwd\src\build.yml") -replace 'target: X64', 'target: IA32' |
+   Set-Content "$pwd\src\build.yml"
+} else {
+  # Ensure the target architecture is set to X64
+  (Get-Content "$pwd\src\build.yml") -replace 'target: IA32', 'target: X64' |
+   Set-Content "$pwd\src\build.yml"
+}
 
 icm `
   -ScriptBlock $([Scriptblock]::Create($(iwr 'https://raw.githubusercontent.com/Qonfused/OCE-Build/main/ci/bootstrap.ps1'))) `

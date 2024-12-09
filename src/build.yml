@@ -1,6 +1,7 @@
 ---
 version: latest
 build: DEBUG
+target: X64
 ---
 ACPI:
   SSDT-HV-DEV-WS2022: "ACPI/SSDT-HV-DEV-WS2022.dsl"
