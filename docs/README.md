@@ -483,7 +483,7 @@ Kernel:
     - Arch:                 String  | "x86_64"
       Base:                 String  | "_cpu_syscall_init"
       Comment:              String  | "flagers - kill invalid wrmsr | 10.13+"
-      Count:                Integer | 3
+      Count:                Number  | 3
       Find:                 Data    | "0F30"
       Identifier:           String  | "kernel"
       MaxKernel:            String  | "24.99.99"
