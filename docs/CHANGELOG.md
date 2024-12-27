@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.2.3] - 2024-12-26
+
+## Changed
+- Force X64 ISA for Gen2 VMs ([`e471c83`](https://github.com/Qonfused/OSX-Hyper-V/commit/e471c834bde52f10362898b5ce9319fd6b50e4e3))
+
+## Fixed
+- README: Fix `count` field type in AMD patch ([`3f18bb6`](https://github.com/Qonfused/OSX-Hyper-V/commit/3f18bb62974b48426ec27d6e05f8a53c996f0580))
+
 ## [0.2.2] - 2024-12-08
 
 ## Added
