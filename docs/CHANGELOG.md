@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.2.4] - 2025-01-22
+
+## Changed
+- Update MacHyperVSupport to e987ee2 - Adds constants for macOS 15 support without requiring `-lilubetaall` ([`744f385`](https://github.com/Qonfused/OSX-Hyper-V/commit/744f3850f0e41e2c7ca24f5f183af230e3215dac))
+
 ## [0.2.3] - 2024-12-26
 
 ## Changed
