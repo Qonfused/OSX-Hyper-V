@@ -3,7 +3,7 @@
 ## @file
 # Post-Install script - Optimizes macOS virtual machines for Hyper-V
 #
-# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# Copyright (c) 2023-2025, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 ##
 

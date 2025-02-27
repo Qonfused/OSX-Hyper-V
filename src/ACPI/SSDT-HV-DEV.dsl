@@ -1,5 +1,5 @@
 /** @file
- * Copyright (c) 2021, Goldfish64. All rights reserved.
+ * Copyright (c) 2021-2025, Goldfish64. All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause
 **/
 
