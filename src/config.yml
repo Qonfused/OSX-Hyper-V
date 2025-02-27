@@ -110,13 +110,6 @@ NVRAM:
 ACPI:
   @override
   Patch:
-    # Companion to SSDT-HV-DEV-WS2022
-    - Base:                 String  | "\\P241"
-      Comment:              String  | "_STA to XSTA rename (additional Hyper-V processors)"
-      Count:                Number  | 1808
-      Find:                 Data    | <5F535441>
-      Replace:              Data    | <58535441>
-      TableSignature:       Data    | <44534454>
     # Companion to SSDT-HV-VMBUS
     - Base:                 String  | "_SB.VMOD"
       Comment:              String  | "_HID to XHID rename (Hyper-V VMOD)"
@@ -152,12 +145,6 @@ ACPI:
     - Base:                 String  | "_SB.VMOD.BAT1"
       Comment:              String  | "_STA to XSTA rename (Hyper-V battery)"
       Count:                Number  | 1
-      Find:                 Data    | <5F535441>
-      Replace:              Data    | <58535441>
-      TableSignature:       Data    | <44534454>
-    - Base:                 String  | "\\P001"
-      Comment:              String  | "_STA to XSTA rename (Hyper-V processors)"
-      Count:                Number  | 240
       Find:                 Data    | <5F535441>
       Replace:              Data    | <58535441>
       TableSignature:       Data    | <44534454>

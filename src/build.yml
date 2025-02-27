@@ -4,7 +4,6 @@ build: DEBUG
 target: X64
 ---
 ACPI:
-  SSDT-HV-DEV-WS2022: "ACPI/SSDT-HV-DEV-WS2022.dsl"
   SSDT-HV-DEV: "ACPI/SSDT-HV-DEV.dsl"
   SSDT-HV-VMBUS: "ACPI/SSDT-HV-VMBUS.dsl"
   # This SSDT must be loaded after SSDT-HV-DEV

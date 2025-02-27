@@ -23,32 +23,26 @@
  * (1) Base:            \_SB.VMOD.TPM2
  *     Comment:         _STA to XSTA rename (Hyper-V TPM)
  *     Count:           1
- *     Find:            _STA
- *     Replace:         XSTA
+ *     Find:            5F535441 (_STA)
+ *     Replace:         58535441 (XSTA)
  *     TableSignature:  44534454 (DSDT)
  * (2) Base:            \_SB.NVDR
  *     Comment:         _STA to XSTA rename (Hyper-V NVDIMM)
  *     Count:           1
- *     Find:            _STA
- *     Replace:         XSTA
+ *     Find:            5F535441 (_STA)
+ *     Replace:         58535441 (XSTA)
  *     TableSignature:  44534454 (DSDT)
  * (3) Base:            \_SB.EPC
  *     Comment:         _STA to XSTA rename (Hyper-V EPC)
  *     Count:           1
- *     Find:            _STA
- *     Replace:         XSTA
+ *     Find:            5F535441 (_STA)
+ *     Replace:         58535441 (XSTA)
  *     TableSignature:  44534454 (DSDT)
  * (4) Base:            \_SB.VMOD.BAT1
  *     Comment:         _STA to XSTA rename (Hyper-V battery)
  *     Count:           1
- *     Find:            _STA
- *     Replace:         XSTA
- *     TableSignature:  44534454 (DSDT)
- * (5) Base:            \P001
- *     Comment:         _STA to XSTA rename (Hyper-V processors)
- *     Count:           240
- *     Find:            _STA
- *     Replace:         XSTA
+ *     Find:            5F535441 (_STA)
+ *     Replace:         58535441 (XSTA)
  *     TableSignature:  44534454 (DSDT)
  */
 DefinitionBlock ("", "SSDT", 2, "ACDT", "HVDEV", 0x00000000)

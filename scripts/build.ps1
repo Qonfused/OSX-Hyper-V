@@ -27,6 +27,7 @@ function HasFlag {
 }
 
 # Switches for additional '--legacy' and '--32-bit' patches
+# TODO: Add switch for legacy iASL for macOS 10.6 and older
 $patches = @('-p config.yml')
 if (HasFlag '--legacy') { $patches += @('-p patch.legacy.yml') }
 if (HasFlag '--32-bit') {
