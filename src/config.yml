@@ -181,6 +181,21 @@ UEFI:
     DisableSecurityPolicy:  Boolean | true
 
 ################################################################################
+#                                 Graphics Fixes                               #
+################################################################################
+
+Kernel:
+  Force:
+    # Required when injecting MacHyperVFramebuffer with OpenCore.
+    # If loaded from System/Library/Extensions, this is not required.
+    - Arch:                 String  | "x86_64"
+      BundlePath:           String  | "System/Library/Extensions/IOGraphicsFamily.kext"
+      ExecutablePath:       String  | "Contents/MacOS/IOGraphicsFamily"
+      Identifier:           String  | "com.apple.iokit.IOGraphicsFamily"
+#       MinKernel:            String  | "99.99.99"
+      PlistPath:            String  | "Contents/Info.plist"
+
+################################################################################
 #                             Security related fixes                           #
 ################################################################################
 
@@ -204,15 +219,21 @@ NVRAM:
   Add:
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
       # Enables System Integrity Protection (SIP) setting in macOS.
+      #
+      # By default, we disable kext signing (0x1) for MacHyperVFramebuffer;
+      # required for macOS 11 (Big Sur) and newer.
+      #
       # - Possible values include:
       #   - 00000000: Default (enabled)
-      #   - 03000000: Disables Kext signing and filesystem restrictions
+      #   - 01000000: Disables Kext signing
+      #   - 02000000: Disables filesystem protections
+      #   - 03000000: Disables both Kext signing and filesystem protections
       #   - 67000000: Disables all SIP protections
       #   - FF030000: Disables all flags in macOS High Sierra
       #   - FF070000: Disables all flags in macOS Mojave and macOS Catalina
       #   - FF0F0000: Disables all flags in macOS Big Sur
       # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
-      csr-active-config:    Data    | <00000000>
+      csr-active-config:    Data    | <01000000>
 NVRAM:
   Delete:
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
