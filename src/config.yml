@@ -186,13 +186,14 @@ UEFI:
 
 Kernel:
   Force:
-    # Required when injecting MacHyperVFramebuffer with OpenCore.
-    # If loaded from System/Library/Extensions, this is not required.
+    # Required when injecting MacHyperVFramebuffer with OpenCore prior to
+    # macOS 11 (Big Sur).
+    # - If loaded from System/Library/Extensions, this is not required.
     - Arch:                 String  | "x86_64"
       BundlePath:           String  | "System/Library/Extensions/IOGraphicsFamily.kext"
       ExecutablePath:       String  | "Contents/MacOS/IOGraphicsFamily"
       Identifier:           String  | "com.apple.iokit.IOGraphicsFamily"
-#       MinKernel:            String  | "99.99.99"
+      MaxKernel:            String  | "20.9.9"
       PlistPath:            String  | "Contents/Info.plist"
 
 ################################################################################

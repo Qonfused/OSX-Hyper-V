@@ -37,11 +37,12 @@ Kexts:
     properties:
       MaxKernel: "20.9.9"
   # Synthetic Graphics Driver (for Gen2 VMs)
-  # - Requires kext signing to be disabled on macOS 11 (Big Sur) and newer.
+  # - Requires installing in /System/Library/Extensions or /Library/Extensions
+  #   with kext signing be disabled on macOS 11 (Big Sur) and newer.
   MacHyperVFramebuffer:
     specifier: "*"
-#     properties:
-#       MinKernel: "99.99.99"
+    properties:
+      MaxKernel: "20.9.9"
 Tools:
   # Also known as UEFIShell
   - OpenShell
