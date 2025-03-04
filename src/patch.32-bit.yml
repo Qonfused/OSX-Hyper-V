@@ -21,13 +21,3 @@ Booter:
     # Resolves FPU/SSE-related crashes in runtime services when booting 32-bit
     # macOS versions using Hyper-V Gen2's 64-bit UEFI firmware.
     ClearTaskSwitchBit:     Boolean | true
-
-################################################################################
-
-# NVRAM:
-#   Add:
-#     # Breakdown of used boot args:
-#     # `-legacy`         (Force legacy 32-bit mode)
-#     7C436110-AB2A-4BBB-A880-FE41995C9F82:
-#       @append(" ")
-#       boot-args:            String  | "-legacy"
