@@ -57,7 +57,14 @@ if (Test-Path -Path "$toolsDir") {
 
 # Create macOS disk
 $macOSVHD = "$outdir\$name\$name.vhdx" 
-New-VHD -SizeBytes $($size*1GB) -Path "$macOSVHD" | Out-Null
+New-VHD -Path "$macOSVHD" -SizeBytes $($size * 1GB) |
+  Mount-VHD -Passthru |
+  Initialize-Disk -PartitionStyle "GPT" -Confirm:$false -Passthru |
+  New-Partition -AssignDriveLetter -UseMaximumSize |
+  Format-Volume -FileSystem "exFAT" -NewFileSystemLabel "macOS" -Confirm:$false -Force
+Dismount-DiskImage -ImagePath "$macOSVHD" | Out-Null
+
+# Add macOS disk to virtual machine
 Add-VMHardDiskDrive -VMName "$name" -Path "$macOSVHD" -ControllerType SCSI
 
 # Configure virtual machine
