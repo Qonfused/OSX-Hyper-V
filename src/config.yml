@@ -191,7 +191,7 @@ Kernel:
     #   in macOS 11 (Big Sur) and newer. Use `csr-active-config` to set this.
     # - If loaded from /System/Library/Extensions, this patch is not required,
     #   but SIP (filesystem protections and kext signing) must be disabled.
-    - Arch:                 String  | "x86_64"
+    - Arch:                 String  | "Any"
       BundlePath:           String  | "System/Library/Extensions/IOGraphicsFamily.kext"
       ExecutablePath:       String  | "IOGraphicsFamily"
       Identifier:           String  | "com.apple.iokit.IOGraphicsFamily"
