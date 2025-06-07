@@ -185,6 +185,12 @@ UEFI:
 ################################################################################
 
 Kernel:
+  Add:
+    # Overrides the Kernel.Add entry for MacHyperVFramebuffer.
+    @override(BundlePath)
+    - BundlePath:           String  | "MacHyperVFramebuffer.kext"
+      Comment:              String  | "Must be installed to /Library/Extensions or /System/Library/Extensions for full functionality."
+      Enabled:              Boolean | false
   Force:
     # Required when loading MacHyperVFramebuffer from /Library/Extensions.
     # - If loading from /Library/Extensions in macOS 11 (Big Sur) and newer, 
