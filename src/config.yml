@@ -186,9 +186,9 @@ UEFI:
 
 Kernel:
   Force:
-    # Required when injecting MacHyperVFramebuffer with OpenCore or from /L/E.
-    # - If injecting from /Library/Extensions, kext signing must be disabled
-    #   in macOS 11 (Big Sur) and newer. Use `csr-active-config` to set this.
+    # Required when loading MacHyperVFramebuffer from /Library/Extensions.
+    # - If loading from /Library/Extensions in macOS 11 (Big Sur) and newer, 
+    #   kext signing must be disabled. Use `csr-active-config` to set this.
     # - If loaded from /System/Library/Extensions, this patch is not required,
     #   but SIP (filesystem protections and kext signing) must be disabled.
     - Arch:                 String  | "Any"
