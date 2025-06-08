@@ -759,7 +759,8 @@ bash ./Scripts/optimize-vm.sh
 There are some known limitations with the base configuration for Hyper-V:
 
 - Display Resolution
-  - The default virtual display resolution is set to a 1024x768 resolution, but can be reconfigured by modifying the `SupportedResolutions` entry in MacHyperVFramebuffer's Info.plist file. See issue #6 for more details.
+  - The default virtual display resolution is set to a 1024x768 resolution, but can be reconfigured by modifying the `SupportedResolutions` entry in MacHyperVFramebuffer's Info.plist file.
+  - See issue [#6](https://github.com/Qonfused/OSX-Hyper-V/issues/6) for more details.
 - Graphics Acceleration
   - By default, macOS will run using the MacHyperVFramebuffer synthetic graphics driver, which provides basic graphics support (with 8 MB of video memory). This driver is sufficient for basic tasks, but does not provide hardware acceleration or advanced graphics features.
   - GPU acceleration is possible through [Discrete Device Assignment (DDA)][aka.ms/dda] using a supported GPU, however there exist a couple major caveats:
@@ -767,6 +768,7 @@ There are some known limitations with the base configuration for Hyper-V:
     - GPU patching with Lilu and WhateverGreen is currently not supported (refer to [#2299](https://github.com/acidanthera/bugtracker/issues/2299) for tracking). This also applies to other kexts like NootedRed/NootedRX that use Lilu.
 - Audio Support
   - By default, Hyper-V does not expose an audio device to macOS.
+  - See issue [#9](https://github.com/Qonfused/OSX-Hyper-V/issues/9) for more details.
 
 > [!NOTE]
 > DDA is only available for Windows Server and Microsoft Hyper-V Server versions 2016 and newer. Windows Pro and Windows Enterprise users have no support for DDA with Hyper-V.
