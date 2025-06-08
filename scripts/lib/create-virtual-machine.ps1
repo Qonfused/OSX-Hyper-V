@@ -1,7 +1,7 @@
 ## @file
 # Hyper-V virtual machine creation script
 #
-# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# Copyright (c) 2023-2025, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 ##
 

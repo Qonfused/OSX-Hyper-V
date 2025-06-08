@@ -6,6 +6,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.3.0] - Unreleased
+
+A major update introducing significant improvements, new features, and internal refactoring for enhanced compatibility and user experience.
+
+This release modernizes the Hyper-V integration stack with updated kexts, automation scripts, and configuration changes, streamlining macOS installation and post-installation on Hyper-V VMs.
+
+## Changed
+- Update License to match upstream ([`3498a02`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/3498a023644184ec8086442365b64cf12998212e))
+- Update ACPI patches; remove WS2022 SSDT ([`1d3e69b`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/1d3e69bf29af5e50e7350259bacfd2908c815d06))
+- Update OpenCore and MacHyperVSupport versions ([`ac04dd0`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/ac04dd034665250b9c3320b3b12aa2988b370a77))
+- Fix IOGraphicsFamily paths and remove MaxKernel version ([`feed097`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/feed09783784373528a4ba9e934339eda1c0fe1e))
+- Remove ACPI0007 objects from SSDT-HV-DEV [`238b571`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/238b571e16ef857ffa5eaf7a390f16162774f7fa)
+- Remove VMHide kext, replacing with direct `hv_vmm_present` kernel patch ([`a377f97`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/a377f977d1c4b48d4630c5c48fa4006474b9196f); see [#46](https://github.com/Qonfused/OSX-Hyper-V/issues/46#issuecomment-2813907377))
+- Disable MacHyperVFramebuffer injection (kept for post-install use) ([`a19f660`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/a19f660b95e1e4f397c9b0ccb581496e3cf0b725))
+
+## Added
+- Add MacHyperVFramebuffer kext and update configuration ([`f2eb5a1`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/f2eb5a1b88d3fe802df57e40135049dab2d98351))
+- Add post-install script to automate installation of Hyper-V daemons and MacHyperVFramebuffer ([`d888782`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/d888782fbb726e762a80d35609d03ed497bc93b3))
+
+## Fixed
+- Update README and post-install script instructions ([`aabc21a`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/aabc21a61cc1d098eea4b5becf277f6f35ed06f4))
+
 ## [0.2.4] - 2025-01-22
 
 ## Changed

@@ -1,8 +1,8 @@
 ## @file
 # config.plist configuration file patches for running macOS on Hyper-V
 #
-# Copyright (c) 2021, Goldfish64. All rights reserved.
-# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# Copyright (c) 2021-2025, Goldfish64. All rights reserved.
+# Copyright (c) 2023-2025, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 ##
 
@@ -110,13 +110,6 @@ NVRAM:
 ACPI:
   @override
   Patch:
-    # Companion to SSDT-HV-DEV-WS2022
-    - Base:                 String  | "\\P241"
-      Comment:              String  | "_STA to XSTA rename (additional Hyper-V processors)"
-      Count:                Number  | 1808
-      Find:                 Data    | <5F535441>
-      Replace:              Data    | <58535441>
-      TableSignature:       Data    | <44534454>
     # Companion to SSDT-HV-VMBUS
     - Base:                 String  | "_SB.VMOD"
       Comment:              String  | "_HID to XHID rename (Hyper-V VMOD)"
@@ -155,12 +148,6 @@ ACPI:
       Find:                 Data    | <5F535441>
       Replace:              Data    | <58535441>
       TableSignature:       Data    | <44534454>
-    - Base:                 String  | "\\P001"
-      Comment:              String  | "_STA to XSTA rename (Hyper-V processors)"
-      Count:                Number  | 240
-      Find:                 Data    | <5F535441>
-      Replace:              Data    | <58535441>
-      TableSignature:       Data    | <44534454>
 
 ################################################################################
 #                           BIOS/firmware related fixes                        #
@@ -194,6 +181,29 @@ UEFI:
     DisableSecurityPolicy:  Boolean | true
 
 ################################################################################
+#                                 Graphics Fixes                               #
+################################################################################
+
+Kernel:
+  Add:
+    # Overrides the Kernel.Add entry for MacHyperVFramebuffer.
+    @override(BundlePath)
+    - BundlePath:           String  | "MacHyperVFramebuffer.kext"
+      Comment:              String  | "Must be installed to /Library/Extensions or /System/Library/Extensions for full functionality."
+      Enabled:              Boolean | false
+  Force:
+    # Required when loading MacHyperVFramebuffer from /Library/Extensions.
+    # - If loading from /Library/Extensions in macOS 11 (Big Sur) and newer, 
+    #   kext signing must be disabled. Use `csr-active-config` to set this.
+    # - If loaded from /System/Library/Extensions, this patch is not required,
+    #   but SIP (filesystem protections and kext signing) must be disabled.
+    - Arch:                 String  | "Any"
+      BundlePath:           String  | "System/Library/Extensions/IOGraphicsFamily.kext"
+      ExecutablePath:       String  | "IOGraphicsFamily"
+      Identifier:           String  | "com.apple.iokit.IOGraphicsFamily"
+      PlistPath:            String  | "Info.plist"
+
+################################################################################
 #                             Security related fixes                           #
 ################################################################################
 
@@ -217,20 +227,54 @@ NVRAM:
   Add:
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
       # Enables System Integrity Protection (SIP) setting in macOS.
+      #
+      # By default, we disable kext signing (0x1) for MacHyperVFramebuffer;
+      # required for macOS 11 (Big Sur) and newer.
+      #
       # - Possible values include:
       #   - 00000000: Default (enabled)
-      #   - 03000000: Disables Kext signing and filesystem restrictions
+      #   - 01000000: Disables Kext signing
+      #   - 02000000: Disables filesystem protections
+      #   - 03000000: Disables both Kext signing and filesystem protections
       #   - 67000000: Disables all SIP protections
       #   - FF030000: Disables all flags in macOS High Sierra
       #   - FF070000: Disables all flags in macOS Mojave and macOS Catalina
       #   - FF0F0000: Disables all flags in macOS Big Sur
       # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
-      csr-active-config:    Data    | <00000000>
+      csr-active-config:    Data    | <01000000>
 NVRAM:
   Delete:
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
       # Overrides the default SIP setting in macOS.
       - csr-active-config
+
+################################################################################
+#                             VMApple/2 iCloud Fixes                           #
+################################################################################
+
+# Workaround for macOS 15 VM detection
+# - This patches the hv_vmm_present value to bypass new VMApple additions
+#   added in Sequoia (often breaking iCloud services).
+# - Tested on macOS 14 (Sonoma, 23.0.0+) and macOS 15 (Sequoia, 24.0.0+).
+# - You can verify that this patch works by running the below command and
+#   checking that it's output is zero:
+#      sysctl kern | grep 'kern.hv_vmm_present'
+#   For example:
+#      kern.hv_vmm_present: 0
+Kernel:
+  Patch:
+    - Arch:                 String  | "x86_64"
+      Comment:              string  | "Patch kern.hv_vmm_present=0 (macOS 11+)"
+      Identifier:           String  | "kernel"
+      Find:                 Data    | <68696265726E61746568696472656164790068696265726E617465636F756E7400>
+      MinKernel:            String  | "20.4.0"
+      Replace:              Data    | <68696265726E61746568696472656164790068765F766D6D5F70726573656E7400>
+    - Arch:                 String  | "x86_64"
+      Comment:              string  | "Patch kern.hv_vmm_present=0 (macOS 13+)"
+      Identifier:           String  | "kernel"
+      Find:                 Data    | <626F6F742073657373696F6E20555549440068765F766D6D5F70726573656E7400>
+      MinKernel:            String  | "22.0.0"
+      Replace:              Data    | <626F6F742073657373696F6E20555549440068696265726E617465636F756E7400>
 
 ################################################################################
 #                            Cosmetic Plist Fixes                              #

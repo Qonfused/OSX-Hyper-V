@@ -1,5 +1,5 @@
 /** @file
- * Copyright (c) 2021, Goldfish64. All rights reserved.
+ * Copyright (c) 2021-2025, Goldfish64. All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause
 **/
 
@@ -13,14 +13,14 @@
  * (1) Base:            \_SB.VMOD
  *     Comment:         _HID to XHID rename (Hyper-V VMOD)
  *     Count:           1
- *     Find:            _HID
- *     Replace:         XHID
+ *     Find:            5F484944 (_HID)
+ *     Replace:         58484944 (XHID)
  *     TableSignature:  44534454 (DSDT)
  * (2) Base:            \_SB.VMOD.VMBS
  *     Comment:         _HID to XHID rename (Hyper-V VMBus)
  *     Count:           1
- *     Find:            _HID
- *     Replace:         XHID
+ *     Find:            5F484944 (_HID)
+ *     Replace:         58484944 (XHID)
  *     TableSignature:  44534454 (DSDT)
  */
 DefinitionBlock ("", "SSDT", 2, "ACDT", "HVVMBUS", 0x00000000)

@@ -1,7 +1,7 @@
 ## @file
 # EFI build script for OSX Hyper-V
 #
-# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# Copyright (c) 2023-2025, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 ##
 
@@ -27,6 +27,7 @@ function HasFlag {
 }
 
 # Switches for additional '--legacy' and '--32-bit' patches
+# TODO: Add switch for legacy iASL for macOS 10.6 and older
 $patches = @('-p config.yml')
 if (HasFlag '--legacy') { $patches += @('-p patch.legacy.yml') }
 if (HasFlag '--32-bit') {

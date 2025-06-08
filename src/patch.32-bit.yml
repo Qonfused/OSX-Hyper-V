@@ -1,8 +1,8 @@
 ## @file
 # config.plist configuration file patches for legacy 32-bit macOS versions.
 #
-# Copyright (c) 2021, Goldfish64. All rights reserved.
-# Copyright (c) 2023, Cory Bennett. All rights reserved.
+# Copyright (c) 2021-2025, Goldfish64. All rights reserved.
+# Copyright (c) 2023-2025, Cory Bennett. All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 ##
 
@@ -16,21 +16,8 @@
 #                                  Kernel fixes                                #
 ################################################################################
 
-Kernel:
-  Block:
-    - Arch:                 String  | "i386"
-      Comment:              String  | "Disables EFI runtime services and NVRAM due to Hyper-V UEFI incompatibilities"
-      Identifier:           String  | "com.apple.driver.AppleEFIRuntime"
-      MaxKernel:            String  | "10.0.0"
-      MinKernel:            String  | "8.0.0"
-      Strategy:             String  | "Disable"
-
-################################################################################
-
-NVRAM:
-  Add:
-    # Breakdown of used boot args:
-    # `-legacy`         (Force legacy 32-bit mode)
-    7C436110-AB2A-4BBB-A880-FE41995C9F82:
-      @append(" ")
-      boot-args:            String  | "-legacy"
+Booter:
+  Quirks:
+    # Resolves FPU/SSE-related crashes in runtime services when booting 32-bit
+    # macOS versions using Hyper-V Gen2's 64-bit UEFI firmware.
+    ClearTaskSwitchBit:     Boolean | true

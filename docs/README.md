@@ -14,7 +14,7 @@
   <a href="/LICENSE">![License](https://img.shields.io/badge/⚖_License-BSD_3_Clause-lightblue?labelColor=3f4551)</a>
   <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/github/v/release/Qonfused/OSX-Hyper-V?label=SemVer&logo=SemVer&labelColor=3f4551)</a>
   <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2015-important?labelColor=3f4551)</a>
-    <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.3-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
+    <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.4-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
   <a href="https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml">![OCE Build](https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml/badge.svg?branch=main)</a>
 
 </div>
@@ -614,6 +614,9 @@ First check that you've [enabled Hyper-V](https://learn.microsoft.com/en-us/virt
 > .\Scripts\create-virtual-machine.ps1 -name "Catalina" -version 10.15 -cpu 4 -ram 16 -size 128
 > ```
 
+> [!IMPORTANT]
+> Newer macOS versions (Big Sur and newer) require 6-8 GB of RAM to boot the installer. If you are using an older version of macOS, you can use less RAM (4 GB is the minimum).
+
 Below outline the steps to manually create a new virtual machine for macOS:
 
 ---
@@ -698,6 +701,57 @@ Then configure the below options under the Hardware section:
 
 Refer to the [Installation Process][Dortania-Guide/Installation-Process] section of the Dortania Guide. Some additional post-install sections are provided to facilitate with Hyper-V (or project) specifics.
 
+  <!--
+  Another user's suggestion for installation steps (for reference):
+     1. Run PS script to create VM
+     2. Start VM, open Console
+     3. boot to EFI (dmg) to launch recovery menu
+     4. Enter Disk Utility
+     5. Choose "Msft Virtual Disk Media", Select "Erase"
+     6. Name new drive "MyInteralDrive", choose AFPS for filesystem format
+     7. Execute Erase
+     8. Quit Disk Utility
+     9. Back at main menu for the Recovery program, choose "Reinstall macOS "
+    10. Select your newly minted AFPS-formatted disk
+    11. Let macOS do it's thing for approx 2 hours.
+  -->
+
+A basic summary of the installation process is as follows:
+
+1. Start the virtual machine and select the `EFI (dmg)` from the OpenCore boot menu.
+   - If you created a separate macOS installer VHDX, this may also show up as `macOS Base System (External)` or `Install macOS Big Sur (External)` depending on the version of macOS you are installing.
+2. Once the installer loads, open Disk Utility from the Utilities menu.
+   - Select the `Msft Virtual Disk Media` (your main virtual hard disk) from the list of disks.
+   - Click `Erase` to format the disk.
+     - Name the disk as desired (e.g., `macOS` or `Macintosh HD`, etc.).
+     - For macOS 10.13 and newer, use the `APFS` format. For older versions, use `Mac OS Extended (Journaled)`.
+4. Quit Disk Utility and return to the main installer menu.
+5. Select `Reinstall macOS` to start the main installer.
+   - Follow the prompts to install macOS on your newly formatted disk.
+   - Make sure to target the disk you just formatted (e.g., `macOS` or whatever you named it), not the EFI disk.
+   - Note that this process may take a while (upwards of 30 minutes to 2 hours).
+6. Once the installation is complete, the virtual machine will reboot and you should see the OpenCore boot menu again.
+   - This may require multiple reboots to install additional components and finalize the installation.
+7. Select the newly installed macOS disk (or whatever you named it) from the OpenCore boot menu to boot into macOS.
+    - If you are still unable to boot into your macOS installation, you may need to select the installer disk again.
+    - You can set this as the default boot entry by holding the `Ctrl` key while selecting the disk.
+
+The EFI virtual disk created by this project bundles a post-installation script responsible for installing the **MacHyperVFramebuffer** driver and configuring daemons for additional Hyper-V service support. This is required to support resolution changes and the hardware cursor in macOS.
+
+To run this script, execute the `post-install.sh` script from the EFI disk located in the `Scripts/` directory. For example, you can run the following command in Terminal after booting into the macOS installer:
+
+```bash
+cd /Volumes/EFI # Change to the EFI disk
+bash ./Scripts/post-install.sh
+```
+
+You can also optionally run the `optimize-vm.sh` script to disable Spotlight indexing, reduce disk I/O, and turn off system animations. This is recommended for virtual machines with CPU-rendered graphics and limited disk performance.
+
+```bash
+cd /Volumes/EFI # Change to the EFI disk
+bash ./Scripts/optimize-vm.sh
+```
+
 [Dortania-Guide/Installation-Process]: https://dortania.github.io/OpenCore-Install-Guide/installation/installation-process.html
 
 #### Limitations
@@ -705,9 +759,9 @@ Refer to the [Installation Process][Dortania-Guide/Installation-Process] section
 There are some known limitations with the base configuration for Hyper-V:
 
 - Display Resolution
-  - The default virtual display resolution is set to a 1024x768 resolution and is not resizable.
+  - The default virtual display resolution is set to a 1024x768 resolution, but can be reconfigured by modifying the `SupportedResolutions` entry in MacHyperVFramebuffer's Info.plist file. See issue #6 for more details.
 - Graphics Acceleration
-  - By default, macOS will run without graphics acceleration using VESA graphics drivers (CPU). Additionally, display graphics is limited to 3 MB of video memory.
+  - By default, macOS will run using the MacHyperVFramebuffer synthetic graphics driver, which provides basic graphics support (with 8 MB of video memory). This driver is sufficient for basic tasks, but does not provide hardware acceleration or advanced graphics features.
   - GPU acceleration is possible through [Discrete Device Assignment (DDA)][aka.ms/dda] using a supported GPU, however there exist a couple major caveats:
     - AMD GPUs (particularly Navi and older GPUs) generally have poor compatibility with macOS through DDA. Natively supported NVIDIA GPUs (using driver v465 or later on Windows) tend to have the best results.
     - GPU patching with Lilu and WhateverGreen is currently not supported (refer to [#2299](https://github.com/acidanthera/bugtracker/issues/2299) for tracking). This also applies to other kexts like NootedRed/NootedRX that use Lilu.
