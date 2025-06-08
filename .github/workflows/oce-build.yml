@@ -77,6 +77,7 @@ jobs:
       # output EFI directory. This is useful when running concurrent builds with
       # this workflow in a matrix for testing prior or future OpenCore versions.
       - id: prepare-efi
+        if: always()
         name: Prepares EFI directory for upload
         shell: sh
         run: |
@@ -92,7 +93,9 @@ jobs:
       # Uploads EFI with a short-sha slug. The uploaded EFI will be available
       # for download after the current job run as finished.
       - name: Upload built EFI
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: EFI-${{ steps.prepare-efi.outputs.LOCKFILE_HASH }}
           path: EFI.zip
+          retention-days: 7
