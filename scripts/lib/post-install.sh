@@ -88,7 +88,9 @@ if [[ -d "${FRAMEBUFFER_KEXT}" ]]; then
     sudo kextunload /Library/Extensions/MacHyperVFramebuffer.kext
   fi
 
-  echo "Installing MacHyperVFramebuffer kext..."
+  echo "Installing MacHyperVFramebuffer kext...\n"
+  echo "This will prompt you to approve the developer in System Settings > Privacy & Security required to load the kext."
+  echo "You will need to reboot your virtual machine after this step to complete the installation."
   sudo cp -R "${FRAMEBUFFER_KEXT}" "/Library/Extensions/"
   sudo chown -R root:wheel "/Library/Extensions/MacHyperVFramebuffer.kext"
   sudo chmod -R 755 "/Library/Extensions/MacHyperVFramebuffer.kext"
