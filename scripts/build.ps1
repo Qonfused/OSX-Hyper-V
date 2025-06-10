@@ -33,6 +33,11 @@ if (HasFlag '--legacy') { $patches += @('-p patch.legacy.yml') }
 if (HasFlag '--32-bit') {
   $patches += @('-p patch.32-bit.yml')
 }
+# Check if patch.amd.yml exists
+if (Test-Path "$pwd\src\patch.amd.yml" -or
+    Test-Path "$pwd\patch.amd.yml") {
+  $patches += @('-p patch.amd.yml')
+}
 
 icm `
   -ScriptBlock $([Scriptblock]::Create($(iwr 'https://raw.githubusercontent.com/Qonfused/OCE-Build/main/ci/bootstrap.ps1'))) `
