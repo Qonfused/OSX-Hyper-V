@@ -460,7 +460,7 @@ Below is a list of supported CPU generations and their initial and latest suppor
 > ```yml
 > Kernel:
 >   Emulate:
->     DummyPowerManagement: | Boolean | true
+>     DummyPowerManagement:   Boolean | true
 > ```
 
 Below is a list of supported CPU generations and their initial and latest supported macOS versions:
@@ -491,6 +491,10 @@ Kernel:
       Replace:              Data    | "9090"
 ```
 
+You can also manually add the below plist entry to your config.plist:
+
+<details><summary>Plist entry (file: <a href="https://github.com/user-attachments/files/18508274/patch.plist.zip">patch.plist.zip</a>)</summary>
+
 > [!NOTE]
 > When applying the AMD kernel patches, choose a core count matching the number
 > of cores assigned to the VM when configuring the CPU core count
@@ -504,10 +508,6 @@ Kernel:
 > cores to the VM and use `06` for the `cpuid_cores_per_package` patch. If you
 > encounter issues booting when assigning 6 cores, try assigning 8 cores instead
 > and using `08` for the `cpuid_cores_per_package` patch (see [#37](https://github.com/Qonfused/OSX-Hyper-V/issues/37)).
-
-You can also manually add the below plist entry to your config.plist:
-
-<details><summary>Plist entry (file: <a href="https://github.com/user-attachments/files/18508274/patch.plist.zip">patch.plist.zip</a>)</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
