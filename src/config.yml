@@ -162,6 +162,17 @@ Booter:
 #                                  Boot fixes                                  #
 ################################################################################
 
+# For beta macOS versions:
+PlatformInfo:
+  Generic:
+    # Required for macOS Tahoe as iMac19,1 (2019, Coffee Lake+) were dropped.
+    SystemProductName:     String  | "iMac20,1"
+NVRAM:
+  Add:
+    7C436110-AB2A-4BBB-A880-FE41995C9F82:
+      @append(" ")
+      boot-args:           String  | "-lilubetaall"
+
 Kernel:
   Quirks:
     # Provides the correct TSC and FSB values to the kernel, as well as disables

@@ -60,10 +60,11 @@ dependencies:
       kind: Binary
       revision: '{ SHA1: af09b0bf763363ec9f4ecdbbe2f0adeb970948d8 }'
     OpenCore:
+      # This is a pre-release build of OpenCore not intended for production use.
       build: DEBUG
-      version: 1.0.4
-      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.4/OpenCore-1.0.4-DEBUG.zip'
-      resolution: 'acidanthera/OpenCorePkg@github:1.0.4#commit=ceb0e8d733c9afc32cebe5fcde69d1e4251ecc37'
-      specifier: 'acidanthera/OpenCorePkg@github:latest'
+      version: 1.0.5
+      url: 'https://github.com/dortania/build-repo/releases/download/OpenCorePkg-15cdd85/OpenCore-1.0.5-DEBUG.zip'
+      resolution: 'acidanthera/OpenCorePkg@github:1.0.5#commit=15cdd853320b2b350be43e031c4aab103468908b'
+      specifier: 'acidanthera/OpenCorePkg@github'
       kind: Binary
-      revision: '{ SHA1: ceb0e8d733c9afc32cebe5fcde69d1e4251ecc37 }'
+      revision: '{ SHA1: 15cdd853320b2b350be43e031c4aab103468908b }'
