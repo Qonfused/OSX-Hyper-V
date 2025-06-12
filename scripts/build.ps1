@@ -34,8 +34,8 @@ if (HasFlag '--32-bit') {
   $patches += @('-p patch.32-bit.yml')
 }
 # Check if patch.amd.yml exists
-if (Test-Path "$pwd\src\patch.amd.yml" -or
-    Test-Path "$pwd\patch.amd.yml") {
+if ((Test-Path "$pwd\src\patch.amd.yml") -or
+    (Test-Path "$pwd\patch.amd.yml")) {
   $patches += @('-p patch.amd.yml')
 }
 
