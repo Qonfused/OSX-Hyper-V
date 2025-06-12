@@ -13,7 +13,7 @@
 
   <a href="/LICENSE">![License](https://img.shields.io/badge/⚖_License-BSD_3_Clause-lightblue?labelColor=3f4551)</a>
   <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/github/v/release/Qonfused/OSX-Hyper-V?label=SemVer&logo=SemVer&labelColor=3f4551)</a>
-  <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2015-important?labelColor=3f4551)</a>
+  <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2026-important?labelColor=3f4551)</a>
     <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.4-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
   <a href="https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml">![OCE Build](https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml/badge.svg?branch=main)</a>
 
@@ -46,7 +46,7 @@ Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes im
 >
 > You can also find other past InstallAssistant.dmg archives on [Archive.org](https://archive.org/details/@khronokernel).
 
-Supported versions below include macOS versions **10.4** to **15.0**.
+Supported versions below include macOS versions **10.4** to **26.0**.
 
 <table>
   <thead>
@@ -58,6 +58,22 @@ Supported versions below include macOS versions **10.4** to **15.0**.
     </tr>
   </thead>
   <tbody>
+  <!-- macOS 26 -->
+    <tr>
+      <td>
+        <img
+          src="https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/macOS-roundrels/_placeholder.png"
+          width=25
+          hspace=2
+          align="top"
+        />
+        Tahoe
+      </td>
+      <td style="text-align: center;">🚧</td>
+      <td>In Progress.</td>
+      <td><code>(None)</code></td>
+      <td><a href="https://www.apple.com/macos/macos-tahoe-preview/"><code>(Latest)</code></a></td>
+    </tr>
   <!-- macOS 15 -->
     <tr>
       <td>
