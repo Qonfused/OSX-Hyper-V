@@ -10,10 +10,10 @@ dependencies:
   ACPI:
     SSDT-HV-DEV:
       path: './ACPI/SSDT-HV-DEV.dsl'
-      resolution: 'SSDT-HV-DEV@file:ACPI/SSDT-HV-DEV.dsl#checksum=44023451e556cd72121a84652bba69ac8091396f3f87539f68fc40746a4edb5d'
+      resolution: 'SSDT-HV-DEV@file:ACPI/SSDT-HV-DEV.dsl#checksum=cf58080bdeb558690d011a73d12f9e2f627877b141d6e635182cf4392cd369a5'
       specifier: 'SSDT-HV-DEV@file:ACPI/SSDT-HV-DEV.dsl'
       kind: SSDT
-      revision: '{ SHA256: 44023451e556cd72121a84652bba69ac8091396f3f87539f68fc40746a4edb5d }'
+      revision: '{ SHA256: cf58080bdeb558690d011a73d12f9e2f627877b141d6e635182cf4392cd369a5 }'
     SSDT-HV-PLUG:
       path: './ACPI/SSDT-HV-PLUG.dsl'
       resolution: 'SSDT-HV-PLUG@file:ACPI/SSDT-HV-PLUG.dsl#checksum=ef0c47d6e6a72f7e7e990af8f5cf7af45a34c477c69cc3080c184de82a286558'
