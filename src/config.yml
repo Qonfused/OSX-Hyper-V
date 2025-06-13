@@ -46,6 +46,11 @@ NVRAM:
 #                           Platform (SMBIOS) fixes                            #
 ################################################################################
 
+# Required for macOS Tahoe as iMac19,1 (2019, Coffee Lake+) were dropped.
+PlatformInfo:
+  Generic:
+    SystemProductName:     String  | "iMac20,1"
+
 # Prevents SMBIOS injection into non-Apple operating systems.
 #
 # This approach with UpdateSMBIOSMode relegates SMBIOS updates to macOS to avoid
@@ -161,17 +166,6 @@ Booter:
 ################################################################################
 #                                  Boot fixes                                  #
 ################################################################################
-
-# For beta macOS versions:
-PlatformInfo:
-  Generic:
-    # Required for macOS Tahoe as iMac19,1 (2019, Coffee Lake+) were dropped.
-    SystemProductName:     String  | "iMac20,1"
-NVRAM:
-  Add:
-    7C436110-AB2A-4BBB-A880-FE41995C9F82:
-      @append(" ")
-      boot-args:           String  | "-lilubetaall"
 
 Kernel:
   Quirks:

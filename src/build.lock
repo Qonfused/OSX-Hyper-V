@@ -30,11 +30,11 @@ dependencies:
     Lilu:
       build: DEBUG
       version: 1.7.1
-      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-2ec01fa/Lilu-1.7.1-DEBUG.zip'
-      resolution: 'acidanthera/Lilu@github:1.7.1#commit=2ec01fab29726828327ff09657ee754878c89bf8'
+      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-dc556f7/Lilu-1.7.1-DEBUG.zip'
+      resolution: 'acidanthera/Lilu@github:1.7.1#commit=dc556f71f35fc39860db51f15016af5b9b24ab2f'
       specifier: 'acidanthera/Lilu@github'
       kind: Kext
-      revision: '{ SHA1: 2ec01fab29726828327ff09657ee754878c89bf8 }'
+      revision: '{ SHA1: dc556f71f35fc39860db51f15016af5b9b24ab2f }'
     MacHyperVSupport:
       build: DEBUG
       version: 0.9.9
