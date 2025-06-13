@@ -14,7 +14,7 @@
   <a href="/LICENSE">![License](https://img.shields.io/badge/⚖_License-BSD_3_Clause-lightblue?labelColor=3f4551)</a>
   <a href="/docs/CHANGELOG.md">![SemVer](https://img.shields.io/github/v/release/Qonfused/OSX-Hyper-V?label=SemVer&logo=SemVer&labelColor=3f4551)</a>
   <a href="">![macOS Versions](https://img.shields.io/badge/macOS%20Versions-10.4%20to%2026-important?labelColor=3f4551)</a>
-    <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.4-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
+    <a href="https://github.com/acidanthera/OpenCorePkg/releases">![OpenCore](https://img.shields.io/badge/OpenCore-1.0.5-0c7dbe?logo=Osano&logoColor=0298e1&labelColor=3f4451)</a>
   <a href="https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml">![OCE Build](https://github.com/Qonfused/OSX-Hyper-V/actions/workflows/oce-build.yml/badge.svg?branch=main)</a>
 
 </div>
@@ -37,9 +37,6 @@
 Refer to the [CHANGELOG](/docs/CHANGELOG.md) or [SemVer board](#) for changes implemented per release version.
 
 ### macOS Version Support:
-
-> [!IMPORTANT]
-> Beta versions of macOS may require the boot arg `-lilubetaall` to be set in the `boot-args` section of your config.plist. This is needed to allow Lilu and all dependent plugins to load on macOS versions that are not yet officially supported.
 
 > [!NOTE]
 > Installations of OS X Tiger (10.4) to Snow Leopard (10.6) are not possible directly. It is recommended to first install a newer version of macOS and restore to the desired version using a [disk image provided by Acidanthera](https://dortania.github.io/OpenCore-Install-Guide/installer-guide/mac-install-dmg.html).
