@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
-## [0.3.0] - Unreleased
+## [0.3.0] - 2025-07-02
 
 A major update introducing significant improvements, new features, and internal refactoring for enhanced compatibility and user experience.
 
@@ -20,12 +20,15 @@ This release modernizes the Hyper-V integration stack with updated kexts, automa
 - Remove ACPI0007 objects from SSDT-HV-DEV [`238b571`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/238b571e16ef857ffa5eaf7a390f16162774f7fa)
 - Remove VMHide kext, replacing with direct `hv_vmm_present` kernel patch ([`a377f97`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/a377f977d1c4b48d4630c5c48fa4006474b9196f); see [#46](https://github.com/Qonfused/OSX-Hyper-V/issues/46#issuecomment-2813907377))
 - Disable MacHyperVFramebuffer injection (kept for post-install use) ([`a19f660`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/a19f660b95e1e4f397c9b0ccb581496e3cf0b725))
+- Upgraded OpenCore to v1.0.5 ([`93cd2ab`](https://github.com/Qonfused/OSX-Hyper-V/commit/93cd2ab3647450be544f0883eb0f70ea0a8a574f))
 
 ## Added
 - Add MacHyperVFramebuffer kext and update configuration ([`f2eb5a1`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/f2eb5a1b88d3fe802df57e40135049dab2d98351))
 - Add post-install script to automate installation of Hyper-V daemons and MacHyperVFramebuffer ([`d888782`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/d888782fbb726e762a80d35609d03ed497bc93b3))
+- Add amd.py script for generating AMD patches ([`26efe52`](https://github.com/Qonfused/OSX-Hyper-V/commit/26efe5282b5788f4755bad346103c6577a97ad4c))
 
 ## Fixed
+- Fixed macOS install volume initialization for diskutil detection ([`fbaecc6`](https://github.com/Qonfused/OSX-Hyper-V/commit/fbaecc635db26ce3ee63bff3ca543abd29ff6bcb))
 - Update README and post-install script instructions ([`aabc21a`](https://github.com/Qonfused/OSX-Hyper-V/pull/40/commits/aabc21a61cc1d098eea4b5becf277f6f35ed06f4))
 
 ## [0.2.4] - 2025-01-22
