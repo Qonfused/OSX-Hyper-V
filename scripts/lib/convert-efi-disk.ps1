@@ -30,7 +30,7 @@ $efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 5GB |
 Copy-Item -Path "$path" -Recurse -Destination "$($efiDisk.DriveLetter):\EFI"
 
 # Copy the Scripts directory (for post-install scripts)
-$scriptsDir = "$pwd\dist\Scripts"
+$scriptsDir = "$pwd\Scripts"
 if (Test-Path -Path $scriptsDir) {
   # Only copy shell scripts (.sh) intended for post-install
   $postInstallScripts = Get-ChildItem -Path $scriptsDir -Filter "*.sh" -Recurse
@@ -46,7 +46,7 @@ if (Test-Path -Path $scriptsDir) {
 }
 
 # Copy the Tools directory (for post-install daemons)
-$toolsDir = "$pwd\dist\Tools"
+$toolsDir = "$pwd\Tools"
 if (Test-Path -Path $toolsDir) {
   Copy-Item -Path $toolsDir -Recurse -Destination "$($efiDisk.DriveLetter):\Tools"
   Write-Host "Copied Tools directory to $($efiDisk.DriveLetter):\Tools"
