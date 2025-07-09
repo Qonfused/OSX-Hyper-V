@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.3.1] - 2025-07-03
+
+Fixes an issue with `convert-efi-disk.ps1` script not correctly locating folders from release artifacts.
+
+## Fixes
+- Fix post-install folder paths ([`d701770`](https://github.com/Qonfused/OSX-Hyper-V/commit/d701770b53499c8d3f16347813985e5c29ec26b3))
+
 ## [0.3.0] - 2025-07-02
 
 A major update introducing significant improvements, new features, and internal refactoring for enhanced compatibility and user experience.
