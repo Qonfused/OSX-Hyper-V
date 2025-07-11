@@ -106,6 +106,33 @@ NVRAM:
       boot-args:                      String  | "-v debug=0x100 keepsyms=1 msgbuf=1048576"
 @endif
 
+################################################################################
+#                            Cosmetic Plist Fixes                              #
+################################################################################
+
+# Clear default entries from Sample.plist
+ACPI:
+  @override
+  Delete:                             Array   | []
+Booter:
+  @override
+  MmioWhitelist:                      Array   | []
+  @override
+  Patch:                              Array   | []
+Kernel:
+  @override
+  Block:                              Array   | []
+  @override
+  Force:                              Array   | []
+  @override
+  Patch:                              Array   | []
+Misc:
+  @override
+  Entries:                            Array   | []
+UEFI:
+  @override
+  ReservedMemory:                     Array   | []
+
 #endregion
 
 ################################################################################
@@ -280,30 +307,3 @@ Kernel:
       Find:                 Data    | <626F6F742073657373696F6E20555549440068765F766D6D5F70726573656E7400>
       MinKernel:            String  | "22.0.0"
       Replace:              Data    | <626F6F742073657373696F6E20555549440068696265726E617465636F756E7400>
-
-################################################################################
-#                            Cosmetic Plist Fixes                              #
-################################################################################
-
-# Clear default entries from Sample.plist
-ACPI:
-  @override
-  Delete:                             Array   | []
-Booter:
-  @override
-  MmioWhitelist:                      Array   | []
-  @override
-  Patch:                              Array   | []
-Kernel:
-  @override
-  Block:                              Array   | []
-  @override
-  Force:                              Array   | []
-  @override
-  Patch:                              Array   | []
-Misc:
-  @override
-  Entries:                            Array   | []
-UEFI:
-  @override
-  ReservedMemory:                     Array   | []
