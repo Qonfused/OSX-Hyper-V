@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.3.2] - 2025-07-11
+
+Fixes an issue with iCloud login due to missing `hv_vmm_present` kernel patches.
+
+## Fixes
+- Prevent plist overrides from clearing kernel patches ([`e689108`](https://github.com/Qonfused/OSX-Hyper-V/commit/e689108d397935c26b4e5ad392fa222d83a44e98))
+
 ## [0.3.1] - 2025-07-03
 
 Fixes an issue with `convert-efi-disk.ps1` script not correctly locating folders from release artifacts.
