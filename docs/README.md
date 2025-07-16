@@ -519,15 +519,12 @@ You can also manually add the below plist entry to your config.plist:
 > and using `08` for the `cpuid_cores_per_package` patch (see [#37](https://github.com/Qonfused/OSX-Hyper-V/issues/37)).
 
 > [!TIP]
-> You can use OCE-Build's [`amd.py`](https://github.com/Qonfused/OCE-Build/blob/main/scripts/amd.py) script to automatically generate these AMD
-> patches for your CPU.
->
-> First [install UV](https://docs.astral.sh/uv/getting-started/installation) (or run `pip install uv` if you have Python 3 installed) and then run the below command:
-> ```shell
-> uv run https://raw.githubusercontent.com/Qonfused/OCE-Build/refs/heads/main/scripts/amd.py --cpu <core_count> --hyperv --out src/patches.amd.yml
+> You can use the `amd.ps1` script to automatically generate these AMD patches for your CPU by running the below command:
+> ```powershell
+> .\scripts\amd.ps1 --cpu <core_count>
 > ```
 >
-> Notice that this requires the `--cpu` option to be set to the number of cores assigned to the VM (at the end of the command).
+> Notice that this requires the `--cpu` option to be set to the number of cores assigned to the VM.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

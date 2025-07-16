@@ -41,7 +41,7 @@ if ((Test-Path "$pwd\src\patch.amd.yml") -or
 
 icm `
   -ScriptBlock $([Scriptblock]::Create($(iwr 'https://raw.githubusercontent.com/Qonfused/OCE-Build/main/ci/bootstrap.ps1'))) `
-  -ArgumentList (@("build -c $pwd $patches") + $arguments)
+  -ArgumentList (@("build -c $pwd $patches $($arguments -join ' ')"))
 
 # Run the post-build script
 Write-Host "`nRunning post-build script..."
