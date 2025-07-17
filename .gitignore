@@ -10,6 +10,7 @@
 
 # Build artifacts
 /dist
+/src/patch.amd.yml
 EFI-*
 
 # macOS Boot Image
