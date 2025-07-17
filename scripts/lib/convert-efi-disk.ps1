@@ -11,15 +11,23 @@ param (
   [string]$path = "$($pwd)\EFI",
   [string]$dest = "$($pwd)\EFI.vhdx"
 )
+$ErrorActionPreference = 'Stop'
 
 # Prompt for Administrator priviledges
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-  Start-Process powershell.exe -Verb RunAs -ArgumentList ("-noprofile -file `"{0}`" -elevated -pwd $pwd -path $path -dest $dest" -f ($myinvocation.MyCommand.Definition));
+  Start-Process powershell.exe -Verb RunAs -ArgumentList ("-NoExit -noprofile -file `"{0}`" -elevated -pwd $pwd -name $name -version $version -cpu $cpu -ram $ram -size $size -outdir $outdir" -f ($myinvocation.MyCommand.Definition));
   exit;
+}
+
+# Log a warning if the Microsoft-Hyper-V feature is not enabled
+if (-not (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -ErrorAction SilentlyContinue).State -eq 'Enabled') {
+  Write-Warning "Microsoft-Hyper-V feature is not enabled. " +
+    "Please enable it in Windows Features before creating a new VM."
 }
 
 
 # Create and mount a new EFI.vhdx disk
+Write-Host "Creating and mounting EFI VHDX disk at $dest..."
 $efiDisk = New-VHD -Path "$dest" -Dynamic -SizeBytes 5GB |
   Mount-VHD -Passthru |
   Initialize-Disk -PartitionStyle "GPT" -Confirm:$false -Passthru |
@@ -35,6 +43,11 @@ if (Test-Path -Path $scriptsDir) {
   # Only copy shell scripts (.sh) intended for post-install
   $postInstallScripts = Get-ChildItem -Path $scriptsDir -Filter "*.sh" -Recurse
   if ($postInstallScripts) {
+    # Create Scripts directory on the VHDX disk
+    New-Item -Path "$($efiDisk.DriveLetter):\Scripts" -ItemType Directory -Force | Out-Null
+
+    # Copy each script to the Scripts directory on the VHDX disk
+    Write-Host "Copying post-install scripts to $($efiDisk.DriveLetter):\Scripts"
     foreach ($script in $postInstallScripts) {
       $destinationPath = "$($efiDisk.DriveLetter):\Scripts\$($script.Name)"
       Copy-Item -Path $script.FullName -Destination $destinationPath -Force
@@ -57,11 +70,15 @@ if (Test-Path -Path $toolsDir) {
 # Copy macOS recovery image if present
 $recoveryImage = "com.apple.recovery.boot"
 if (Test-Path -Path "$($pwd)\$recoveryImage") {
+  Write-Host "Copying macOS recovery image to EFI disk..."
   Copy-Item -Path "$($pwd)\$recoveryImage" -Recurse -Destination "$($efiDisk.DriveLetter):\$recoveryImage"
 }
 
 # Unmount VHDX disk
+Write-Host "Unmounting EFI VHDX disk..."
 Dismount-VHD -Path "$dest" | Out-Null
+
+Write-Host "Optimizing EFI VHDX disk..."
 
 # Optimize the VHDX disk to compress the image
 Mount-VHD -Path "$dest" -ReadOnly | Out-Null

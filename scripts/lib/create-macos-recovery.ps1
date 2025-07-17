@@ -12,12 +12,7 @@ param (
   [string]$version = "latest",
   [string]$outdir = "$($pwd)\com.apple.recovery.boot"
 )
-
-# Check if python is installed, otherwise fail the script immediately.
-if (-not (Get-Command python.exe -ErrorAction SilentlyContinue)) {
-  Write-Error "Python is not installed. Please install Python 3.8 or later."
-  exit 1
-}
+$ErrorActionPreference = 'Stop'
 
 # Create `outdir` if it doesn't exist
 New-Item -ItemType Directory "$outdir" -Force | Out-Null
@@ -42,4 +37,13 @@ switch ($version)
 }
 
 # Run macrecovery.py script
-& python.exe "$macrecovery" -b "$b" -m "$m" -o "$outdir" download
+# & python.exe "$macrecovery" -b "$b" -m "$m" -o "$outdir" download
+icm `
+  -ScriptBlock $([Scriptblock]::Create($(iwr 'https://raw.githubusercontent.com/Qonfused/OCE-Build/main/ci/bootstrap.ps1'))) `
+  -ArgumentList (@("-e $macrecovery -b $b -m $m -o $outdir download"))
+
+# Check if the outdir was created
+if (-not (Test-Path -Path $outdir)) {
+  Write-Error "Failed to create recovery directory at $outdir. Please check the script and try again."
+  exit 1
+}

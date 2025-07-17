@@ -350,14 +350,6 @@ Refer to [HyperV-versions.md](https://github.com/acidanthera/MacHyperVSupport/bl
 
 ## ✨ Getting Started
 
-> [!IMPORTANT]
-> This project requires Python 3 to be installed. You can download the latest version of Python from the [official website](https://www.python.org/downloads/) or from the [Microsoft Store](https://apps.microsoft.com/search/publisher?name=Python+Software+Foundation&hl=en-us&gl=US).
->
-> After installing Python, you can check if it's installed correctly by running the below command in PowerShell:
-> ```ps
-> python --version
-> ```
-
 If you opt to use one of the pre-built releases from this repository, you can skip to [2. Configure OpenCore for your hardware](#2-configure-opencore-for-your-hardware) to setup OpenCore for your specific CPU, and then proceed to [4. Setting up Hyper-V](#4-setting-up-hyper-v) to create a new virtual machine.
 
 Those who wish to build this project from source can follow the below steps to clone this repository, build the EFI, and setup Hyper-V.

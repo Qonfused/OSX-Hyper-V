@@ -15,22 +15,38 @@ param (
   [int]$size = 50,  #
   [string]$outdir = "$env:USERPROFILE\Documents\Hyper-V"
 )
+$ErrorActionPreference = 'Stop'
 
 # Prompt for Administrator priviledges
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-  Start-Process powershell.exe -Verb RunAs -ArgumentList ("-noprofile -file `"{0}`" -elevated -pwd $pwd -name $name -version $version -cpu $cpu -ram $ram -size $size -outdir $outdir" -f ($myinvocation.MyCommand.Definition));
+  Start-Process powershell.exe -Verb RunAs -ArgumentList ("-NoExit -noprofile -file `"{0}`" -elevated -pwd $pwd -name $name -version $version -cpu $cpu -ram $ram -size $size -outdir $outdir" -f ($myinvocation.MyCommand.Definition));
   exit;
+}
+
+# Log a warning if the Microsoft-Hyper-V feature is not enabled
+if (-not (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -ErrorAction SilentlyContinue).State -eq 'Enabled') {
+  Write-Warning "Microsoft-Hyper-V feature is not enabled. " +
+    "Please enable it in Windows Features before creating a new VM."
+}
+
+# Check if $outdir/$name already exists (and is non-empty)
+if ((Test-Path -Path "$outdir\$name") -and (Get-ChildItem -Path "$outdir\$name").Count -gt 0) {
+  Write-Host "Virtual machine '$name' already exists in '$outdir'. Please choose a different name or delete the existing one."
+  exit 1
 }
 
 
 # Create new virtual machine
+Write-Host "Creating new virtual machine '$name'..."
 New-VM -Generation 2 -Name "$name" -path "$outdir" -NoVHD | Out-Null
 
 # Configure network adapter to use the default vswitch
+Write-Host "Configuring network adapter for virtual machine '$name'..."
 $networkAdapter = Get-VMNetworkAdapter -VMName "$name"
 Connect-VMNetworkAdapter -VMName "$name" -Name "$($networkAdapter.name)" -SwitchName "Default Switch"
 
 # Create EFI disk
+Write-Host "Creating EFI disk for virtual machine '$name'..."
 $efiVHD = "$outdir\$name\EFI.vhdx"
 & powershell.exe "$PSScriptRoot\create-macos-recovery.ps1" -version "$version"
 & powershell.exe "$PSScriptRoot\convert-efi-disk.ps1" -dest "$efiVHD"
@@ -40,7 +56,8 @@ $efiDisk = Get-VMHardDiskDrive -VMName "$name"
 # Create post-install VHDX if tools folder is present
 $toolsDir = "$($pwd)\Tools"
 if (Test-Path -Path "$toolsDir") {
-  $toolsVHD = "$outdir\$name\Tools.vhdx" 
+  $toolsVHD = "$outdir\$name\Tools.vhdx"
+  Write-Host "Creating Tools VHDX disk for virtual machine '$name'..."
   # Create and mount a new tools.vhdx disk
   $toolsDisk = New-VHD -Path "$toolsVHD" -Dynamic -SizeBytes 512MB |
     Mount-VHD -Passthru |
@@ -57,6 +74,7 @@ if (Test-Path -Path "$toolsDir") {
 
 # Create macOS disk
 $macOSVHD = "$outdir\$name\$name.vhdx" 
+Write-Host "Creating macOS disk for virtual machine '$name'..."
 New-VHD -Path "$macOSVHD" -SizeBytes $($size * 1GB) |
   Mount-VHD -Passthru |
   Initialize-Disk -PartitionStyle "GPT" -Confirm:$false -Passthru |
@@ -65,9 +83,11 @@ New-VHD -Path "$macOSVHD" -SizeBytes $($size * 1GB) |
 Dismount-DiskImage -ImagePath "$macOSVHD" | Out-Null
 
 # Add macOS disk to virtual machine
+Write-Host "Adding macOS disk to virtual machine '$name'..."
 Add-VMHardDiskDrive -VMName "$name" -Path "$macOSVHD" -ControllerType SCSI
 
 # Configure virtual machine
+Write-Host "Configuring virtual machine '$name'..."
 Set-VM `
   -Name "$name" `
   -ProcessorCount $cpu `
@@ -76,3 +96,6 @@ Set-VM `
 Set-VMFirmware -VMName "$name" `
   -EnableSecureBoot Off `
   -FirstBootDevice $efiDisk
+
+# Wait for user input before closing (to show any errors)
+Write-Host "`nVirtual machine '$name' created successfully at $outdir\$name.`n"
