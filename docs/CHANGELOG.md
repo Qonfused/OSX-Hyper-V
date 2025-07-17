@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.3.3] - 2025-07-17
+
+Fixes an issue with build scripts and updates `create-macos-recovery.ps1` to no longer require an existing python installation. The updated scripts include better logging and error handling, so it is easier to diagnose any issues creating the VM.
+
+## Fixes
+- Fix build script patch arguments ([`e50fb6d`](https://github.com/Qonfused/OSX-Hyper-V/commit/e50fb6d9869438556ddc8224a425f924b2a67938))
+
+## Changed
+- Update scripts to include logging, remove python3 requirement ([`7ccd8b80`](https://github.com/Qonfused/OSX-Hyper-V/commit/7ccd8b80b85b511d4c1aee3cfc533de9bcbab370))
+
+## Added
+- Added amd.ps1 script ([`dadaa79`](https://github.com/Qonfused/OSX-Hyper-V/commit/dadaa796e74029b0e8189db34ec95b4481949e39))
+
 ## [0.3.2] - 2025-07-11
 
 Fixes an issue with iCloud login due to missing `hv_vmm_present` kernel patches.
