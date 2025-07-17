@@ -18,7 +18,7 @@ function HasFlag {
   $arg_array = $arguments -split ' '
   foreach ($arg in $arg_array) {
     if ($arg -eq $flag) {
-      $arguments = ($arg_array | ? { $_ -ne $flag }) -join ' '
+      $script:arguments = ($arg_array | ? { $_ -ne $flag }) -join ' '
       return $true
     }
   }
@@ -30,9 +30,8 @@ function HasFlag {
 # TODO: Add switch for legacy iASL for macOS 10.6 and older
 $patches = @('-p config.yml')
 if (HasFlag '--legacy') { $patches += @('-p patch.legacy.yml') }
-if (HasFlag '--32-bit') {
-  $patches += @('-p patch.32-bit.yml')
-}
+if (HasFlag '--32-bit') { $patches += @('-p patch.32-bit.yml') }
+if (HasFlag '--64-bit') { }
 # Check if patch.amd.yml exists
 if ((Test-Path "$pwd\src\patch.amd.yml") -or
     (Test-Path "$pwd\patch.amd.yml")) {

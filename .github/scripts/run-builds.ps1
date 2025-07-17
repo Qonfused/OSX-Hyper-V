@@ -11,6 +11,7 @@
 #   # Script arguments
 #   [parameter(ValueFromRemainingArguments)][string[]]$arguments
 # )
+$ErrorActionPreference = 'Stop'
 
 $buildList = 'DEBUG',
              'RELEASE'
@@ -28,7 +29,7 @@ foreach ($build in $buildList) {
   foreach ($flags in $flagsList) {
     # Run build script
     Write-Host "Running $build build with flags: $flags..."
-    pwsh "$pwd/scripts/build.ps1" -ArgumentList "$($flags -join ' ')"
+    & powershell.exe "$pwd/scripts/build.ps1" "$($flags -join ' ')"
 
     # Compress EFI directory
     cp "$pwd/src/build.lock" "$pwd/dist/EFI/OC/build.lock"
