@@ -502,25 +502,8 @@ Kernel:
 
 You can also manually add the below plist entry to your config.plist:
 
-<details><summary>Plist entry (file: <a href="https://github.com/user-attachments/files/18508274/patch.plist.zip">patch.plist.zip</a>)</summary></details>
+<details><summary>Plist entry (file: <a href="https://github.com/user-attachments/files/18508274/patch.plist.zip">patch.plist.zip</a>)</summary>
 
-> [!NOTE]
-> When applying the AMD kernel patches, choose a core count matching the number
-> of cores assigned to the VM when configuring the CPU core count
-> (i.e. the `algrey - Force cpuid_cores_per_package`) patches.
->
-> For example, on a 6-Core AMD Ryzen 9600X, you may find it helpful to assign 6
-> cores to the VM and use `06` for the `cpuid_cores_per_package` patch. If you
-> encounter issues booting when assigning 6 cores, try assigning 8 cores instead
-> and using `08` for the `cpuid_cores_per_package` patch (see [#37](https://github.com/Qonfused/OSX-Hyper-V/issues/37)).
-
-> [!TIP]
-> You can use the `amd.ps1` script to automatically generate these AMD patches for your CPU by running the below command:
-> ```powershell
-> .\scripts\amd.ps1 --cpu <core_count>
-> ```
->
-> Notice that this requires the `--cpu` option to be set to the number of cores assigned to the VM.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -566,6 +549,26 @@ You can also manually add the below plist entry to your config.plist:
 </dict>
 </plist>
 ```
+
+</details>
+
+> [!NOTE]
+> When applying the AMD kernel patches, choose a core count matching the number
+> of cores assigned to the VM when configuring the CPU core count
+> (i.e. the `algrey - Force cpuid_cores_per_package`) patches.
+>
+> For example, on a 6-Core AMD Ryzen 9600X, you may find it helpful to assign 6
+> cores to the VM and use `06` for the `cpuid_cores_per_package` patch. If you
+> encounter issues booting when assigning 6 cores, try assigning 8 cores instead
+> and using `08` for the `cpuid_cores_per_package` patch (see [#37](https://github.com/Qonfused/OSX-Hyper-V/issues/37)).
+
+> [!TIP]
+> You can use the `amd.ps1` script to automatically generate these AMD patches for your CPU by running the below command:
+> ```powershell
+> .\scripts\amd.ps1 --cpu <core_count>
+> ```
+>
+> Notice that this requires the `--cpu` option to be set to the number of cores assigned to the VM.
 
 ### 3. Build this repository using OCE-Build
 
