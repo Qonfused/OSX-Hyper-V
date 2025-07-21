@@ -25,9 +25,13 @@
   - [macOS Version Support](#macos-version-support)
 - [Getting Started](#-getting-started)
   - [1. Clone this repository using git](#1-clone-this-repository-using-git)
-  - [2. Build this repository using OCE-Build](#2-build-this-repository-using-oce-build)
-  - [3. Setting up Hyper-V](#3-setting-up-hyper-v)
-  - [4. Using this EFI with macOS](#4-using-this-efi-with-macos)
+  - [2. Configure OpenCore for your hardware](#2-configure-opencore-for-your-hardware)
+    - [Intel](#intel)
+    - [AMD](#amd)
+  - [3. Build this repository using OCE-Build](#3-build-this-repository-using-oce-build)
+  - [4. Setting up Hyper-V](#4-setting-up-hyper-v)
+  - [5. Using this EFI with macOS](#5-using-this-efi-with-macos)
+  - [6. Troubleshooting](#6-troubleshooting)
 - [Contributing](#-contributing)
 - [License](#%EF%B8%8F-license)
 - [Credits](#-credits)
@@ -687,6 +691,7 @@ Create or add an installer disk with either of the below methods:
 #### iii. Creating the macOS Virtual Machine
 
 In the Hyper-V Manager, navigate to `Action > New > Virtual Machine`.
+
 ![3-New-VM](https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/README/3-New-VM.png)
 
 Configure the below options while going through the wizard:
@@ -762,6 +767,26 @@ bash ./Scripts/optimize-vm.sh
 
 [Dortania-Guide/Installation-Process]: https://dortania.github.io/OpenCore-Install-Guide/installation/installation-process.html
 
+### 6. Troubleshooting
+
+If you encounter issues during the installation or boot process, feel free to [create a GitHub issue](https://github.com/Qonfused/OSX-Hyper-V/issues/new) and provide as much detail as possible about your setup, including:
+- The version of macOS you are trying to install.
+- The version of Windows you are running Hyper-V on.
+- The CPU you are using (e.g. Intel i7-9700K, AMD Ryzen 5 3600, etc.).
+- The number of CPU cores and amount of RAM assigned to the virtual machine.
+- Any error messages you are seeing in the OpenCore boot menu or during the installation process.
+
+There are however some common issues that you may encounter, outlined below:
+- Early reboot after selecting the installer (`#[EB.MM.AKM|!] Err(0xE) <- EB.MM.MKP`)
+  - This usually indicates that the macOS installer does not have enough memory to boot. Make sure you have at least 6-8 GB of RAM for macOS 11 Big Sur and newer, or at least 4 GB for older versions (Catalina and older).
+  - See [#44](https://github.com/Qonfused/OSX-Hyper-V/issues/44) for more details.
+- Stuck on `vm_shared_region_start_address()` or `failed lookup: com.apple.dock.fullscreen`:
+  - Stalling around here usually means the macOS installer GUI couldn't start. You may find other messages related to `WindowServer` or `gui/0` requesting other services (namely `logd` or `recoveryosd`), which serve as a hint for this issue.
+  - Try restarting and clearing NVRAM (using the `Reset NVRAM` option in the OpenCore boot menu) to see if that resolves the issue.
+  - A good workaround if this issue persists is to instead install macOS Catalina (10.15), and then upgrade to the desired version of macOS after installation. See [#53](https://github.com/Qonfused/OSX-Hyper-V/issues/53#issuecomment-3089641792) for details.
+- Reboot after installation when selecting installer.
+  - This is relatively normal behavior. It may require multiple reboots (selecting the macOS installer each time) to complete the installation process.
+
 #### Limitations
 
 There are some known limitations with the base configuration for Hyper-V:
@@ -802,3 +827,4 @@ Refer to [CONTRIBUTING.md](/docs/CONTRIBUTING.md) for instructions (and tips) on
 
 ## 🌟 Credits
 - [@Goldfish64](https://github.com/Goldfish64) for creating and maintaining [MacHyperVSupport](https://github.com/acidanthera/MacHyperVSupport) and it's supporting documentation.
+- [@ssdsl0126](https://github.com/ssdsl0126) for testing and discoverying a fix for recoveryOS boot issues on AMD Ryzen 5950x CPUs.
