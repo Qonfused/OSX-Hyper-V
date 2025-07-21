@@ -704,6 +704,7 @@ Configure the below options while going through the wizard:
 - **Connect Virtual Hard Disk**: Name and select the size of the disk to install macOS on.
 
 Once created, right click on your new virtual-machine (under the 'Virtual Machines' section of the window), and select `Settings`.
+
 ![3-VM-Settings](https://raw.githubusercontent.com/Qonfused/OSX-Hyper-V/main/docs/assets/README/3-VM-Settings.png)
 
 Then configure the below options under the Hardware section:
