@@ -234,6 +234,7 @@ Kernel:
       ExecutablePath:       String  | "IOGraphicsFamily"
       Identifier:           String  | "com.apple.iokit.IOGraphicsFamily"
       PlistPath:            String  | "Info.plist"
+      Enabled:              Boolean | false
 
 ################################################################################
 #                             Security related fixes                           #
@@ -273,7 +274,7 @@ NVRAM:
       #   - FF070000: Disables all flags in macOS Mojave and macOS Catalina
       #   - FF0F0000: Disables all flags in macOS Big Sur
       # - @see https://dortania.github.io/OpenCore-Install-Guide/troubleshooting/extended/post-issues.html#disabling-sip
-      csr-active-config:    Data    | <01000000>
+      csr-active-config:    Data    | <03000000>
 NVRAM:
   Delete:
     7C436110-AB2A-4BBB-A880-FE41995C9F82:
