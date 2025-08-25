@@ -49,7 +49,7 @@ Connect-VMNetworkAdapter -VMName "$name" -Name "$($networkAdapter.name)" -Switch
 Write-Host "Creating EFI disk for virtual machine '$name'..."
 $efiVHD = "$outdir\$name\EFI.vhdx"
 & powershell.exe "$PSScriptRoot\create-macos-recovery.ps1" -version "$version"
-& powershell.exe "$PSScriptRoot\convert-efi-disk.ps1" -dest "$efiVHD"
+& powershell.exe "$PSScriptRoot\convert-efi-disk.ps1" -dest "`"$efiVHD`""
 Add-VMHardDiskDrive -VMName "$name" -Path "$efiVHD" -ControllerType SCSI
 $efiDisk = Get-VMHardDiskDrive -VMName "$name"
 
