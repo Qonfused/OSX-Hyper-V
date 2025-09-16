@@ -19,7 +19,7 @@ $ErrorActionPreference = 'Stop'
 
 # Prompt for Administrator priviledges
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-  Start-Process powershell.exe -Verb RunAs -ArgumentList ("-NoExit -noprofile -file `"{0}`" -elevated -pwd $pwd -name $name -version $version -cpu $cpu -ram $ram -size $size -outdir $outdir" -f ($myinvocation.MyCommand.Definition));
+  Start-Process powershell.exe -Verb RunAs -ArgumentList ("-NoExit -noprofile -file `"{0}`" -elevated -pwd `"$pwd`" -name `"$name`" -version $version -cpu $cpu -ram $ram -size $size -outdir `"$outdir`"" -f ($myinvocation.MyCommand.Definition));
   exit;
 }
 
@@ -48,8 +48,8 @@ Connect-VMNetworkAdapter -VMName "$name" -Name "$($networkAdapter.name)" -Switch
 # Create EFI disk
 Write-Host "Creating EFI disk for virtual machine '$name'..."
 $efiVHD = "$outdir\$name\EFI.vhdx"
-& powershell.exe "$PSScriptRoot\create-macos-recovery.ps1" -version "$version"
-& powershell.exe "$PSScriptRoot\convert-efi-disk.ps1" -dest "`"$efiVHD`""
+& "$PSScriptRoot\create-macos-recovery.ps1" -version $version
+& "$PSScriptRoot\convert-efi-disk.ps1" -dest $efiVHD
 Add-VMHardDiskDrive -VMName "$name" -Path "$efiVHD" -ControllerType SCSI
 $efiDisk = Get-VMHardDiskDrive -VMName "$name"
 
