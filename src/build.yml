@@ -13,6 +13,7 @@ Drivers:
 @ifdef(RELEASE)
   - OpenCanopy
 @endif
+  - OpenPartitionDxe
   - OpenRuntime
   - ResetNvramEntry
 Kexts:

@@ -16,6 +16,8 @@
 
 Booter:
   Quirks:
+    # Required for macOS 10.12 and older
+    FixupAppleEfiImages:    Boolean | true
     # Required for macOS 10.7 and older
     AllowRelocationBlock:   Boolean | true
     ForceExitBootServices:  Boolean | true
