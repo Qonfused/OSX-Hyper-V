@@ -6,6 +6,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 The latest progress can be viewed on this repository's [project board](#).
 
+## [0.4.0] - 2026-02-25
+
+This release includes several bug fixes, documentation improvements, and a new OpenCore driver for better partition support.
+
+## Added
+- Add OpenPartitionDxe driver ([`f1abac0`](https://github.com/Qonfused/OSX-Hyper-V/commit/f1abac07eb2af93e4b02d47b416db7ef8a40b983))
+- README: Add troubleshooting section ([`0a2504a`](https://github.com/Qonfused/OSX-Hyper-V/commit/0a2504a79f453e9340c0caf9707381bddf5efa07))
+
+## Changed
+- Upgraded OpenCore to v1.0.6 ([`a1fba15`](https://github.com/Qonfused/OSX-Hyper-V/commit/a1fba157eb2af93e4b02d47b416db7ef8a40b983))
+- Update macOS recovery URLs ([`6fb8413`](https://github.com/Qonfused/OSX-Hyper-V/commit/6fb8413707d36201af5bb509867c8f4f3302442f))
+- Cleanup post-install script ([`f61019a`](https://github.com/Qonfused/OSX-Hyper-V/commit/f61019a3832e62b0fb6de88416805ce07762e948))
+- Disable IOGraphicsFamily force injection ([`6d83968`](https://github.com/Qonfused/OSX-Hyper-V/commit/6d8396841bd1c326dd4329a3ba7d22b8db15b3a6))
+
+## Fixed
+- Escape powershell parameters in UAP request ([`fbdf201`](https://github.com/Qonfused/OSX-Hyper-V/commit/fbdf201080e3228e7d0b880d1c70d5ea8f237076))
+- Fix string parsing in VM creation script ([`d6bd45e`](https://github.com/Qonfused/OSX-Hyper-V/commit/d6bd45e3a775207711d260d3d387f8707005a77c))
+- Fix default SIP flags ([`6d83968`](https://github.com/Qonfused/OSX-Hyper-V/commit/6d8396841bd1c326dd4329a3ba7d22b8db15b3a6))
+- README: Fix image alignment ([`2172250`](https://github.com/Qonfused/OSX-Hyper-V/commit/2172250e6880c98d77c084503dfc49bf1d559965))
+- README: Fix AMD plist entry formatting ([`9e19f27`](https://github.com/Qonfused/OSX-Hyper-V/commit/9e19f2747fc9c4a0e06dcd3cc262b4f261e9e13b))
+
 ## [0.3.3] - 2025-07-17
 
 Fixes an issue with build scripts and updates `create-macos-recovery.ps1` to no longer require an existing python installation. The updated scripts include better logging and error handling, so it is easier to diagnose any issues creating the VM.
