@@ -39,7 +39,7 @@ if ((Test-Path "$pwd\src\patch.amd.yml") -or
 }
 
 icm `
-  -ScriptBlock $([Scriptblock]::Create($(iwr 'https://raw.githubusercontent.com/Qonfused/OCE-Build/main/ci/bootstrap.ps1'))) `
+  -ScriptBlock $([Scriptblock]::Create([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent.com/Qonfused/OCE-Build/main/ci/bootstrap.ps1'))) `
   -ArgumentList (@("build -c $pwd $($patches -join ' ') $($arguments -join ' ')"))
 
 # Run the post-build script
