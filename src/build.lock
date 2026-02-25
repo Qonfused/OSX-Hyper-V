@@ -29,12 +29,12 @@ dependencies:
   Kexts:
     Lilu:
       build: DEBUG
-      version: 1.7.1
-      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-dc01cb5/Lilu-1.7.1-DEBUG.zip'
-      resolution: 'acidanthera/Lilu@github:1.7.1#commit=dc01cb583295ceded4f42a6310a15e3abac1c025'
+      version: 1.7.2
+      url: 'https://github.com/dortania/build-repo/releases/download/Lilu-161537e/Lilu-1.7.2-DEBUG.zip'
+      resolution: 'acidanthera/Lilu@github:1.7.2#commit=161537ec43a19abf38adb44543ded273305d7bf0'
       specifier: 'acidanthera/Lilu@github'
       kind: Kext
-      revision: '{ SHA1: dc01cb583295ceded4f42a6310a15e3abac1c025 }'
+      revision: '{ SHA1: 161537ec43a19abf38adb44543ded273305d7bf0 }'
     MacHyperVSupport:
       build: DEBUG
       version: 0.9.9
@@ -54,16 +54,16 @@ dependencies:
   OpenCorePkg:
     OcBinaryData:
       build: DEBUG
-      url: 'https://github.com/acidanthera/OcBinaryData/archive/2c5b9696ddafe57364ceef5bb85a58868d034087.tar.gz'
-      resolution: 'acidanthera/OcBinaryData@github#commit=2c5b9696ddafe57364ceef5bb85a58868d034087'
+      url: 'https://github.com/acidanthera/OcBinaryData/archive/e74e533d8f89c1d5014cfb47c185502bf415741f.tar.gz'
+      resolution: 'acidanthera/OcBinaryData@github#commit=e74e533d8f89c1d5014cfb47c185502bf415741f'
       specifier: 'acidanthera/OcBinaryData@github:latest'
       kind: Binary
-      revision: '{ SHA1: 2c5b9696ddafe57364ceef5bb85a58868d034087 }'
+      revision: '{ SHA1: e74e533d8f89c1d5014cfb47c185502bf415741f }'
     OpenCore:
       build: DEBUG
-      version: 1.0.5
-      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.5/OpenCore-1.0.5-DEBUG.zip'
-      resolution: 'acidanthera/OpenCorePkg@github:1.0.5#commit=e8437f737708c7151b243d967f9ceca54193d97e'
+      version: 1.0.6
+      url: 'https://github.com/acidanthera/OpenCorePkg/releases/download/1.0.6/OpenCore-1.0.6-DEBUG.zip'
+      resolution: 'acidanthera/OpenCorePkg@github:1.0.6#commit=64e3b5811ee17804cc04236618dc968ca57378a6'
       specifier: 'acidanthera/OpenCorePkg@github:latest'
       kind: Binary
-      revision: '{ SHA1: e8437f737708c7151b243d967f9ceca54193d97e }'
+      revision: '{ SHA1: 64e3b5811ee17804cc04236618dc968ca57378a6 }'
